@@ -93,5 +93,18 @@ public final class Constants {
     public static double kP_Theta = 0.75;
     public static double kI_Theta = 0;
     public static double kD_Theta = 0;
+  public static class ElevatorPivot {
+    public static final int kDriverControllerPort = 0;
+    public static final int kElevatorPivotMotorID1 = 1;
+    public static final int kElevatorPivotMotorID2 = 2;
+    public static final int kElevatorPivotMotorID3 = 3;
+    public static final int kElevatorPivotMotorID4 = 4;
+    public static final int kPivotGearRatio = 200;
+    public static final double kNeoTicksPerRevolution = 42;
+    public static final double elevatorPivot_kP = 0.5;
+    public static final double elevatorPivot_kI = 0;
+    public static final double elevatorPivot_kD = 0;
+    public static final double kDeadBand = 0.05;
   }
+}
 }
