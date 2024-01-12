@@ -5,6 +5,7 @@
 package frc.robot;
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 import frc.robot.subsystems.LimitSwitch;
 import edu.wpi.first.wpilibj.Joystick;
@@ -13,6 +14,8 @@ import com.pathplanner.lib.commands.PathPlannerAuto;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+=======
+>>>>>>> cf483b6 (Made all the commands/subsystems for the elevator pivot)
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
@@ -52,6 +55,7 @@ public class RobotContainer {
   private final SwerveDrive m_swerve = new SwerveDrive();
 =======
   // The robot's subsystems and commands are defined here...
+<<<<<<< HEAD
   private LimitSwitch m_switch1 = new LimitSwitch(9);
   private LimitSwitch m_switch2 = new LimitSwitch(8);
   // private final SwerveDrive m_swerve = new SwerveDrive();
@@ -78,6 +82,11 @@ public class RobotContainer {
 
   // Replace with CommandPS4Controller or CommandJoystick if needed
 
+=======
+  
+
+  // Replace with CommandPS4Controller or CommandJoystick if needed
+>>>>>>> cf483b6 (Made all the commands/subsystems for the elevator pivot)
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {    
@@ -100,8 +109,16 @@ public class RobotContainer {
    * joysticks}.
    */
   private void configureBindings() {
+<<<<<<< HEAD
     // m_snapButton.onTrue(m_snap);
     // m_straightenButton.whileTrue(m_straighten);
+=======
+    // Schedule `ExampleCommand` when `exampleCondition` changes to `true`
+
+
+    // Schedule `exampleMethodCommand` when the Xbox controller's B button is pressed,
+    // cancelling on release.
+>>>>>>> cf483b6 (Made all the commands/subsystems for the elevator pivot)
   }
 
   /**
@@ -110,6 +127,7 @@ public class RobotContainer {
    * @return the command to run in autonomous
    */
   public Command getAutonomousCommand() {
+<<<<<<< HEAD
     return new PathPlannerAuto("TestAuto");
   }
 
@@ -119,5 +137,9 @@ public class RobotContainer {
   public Command getTeleopCommand() {
     // m_arcadePivot.schedule();
     return m_arcadePivot;
+=======
+    // An example command will be run in autonomous
+    return null;
+>>>>>>> cf483b6 (Made all the commands/subsystems for the elevator pivot)
   }
 }
