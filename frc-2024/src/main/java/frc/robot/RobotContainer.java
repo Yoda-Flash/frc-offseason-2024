@@ -52,6 +52,10 @@ public class RobotContainer {
 
   private JoystickButton m_snapButton = new JoystickButton(m_driverJoystick, Config.kSnapButtonID); 
   private JoystickButton m_straightenButton = new JoystickButton(m_driverJoystick, Config.kStraightenButtonID);
+  // The robot's subsystems and commands are defined here...
+  
+
+  // Replace with CommandPS4Controller or CommandJoystick if needed
 
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
