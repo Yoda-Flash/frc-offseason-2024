@@ -11,10 +11,10 @@ import frc.robot.Constants;
 
 public class ElevatorPivot extends SubsystemBase {
 
-  private CANSparkMax m_neo1 = new CANSparkMax(Constants.ElevatorPivot.kElevatorPivotMotorID1, MotorType.kBrushless);
-  private CANSparkMax m_neo2 = new CANSparkMax(Constants.ElevatorPivot.kElevatorPivotMotorID2, MotorType.kBrushless);
-  private CANSparkMax m_neo3 = new CANSparkMax(Constants.ElevatorPivot.kElevatorPivotMotorID3, MotorType.kBrushless);
-  private CANSparkMax m_neo4 = new CANSparkMax(Constants.ElevatorPivot.kElevatorPivotMotorID4, MotorType.kBrushless);
+  private CANSparkMax m_neo1 = new CANSparkMax(Constants.ElevatorPivot.kMotorID1, MotorType.kBrushless);
+  private CANSparkMax m_neo2 = new CANSparkMax(Constants.ElevatorPivot.kMotorID2, MotorType.kBrushless);
+  private CANSparkMax m_neo3 = new CANSparkMax(Constants.ElevatorPivot.kMotorID3, MotorType.kBrushless);
+  private CANSparkMax m_neo4 = new CANSparkMax(Constants.ElevatorPivot.kMotorID4, MotorType.kBrushless);
   /** Creates a new ElevatorPivot. */
   public ElevatorPivot() {
     m_neo3.follow(m_neo1);
