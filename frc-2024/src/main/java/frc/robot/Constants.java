@@ -13,17 +13,25 @@ package frc.robot;
  * constants are needed, to reduce verbosity.
  */
 public final class Constants {
-  public static class ElevatorPivot {
-    public static final int kDriverControllerPort = 0;
+  public static final double kNeoTicksPerRevolution = 42;
+  public static final double kFalconTicksPerRevolution = 2048;
+  public final static class ElevatorPivot {
     public static final int kMotorID1 = 1;
     public static final int kMotorID2 = 2;
     public static final int kMotorID3 = 3;
     public static final int kMotorID4 = 4;
-    public static final int kPivotGearRatio = 200;
-    public static final double kNeoTicksPerRevolution = 42;
-    public static final double elevatorPivot_kP = 0.5;
-    public static final double elevatorPivot_kI = 0;
-    public static final double elevatorPivot_kD = 0;
+    public static final int kGearRatio = 200;
+    public static final double kP = 0.5;
+    public static final double kI = 0;
+    public static final double kD = 0;
+    public static final double kDeadBand = 0.05;
+  }
+  public final static class Wrist {
+    public static final int kMotorID = 5;
+    public static final double kGearRatio = 51.9273;
+    public static final double kP = 0.5;
+    public static final double kI = 0;
+    public static final double kD = 0;
     public static final double kDeadBand = 0.05;
   }
 }
