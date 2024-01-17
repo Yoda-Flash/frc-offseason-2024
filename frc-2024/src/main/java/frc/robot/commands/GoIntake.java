@@ -15,8 +15,6 @@ public class GoIntake extends Command {
   }
 
   private Intake m_intake;
-  private double m_initialTime;
-  private double m_currentTime;
   private Timer m_timer = new Timer();
 
   /** Creates a new GoIntake. */
@@ -32,15 +30,12 @@ public class GoIntake extends Command {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    m_initialTime = m_timer.get();
-    m_currentTime = m_initialTime;
     m_timer.start();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_currentTime = m_timer.get();
     m_intake.intakeNote();
   }
 
