@@ -31,6 +31,7 @@ public class ElevatorPivot extends SubsystemBase {
 
   public void setSpeed(double speed){
     m_neo1.set(speed);
+    m_neo2.set(speed);
   }
 
   @Override
