@@ -115,5 +115,13 @@ public final class Constants {
     public static final double kD = 0;
     public static final double kDeadBand = 0.05;
   }
+  public static final class Elevator{
+    public static final int kMotorID1 = 6;
+    public static final int kMotorID2= 7;
+    public static final double RotationsPerInch = 0.000000001;
+    public static final double kP = 0.5;
+    public static final double kI = 0;
+    public static final double kD = 0;
+  }
 }
 }
