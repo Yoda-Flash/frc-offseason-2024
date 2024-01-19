@@ -4,56 +4,55 @@
 
 package frc.robot.Commands;
 
-import edu.wpi.first.math.controller.PIDController;
+import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Subsystems.Flywheel;
 
-public class Shoot extends Command {
-  /** Creates a new Shoot. */
+public class FindSpeedRPMConversion extends Command {
   private static final class Config {
-    private static final double kP = 0.5;
-    private static final double kI = 0;
-    private static final double kD = 0;
+      private static final double kmotorSpeed = 0.1;
+      private static final int kticksPerRevolution = 2048; //check if this is right
+    }
     
-  }
   private Flywheel m_flywheel;
-  private PIDController m_pid = new PIDController(Config.kP, Config.kI, Config.kD);
-  private double m_initialRPM;
-  private double m_currentRPM;
-  private double m_error;
-
-  public Shoot(Flywheel flywheel, double wheelRPM) {
-    // Use addRequirements() here to declare subsystem dependencies.
+  private Timer m_timer = new Timer();
+  private double m_initialPosition;
+  /** Creates a new findSpeedRPMConversion. */
+  public FindSpeedRPMConversion(Flywheel flywheel) {
     m_flywheel = flywheel;
-    m_pid.setSetpoint(wheelRPM);
-    //m_pid.setTolerance();
+
+    // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(m_flywheel);
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    m_initialRPM = m_flywheel.getRPM();
-
+    m_initialPosition = m_flywheel.getPosition();
+    m_timer.start();
+    SmartDashboard.putNumber("initial position", m_flywheel.getPosition());
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_currentRPM = m_flywheel.getRPM();
-    m_error = m_currentRPM - m_initialRPM;
-    m_flywheel.shoot(m_pid.calculate(m_error, m_pid.getSetpoint()));
+    m_flywheel.shoot(Config.kmotorSpeed);
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
     m_flywheel.stopShooting();
+    m_timer.stop();
+    m_timer.reset();
+    SmartDashboard.putNumber("final position", m_flywheel.getPosition());
+    SmartDashboard.putNumber("rotations", (m_flywheel.getPosition() - m_initialPosition)/Config.kticksPerRevolution);
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return m_pid.atSetpoint();
+    return m_timer.hasElapsed(60);
   }
 }

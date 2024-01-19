@@ -4,9 +4,14 @@
 
 package frc.robot;
 
+import frc.robot.Commands.Shoot;
 import frc.robot.Constants.OperatorConstants;
-import frc.robot.commands.Autos;
+import frc.robot.Subsystems.Flywheel;
+import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
+import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+import edu.wpi.first.wpilibj2.command.button.Trigger;
 
 
 /**
@@ -16,7 +21,14 @@ import edu.wpi.first.wpilibj2.command.Command;
  * subsystems, commands, and trigger mappings) should be declared here.
  */
 public class RobotContainer {
-  
+  private static final class Config {
+    private static final int kJoystickPort = 0; //change later
+    private static final int kShooterButtonPort = 1; //change later
+  }
+  private Joystick m_joystick = new Joystick(Config.kJoystickPort);
+  private JoystickButton m_shooterButton = new JoystickButton(m_joystick, Config.kShooterButtonPort);
+  private Flywheel m_flywheel = new Flywheel();
+  private Shoot m_shoot = new Shoot(m_flywheel, 3000);
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
@@ -34,7 +46,7 @@ public class RobotContainer {
    * joysticks}.
    */
   private void configureBindings() {
-    
+    m_shooterButton.onTrue(m_shoot);
   }
 
   /**

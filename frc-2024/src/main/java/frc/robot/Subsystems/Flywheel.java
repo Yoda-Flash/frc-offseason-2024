@@ -16,7 +16,6 @@ public class Flywheel extends SubsystemBase {
   private static final class Config {
     public static final int kleftFlywheelMotorID = 1; //change later
     public static final int krightFlywheelMotorID = 2; //change later
-    public static final double kflywheelMotorSpeed = 0.5; //change later
   }
 
   private CANSparkMax m_leftFlywheelMotor = new CANSparkMax(Config.kleftFlywheelMotorID, MotorType.kBrushless);
@@ -33,14 +32,14 @@ public class Flywheel extends SubsystemBase {
     m_rightFlywheelMotor.burnFlash();
   }
 
-  public void shoot() {
-    m_leftFlywheelMotor.set(Config.kflywheelMotorSpeed);
-    m_rightFlywheelMotor.set(Config.kflywheelMotorSpeed);
+  public void shoot(double speed) {
+    m_leftFlywheelMotor.set(speed);
+    m_rightFlywheelMotor.set(speed);
   }
 
-  public InstantCommand shootNote() {
-    return new InstantCommand(this::shoot, this);
-  }
+  // public InstantCommand shootNote() {
+  //   return new InstantCommand(this::shoot, this);
+  // }
 
   public void zero() {
     m_leftFlywheelMotor.set(0);
@@ -49,6 +48,14 @@ public class Flywheel extends SubsystemBase {
 
   public InstantCommand stopShooting() {
     return new InstantCommand(this::zero, this);
+  }
+
+  public double getRPM() {
+    return m_leftFlywheelMotor.getEncoder().getVelocity();
+  }
+
+  public double getPosition() {
+    return m_leftFlywheelMotor.getEncoder().getPosition();
   }
 
   @Override
