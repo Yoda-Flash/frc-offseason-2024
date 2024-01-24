@@ -5,7 +5,7 @@
 package frc.robot;
 
 import frc.robot.Constants.OperatorConstants;
-import frc.robot.commands.TurnOrange;
+import frc.robot.commands.TurnStillOrange;
 import frc.robot.subsystem.LED;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -27,7 +27,7 @@ public class RobotContainer {
   }
 
   private LED m_led = new LED();
-  private TurnOrange m_turnOrange = new TurnOrange(m_led);
+  private TurnStillOrange m_turnOrange = new TurnStillOrange(m_led);
   private Joystick m_joystick = new Joystick(Config.kJoystick);
   private JoystickButton m_ledButton = new JoystickButton(m_joystick, Config.kLEDButton);
 
