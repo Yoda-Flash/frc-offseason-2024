@@ -10,16 +10,12 @@ import com.revrobotics.CANSparkLowLevel.MotorType;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants;
 
 public class Flywheel extends SubsystemBase {
 
-  private static final class Config {
-    public static final int kleftFlywheelMotorID = 1; //change later
-    public static final int krightFlywheelMotorID = 2; //change later
-  }
-
-  private CANSparkMax m_leftFlywheelMotor = new CANSparkMax(Config.kleftFlywheelMotorID, MotorType.kBrushless);
-  private CANSparkMax m_rightFlywheelMotor = new CANSparkMax(Config.krightFlywheelMotorID, MotorType.kBrushless);
+  private CANSparkMax m_leftFlywheelMotor = new CANSparkMax(Constants.Flywheel.kleftFlywheelMotorID, MotorType.kBrushless);
+  private CANSparkMax m_rightFlywheelMotor = new CANSparkMax(Constants.Flywheel.krightFlywheelMotorID, MotorType.kBrushless);
 
   /** Creates a new Flywheel. */
   public Flywheel() {
@@ -62,7 +58,7 @@ public class Flywheel extends SubsystemBase {
   public void periodic() {
     // This method will be called once per scheduler run
     SmartDashboard.putNumber("L Flywheel Motor Temp", m_leftFlywheelMotor.getMotorTemperature());
-    SmartDashboard.putNumber("R Flywhell Motor Temp", m_rightFlywheelMotor.getMotorTemperature());
+    SmartDashboard.putNumber("R Flywheel Motor Temp", m_rightFlywheelMotor.getMotorTemperature());
 
     SmartDashboard.putNumber("L Flywheel Motor Current", m_leftFlywheelMotor.getOutputCurrent());
     SmartDashboard.putNumber("R Flywheel Motor Current", m_rightFlywheelMotor.getOutputCurrent());

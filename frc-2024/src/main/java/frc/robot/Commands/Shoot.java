@@ -6,18 +6,13 @@ package frc.robot.Commands;
 
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj2.command.Command;
+import frc.robot.Constants;
 import frc.robot.Subsystems.Flywheel;
 
 public class Shoot extends Command {
   /** Creates a new Shoot. */
-  private static final class Config {
-    private static final double kP = 0.5;
-    private static final double kI = 0;
-    private static final double kD = 0;
-    
-  }
   private Flywheel m_flywheel;
-  private PIDController m_pid = new PIDController(Config.kP, Config.kI, Config.kD);
+  private PIDController m_pid = new PIDController(Constants.Shoot.kP, Constants.Shoot.kI, Constants.Shoot.kD);
   private double m_initialRPM;
   private double m_currentRPM;
   private double m_error;

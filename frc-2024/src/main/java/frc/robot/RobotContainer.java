@@ -5,7 +5,6 @@
 package frc.robot;
 
 import frc.robot.Commands.Shoot;
-import frc.robot.Constants.OperatorConstants;
 import frc.robot.Subsystems.Flywheel;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.Command;
