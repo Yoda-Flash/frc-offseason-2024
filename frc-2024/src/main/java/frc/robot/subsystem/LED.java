@@ -44,14 +44,13 @@ public class LED extends SubsystemBase {
 
   public void setColor(int colorEnum){
     for (var i = 0; i < m_buffer.getLength(); i++) {
-      m_buffer.setHSV(i, m_colorsList.get(colorEnum), 144, 8);
+      // m_buffer.setHSV(i, m_colorsList.get(colorEnum), 99, 99);
+      System.out.println(m_colorsList.get(colorEnum));
+      // m_buffer.setHSV(i, 30, 99, 99);
+      m_buffer.setRGB(i, 245, 245, 245);
     }
-
+    System.out.println("Run run run");
     m_led.setData(m_buffer);
-  }
-
-  public void setMovingColor(int colorEnum){
-    
   }
 
   public void initLED(){
@@ -69,5 +68,6 @@ public class LED extends SubsystemBase {
   @Override 
   public void periodic() {
     // This method will be called once per scheduler run
+    m_led.start();
   }
 }

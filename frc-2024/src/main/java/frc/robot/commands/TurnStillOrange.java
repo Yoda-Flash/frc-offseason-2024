@@ -20,14 +20,14 @@ public class TurnStillOrange extends Command {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    System.out.println("I'm running!");
     m_led.initLED();
+    System.out.println("I'm running!");
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_led.setOrange();
+    m_led.setColor(0); 
   }
 
   // Called once the command ends or is interrupted.

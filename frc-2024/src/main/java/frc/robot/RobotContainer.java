@@ -5,6 +5,8 @@
 package frc.robot;
 
 import frc.robot.Constants.OperatorConstants;
+import frc.robot.commands.TurnMovingOrange;
+import frc.robot.commands.TurnStillGreen;
 import frc.robot.commands.TurnStillOrange;
 import frc.robot.subsystem.LED;
 import edu.wpi.first.wpilibj.Joystick;
@@ -23,13 +25,22 @@ public class RobotContainer {
 
   private static final class Config{
     public static final int kJoystick = 0;
-    public static final int kLEDButton = 1;
+    public static final int kStillOrangeButtonID = 1;
+    public static final int kMovingOrangeButtonID = 2;
+    public static final int kStillGreenButtonID = 3;
   }
 
   private LED m_led = new LED();
-  private TurnStillOrange m_turnOrange = new TurnStillOrange(m_led);
   private Joystick m_joystick = new Joystick(Config.kJoystick);
-  private JoystickButton m_ledButton = new JoystickButton(m_joystick, Config.kLEDButton);
+
+  private TurnStillOrange m_stillOrange = new TurnStillOrange(m_led);
+  private JoystickButton m_stillOrangeButton = new JoystickButton(m_joystick, Config.kStillOrangeButtonID);
+
+  private TurnMovingOrange m_movingOrange = new TurnMovingOrange(m_led);
+  private JoystickButton m_movingOrangeButton = new JoystickButton(m_joystick, Config.kMovingOrangeButtonID);
+
+  private TurnStillGreen m_stillGreen = new TurnStillGreen(m_led);
+  private JoystickButton m_stillGreenButton = new JoystickButton(m_joystick, Config.kStillGreenButtonID);
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
@@ -47,7 +58,9 @@ public class RobotContainer {
    * joysticks}.
    */
   private void configureBindings() {
-    m_ledButton.onTrue(m_turnOrange);
+    m_stillOrangeButton.onTrue(m_stillOrange);
+    m_movingOrangeButton.onTrue(m_movingOrange);
+    m_stillGreenButton.onTrue(m_stillGreen);
   }
 
   /**
