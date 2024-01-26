@@ -10,15 +10,11 @@ import com.revrobotics.CANSparkLowLevel.MotorType;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants;
 
 public class Intake extends SubsystemBase {
 
-  private static final class Config {
-    public static final int kIntakeMotorID = 1; //change later
-    public static final double kIntakeSpeed = 0.5; //change later
-  }
-
-  private CANSparkMax m_intakeMotor = new CANSparkMax(Config.kIntakeMotorID, MotorType.kBrushless);
+  private CANSparkMax m_intakeMotor = new CANSparkMax(Constants.Intake.kIntakeMotorID, MotorType.kBrushless);
 
   /** Creates a new Intake. */
   public Intake() {
@@ -32,7 +28,7 @@ public class Intake extends SubsystemBase {
   }
 
   public void pickNote() {
-    m_intakeMotor.set(Config.kIntakeSpeed);
+    m_intakeMotor.set(Constants.Intake.kIntakeSpeed);
   }
 
   public InstantCommand intakeNote() {
@@ -40,7 +36,7 @@ public class Intake extends SubsystemBase {
   }
 
   public void dropNote() {
-    m_intakeMotor.set(-Config.kIntakeSpeed);
+    m_intakeMotor.set(-Constants.Intake.kIntakeSpeed);
   }
 
   public InstantCommand releaseNote() {

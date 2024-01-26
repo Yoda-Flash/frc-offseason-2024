@@ -6,13 +6,10 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.Command;
+import frc.robot.Constants;
 import frc.robot.subsystems.Intake;
 
 public class GoOuttake extends Command {
-
-  private static final class Config {
-    private static final double kOuttakeTime = 2;
-  }
 
   private Intake m_intake;
   private double m_initialTime = 0;
@@ -45,6 +42,6 @@ public class GoOuttake extends Command {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return (Timer.getFPGATimestamp() - m_initialTime) > Config.kOuttakeTime;
+    return (Timer.getFPGATimestamp() - m_initialTime) > Constants.Intake.kOuttakeTime;
   }
 }
