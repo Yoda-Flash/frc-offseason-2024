@@ -4,9 +4,12 @@
 
 package frc.robot;
 
-import frc.robot.Constants.OperatorConstants;
+import frc.robot.Commands.SwitchSwitching;
+import frc.robot.Subsystems.LimitSwitch;
+import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
+import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 
 /**
@@ -17,6 +20,14 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
  */
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
+  private static final class Config{ // all need to be changed
+    private static final int kJoystickPort = 0;
+    private static final int kSwitchButtonPort = 1;
+  }
+  private Joystick m_joystick= new Joystick (Config.kJoystickPort);
+  private JoystickButton m_switchButton = new JoystickButton(m_joystick, Config.kSwitchButtonPort);
+  private LimitSwitch m_limitSwitch = new LimitSwitch(0);
+  private SwitchSwitching m_test = new SwitchSwitching(m_limitSwitch);
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
@@ -34,6 +45,7 @@ public class RobotContainer {
    * joysticks}.
    */
   private void configureBindings() {
+    m_switchButton.onTrue(m_test);
   }
 
   /**
