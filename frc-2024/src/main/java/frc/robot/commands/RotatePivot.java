@@ -14,9 +14,9 @@ public class RotatePivot extends Command {
   private ElevatorPivot m_elevatorPivot;
   private PIDController m_PID = new PIDController(Constants.ElevatorPivot.kP, Constants.ElevatorPivot.kI, Constants.ElevatorPivot.kD);
   /** Creates a new RotatePivot. */
-  public RotatePivot(double a, ElevatorPivot elevatorPivot) {
+  public RotatePivot(double angle, ElevatorPivot elevatorPivot) {
     m_elevatorPivot = elevatorPivot;
-    m_endPosition = (a - 90)*Constants.kNeoTicksPerRevolution*Constants.ElevatorPivot.kGearRatio/360;
+    m_endPosition = (angle - 90)*Constants.kNeoTicksPerRevolution*Constants.ElevatorPivot.kGearRatio/360;
   }
   // Called when the command is initially scheduled.
   @Override
