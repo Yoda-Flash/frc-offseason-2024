@@ -14,9 +14,9 @@ public class RotateWrist extends Command {
   private Wrist m_wrist;
   private PIDController m_PID = new PIDController(Constants.Wrist.kP, Constants.Wrist.kI, Constants.Wrist.kD);
   /** Creates a new RotatePivot. */
-  public RotateWrist(double a, Wrist wrist) {
+  public RotateWrist(double angle, Wrist wrist) {
     m_wrist = new Wrist();
-    m_endPosition = a*Constants.kFalconTicksPerRevolution*Constants.Wrist.kGearRatio/360;
+    m_endPosition = angle*Constants.kFalconTicksPerRevolution*Constants.Wrist.kGearRatio/360;
   }
   // Called when the command is initially scheduled.
   @Override
