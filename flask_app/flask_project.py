@@ -6,55 +6,63 @@ import argparse
 import imutils
 import cv2
 from flask import Flask, Response, render_template
-import cv2
 import apriltag 
-import math 
+import math
+import threading 
+import sys
+import time
+from networktables import NetworkTables
 
-# ap = argparse.ArgumentParser()
-# ap.add_argument("-n", "--num-frames", type=int, default=100,
-# 	help="# of frames to loop over for FPS test")
-# ap.add_argument("-d", "--display", type=int, default=-1,
-# 	help="Whether or not frames should be displayed")
-# args = vars(ap.parse_args())
+# To see messages from networktables, you must setup logging
+import logging
+				
 
 app = Flask(__name__)   # Flask constructor
-# fps = FPS().start() 
 
-# vs = WebcamVideoStream(src=0).start()
+def frames():
+	ap = argparse.ArgumentParser()
+	ap.add_argument("-n", "--num-frames", type=int, default=100,
+	help="# of frames to loop over for FPS test")
+	ap.add_argument("-d", "--display", type=int, default=-1,
+	help="Whether or not frames should be displayed")
+	args = vars(ap.parse_args())
+
+	fps = FPS().start() 
+
+	vs = WebcamVideoStream(src=0).start()
+	while fps._numFrames < args["num_frames"]:
+		# grab the frame from the stream and resize it to have a maximum
+		# width of 400 pixels
+		frame = imutils.resize(frame, width=400)
+		fps.update()
+		fps.stop()
+		print("[INFO] elasped time: {:.2f}".format(fps.elapsed()))
+		print("[INFO] approx. FPS: {:.2f}".format(fps.fps()))
+
+		# loop over some frames...this time using the threaded stream
+		print("[INFO] sampling THREADED frames from webcam...")
+	while fps._numFrames < args["num_frames"]:
+		# grab the frame from the threaded video stream and resize it
+		# to have a maximum width of 400 pixels
+		frame = vs.read()
+		frame = imutils.resize(frame, width=400)
+
+		fps.update()
+		# stop the timer and display FPS information
+		fps.stop()
+		print("[INFO] elasped time: {:.2f}".format(fps.elapsed()))
+		print("[INFO] approx. FPS: {:.2f}".format(fps.fps()))
+
 
 def gen():
 	vid = cv2.VideoCapture(0)
 	options = apriltag.DetectorOptions(families="tag36h11")
 	detector = apriltag.Detector(options)	
 	while True:
-		# success, frame = vid.read()
 		success, frame = vid.read()
 		if not success:
 			break
 		else:
-			# while fps._numFrames < args["num_frames"]:
-			# 	# grab the frame from the stream and resize it to have a maximum
-			# 	# width of 400 pixels
-			# 	frame = imutils.resize(frame, width=400)
-			# 	fps.update()
-			# fps.stop()
-			# print("[INFO] elasped time: {:.2f}".format(fps.elapsed()))
-			# print("[INFO] approx. FPS: {:.2f}".format(fps.fps()))
-
-			# # loop over some frames...this time using the threaded stream
-			# print("[INFO] sampling THREADED frames from webcam...")
-			# while fps._numFrames < args["num_frames"]:
-			# 	# grab the frame from the threaded video stream and resize it
-			# 	# to have a maximum width of 400 pixels
-			# 	frame = vs.read()
-			# 	frame = imutils.resize(frame, width=400)
-
-			# 	fps.update()
-			# # stop the timer and display FPS information
-			# fps.stop()
-			# print("[INFO] elasped time: {:.2f}".format(fps.elapsed()))
-			# print("[INFO] approx. FPS: {:.2f}".format(fps.fps()))
-
 			gray = cv2.cvtColor(frame, cv2.COLOR_RGB2GRAY)
 			results = detector.detect(gray)
 			# print("[INFO] {} total AprilTags detected".format(len(results)))
@@ -110,7 +118,22 @@ def gen():
 			yield (b'--frame\r\n'
 				b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')  # concat frame one by one and show result
 
-				
+	NetworkTables.initialize(server='10.8.40.2')
+	logging.basicConfig(level=logging.DEBUG)
+
+	# if len(sys.argv) != 2:
+    # 	print("Error: specify an IP to connect to!")
+    # 	exit(0)
+
+	#auto_value = NetworkTables.addEntryListener(angle)
+	sd = NetworkTables.getTable("SmartDashboard")
+	auto_value = sd.getAutoUpdateValue("robotTime", angle)
+
+	# while True:
+		# print("robotTime:", auto_value.value)
+	print(auto_value.value)
+	time.sleep(1)
+
 		
 # A decorator used to tell the application 
 # which URL is associated function 
@@ -124,4 +147,11 @@ def video_feed():
 
 if __name__=='__main__': 
 	app.run(debug = True,host='0.0.0.0')
+	t1 = threading.Thread(gen, arges=(10,))
+	t2 = threading.Thread(frames, arges=(10,))
    
+	t1.start()
+	t2.start()
+
+	t1.join()
+	t2.join()
