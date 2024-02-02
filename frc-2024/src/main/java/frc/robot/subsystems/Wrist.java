@@ -28,9 +28,13 @@ public class Wrist extends SubsystemBase {
 
   public double getEncoderPosition(){
 <<<<<<< HEAD
+<<<<<<< HEAD
     return m_falcon.getPosition().getValue();
 =======
     //return m_falcon.getValue();
+=======
+    return m_falcon.getSelectedSensorPosition();
+>>>>>>> 471ebc4 (Update Wrist.java)
     return 0;
 >>>>>>> ff3eb30 (Added wrist subsystem and command)
   }
