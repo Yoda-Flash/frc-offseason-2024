@@ -19,7 +19,7 @@ public class Wrist extends SubsystemBase {
   }
 
   public double getEncoderPosition(){
-    //return m_falcon.getValue();
+    return m_falcon.getSelectedSensorPosition();
     return 0;
   }
 
