@@ -15,9 +15,9 @@ public class MoveElevator extends Command {
   private Elevator m_elevator;
   private PIDController m_PID = new PIDController(Constants.Elevator.kP, Constants.Elevator.kI, Constants.Elevator.kD);
   /** Creates a new MoveElevator. */
-  public MoveElevator(double d, Elevator e) {
-    m_elevator = e;
-    m_endPosition = d*Constants.Elevator.RotationsPerInch*Constants.kNeoTicksPerRevolution;
+  public MoveElevator(double degrees, Elevator elevator) {
+    m_elevator = elevator;
+    m_endPosition = degrees*Constants.Elevator.RotationsPerInch*Constants.kNeoTicksPerRevolution;
   }
 
   // Called when the command is initially scheduled.
