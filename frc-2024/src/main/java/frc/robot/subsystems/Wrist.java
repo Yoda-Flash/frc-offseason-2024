@@ -7,27 +7,30 @@ package frc.robot.subsystems;
 
 
 import com.ctre.phoenix6.hardware.TalonFX;
-
+import com.revrobotics.CANSparkMax;
+import com.revrobotics.CANSparkLowLevel.MotorType;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class Wrist extends SubsystemBase {
   
-  private TalonFX m_falcon = new TalonFX(0);
+  private CANSparkMax m_neo = new CANSparkMax(6, MotorType.kBrushless);
 
   public Wrist() {
-
+    m_neo.getEncoder().setPosition(0.0);
   }
 
   public void setSpeed(double speed){
-    m_falcon.set(speed);
+    m_neo.set(speed);
   }
 
   public double getRotations(){
-    return m_falcon.getPosition().getValue();
+    return m_neo.getEncoder().getPosition();
   }
 
   @Override
   public void periodic() {
-    // This method will be called once per scheduler run
+    SmartDashboard.putNumber("Distance", getRotations());
+    SmartDashboard.putNumber("Velocity", m_neo.get());
   }
 }

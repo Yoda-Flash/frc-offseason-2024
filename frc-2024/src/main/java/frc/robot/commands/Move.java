@@ -13,7 +13,7 @@ public class Move extends Command {
   private double m_speed;
   private Timer  m_timer  = new Timer();
   /** Creates a new Move. */
-  public Move(Wrist wrist, double time, double speed) {
+  public Move(Wrist wrist, double speed, double time) {
     m_wrist = wrist;
     m_time = time;
     m_speed = speed;
@@ -22,20 +22,24 @@ public class Move extends Command {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-
+    m_timer.reset();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
-  public void execute() {}
+  public void execute() {
+    m_wrist.setSpeed(m_speed);
+  }
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {}
+  public void end(boolean interrupted) {
+    m_wrist.setSpeed(0);
+  }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    return m_timer.hasElapsed(m_time);
   }
 }
