@@ -29,6 +29,7 @@ public class Wrist extends SubsystemBase {
   public double getEncoderPosition(){
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
     return m_falcon.getPosition().getValue();
 =======
     //return m_falcon.getValue();
@@ -37,6 +38,9 @@ public class Wrist extends SubsystemBase {
 >>>>>>> 471ebc4 (Update Wrist.java)
     return 0;
 >>>>>>> ff3eb30 (Added wrist subsystem and command)
+=======
+    return m_falcon.getPosition().getValue();
+>>>>>>> 10d91f2 (Fixed falcon problem)
   }
 
   public void setSpeed(double speed){
