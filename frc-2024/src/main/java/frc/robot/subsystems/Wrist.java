@@ -14,7 +14,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class Wrist extends SubsystemBase {
   
-  private CANSparkMax m_neo = new CANSparkMax(6, MotorType.kBrushless);
+  private CANSparkMax m_neo = new CANSparkMax(7, MotorType.kBrushless);
 
   public Wrist() {
     m_neo.getEncoder().setPosition(0.0);
