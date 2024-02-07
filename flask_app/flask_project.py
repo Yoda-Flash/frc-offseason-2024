@@ -14,8 +14,7 @@ import time
 from networktables import NetworkTables
 
 # To see messages from networktables, you must setup logging
-import logging
-				
+import logging		
 
 app = Flask(__name__)   # Flask constructor
 
@@ -57,7 +56,9 @@ def frames():
 def gen():
 	vid = cv2.VideoCapture(0)
 	options = apriltag.DetectorOptions(families="tag36h11")
-	detector = apriltag.Detector(options)	
+	detector = apriltag.Detector(options)
+	NetworkTables.initialize(server='10.8.40.2')
+	logging.basicConfig(level=logging.DEBUG)	
 	while True:
 		success, frame = vid.read()
 		if not success:
@@ -111,30 +112,15 @@ def gen():
 				angle = str(angle)
 				cv2.putText(frame, "Angle:" + angle, (200,200),
 				cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 0), 2)
-			
+				sd = NetworkTables.getTable("SmartDashboard")
+				sd.putNumber("angle", angle)
+				sd.getNumber('other',0)
 			# show the output image after AprilTag detection
 			ret, buffer = cv2.imencode('.jpg', frame)
 			frame = buffer.tobytes()
 			yield (b'--frame\r\n'
 				b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')  # concat frame one by one and show result
-
-	NetworkTables.initialize(server='10.8.40.2')
-	logging.basicConfig(level=logging.DEBUG)
-
-	# if len(sys.argv) != 2:
-    # 	print("Error: specify an IP to connect to!")
-    # 	exit(0)
-
-	#auto_value = NetworkTables.addEntryListener(angle)
-	sd = NetworkTables.getTable("SmartDashboard")
-	auto_value = sd.getAutoUpdateValue("robotTime", angle)
-
-	# while True:
-		# print("robotTime:", auto_value.value)
-	print(auto_value.value)
-	time.sleep(1)
-
-		
+	
 # A decorator used to tell the application 
 # which URL is associated function 
 @app.route('/')       
