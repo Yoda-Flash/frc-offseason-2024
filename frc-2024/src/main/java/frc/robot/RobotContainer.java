@@ -52,8 +52,8 @@ public class RobotContainer {
     // Configure the trigger bindings
 
     configureBindings();
-    
-    SmartDashboard.putData("Swerve/Reset_Heading", new InstantCommand(() -> m_swerve.resetHeading()));
+    SmartDashboard.putData("Swerve/Odo/Reset_Odo", new InstantCommand(() -> m_swerve.resetOdoToPose()));
+    SmartDashboard.putData("Swerve/Odo/Reset_Heading", new InstantCommand(() -> m_swerve.resetHeading()));
   }
 
   /**

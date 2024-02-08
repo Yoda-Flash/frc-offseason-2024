@@ -20,6 +20,7 @@ import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
+import edu.wpi.first.wpilibj.smartdashboard.Field2d;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.DriveConstants;
@@ -75,12 +76,17 @@ public class SwerveDrive extends SubsystemBase {
   private final PIDController m_yPID = new PIDController(DriveConstants.kP_Y, DriveConstants.kI_Y, DriveConstants.kD_Y);
   private final PIDController m_thetaPID = new PIDController(DriveConstants.kP_Theta, DriveConstants.kI_Theta, DriveConstants.kD_Theta);
 
+  private final Field2d m_field = new Field2d();
+
   private final SwerveDriveOdometry m_odo = new SwerveDriveOdometry(m_kinematics, getAngle(), new SwerveModulePosition[] {
     m_frontLeft.getPosition(),
     m_frontRight.getPosition(),
     m_backLeft.getPosition(),
     m_backRight.getPosition()
   });
+
+  private double m_xStartPose;
+  private double m_yStartPose;
 
   public void resetHeading() {
     m_imu.reset();
@@ -157,6 +163,13 @@ public class SwerveDrive extends SubsystemBase {
     setModuleStates(states);
   }
 
+  public void resetOdoToPose(){
+    m_odo.resetPosition(getAngle(), new SwerveModulePosition[] {
+        m_frontLeft.getPosition(), m_frontRight.getPosition(),
+        m_backLeft.getPosition(), m_backRight.getPosition()
+      }, new Pose2d(m_xStartPose, m_yStartPose, getAngle()));
+  }
+
   public SwerveDrive(){
      AutoBuilder.configureHolonomic(
                 this::getPoseMeters, // Robot pose supplier
@@ -204,5 +217,15 @@ public class SwerveDrive extends SubsystemBase {
     
     m_totalCurrent = m_frontLeft.getDriveCurrent() + m_frontLeft.getTurnCurrent() + m_frontRight.getDriveCurrent() + m_frontRight.getTurnCurrent() + m_backLeft.getDriveCurrent() + m_backLeft.getTurnCurrent() + m_backRight.getDriveCurrent() + m_backRight.getTurnCurrent();
     SmartDashboard.putNumber("Total Current", m_totalCurrent);
+
+    m_field.setRobotPose(m_odo.getPoseMeters());
+    SmartDashboard.putNumber("Swerve/Odo/Pose X", m_odo.getPoseMeters().getX());
+    SmartDashboard.putNumber("Swerve/Odo/Pose Y", m_odo.getPoseMeters().getY());
+    SmartDashboard.putData("Swerve/Odo/Field", m_field);
+    
+    m_xStartPose = SmartDashboard.getNumber("Swerve/Odo/X", 2);
+    m_yStartPose = SmartDashboard.getNumber("Swerve/Odo/Y", 2);
+    SmartDashboard.putNumber("Swerve/Odo/X", m_xStartPose);
+    SmartDashboard.putNumber("Swerve/Odo/Y", m_yStartPose);
   }
 }
