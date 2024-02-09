@@ -51,6 +51,10 @@ import frc.robot.subsystems.Elevator;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Pivot;
 import frc.robot.subsystems.Shooter;
+import frc.robot.commands.AutoStraighten;
+import frc.robot.commands.JoystickDrive;
+import frc.robot.commands.SnapToAngle;
+import frc.robot.commands.VisionSnapToAngle;
 import frc.robot.subsystems.SwerveDrive;
 import frc.robot.subsystems.Wrist;
 
@@ -144,6 +148,7 @@ public class RobotContainer {
   );
 
   private AutoStraighten m_straighten = new AutoStraighten(m_swerve);
+  private VisionSnapToAngle m_visionSnap = new VisionSnapToAngle(m_swerve);
 
   private JoystickButton m_stowButton = new JoystickButton(m_joystick2, Config.kStowButtonID);
   private JoystickButton m_ampButton = new JoystickButton(m_joystick2, Config.kAmpButtonID);
@@ -212,6 +217,7 @@ public class RobotContainer {
     // m_elevatorDownButton.whileTrue(m_backwardIntake);
     // m_intakeButton.whileTrue(m_stowed);
     // m_shooterButton.whileTrue(m_ampScore); 
+    m_straightenButton.whileTrue(m_straighten);
     m_snapButton.onTrue(m_visionSnap);
   }
 
