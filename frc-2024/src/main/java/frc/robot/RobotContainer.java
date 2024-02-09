@@ -14,9 +14,10 @@ import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants.DriveConstants;
-import frc.robot.commands.JoystickDrive;
-import frc.robot.commands.SnapToAngle;
-import frc.robot.subsystems.SwerveDrive;
+
+import frc.robot.subsystems.Encoder;
+
+
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -25,35 +26,16 @@ import frc.robot.subsystems.SwerveDrive;
  * subsystems, commands, and trigger mappings) should be declared here.
  */
 public class RobotContainer {
-
-  private static final class Config{
-    public static final int kSnapButtonID = 1;
-  }
-  
   // The robot's subsystems and commands are defined here...
-  private final SwerveDrive m_swerve = new SwerveDrive();
 
-  private final Joystick m_driverJoystick = new Joystick(DriveConstants.kDriveJoystickId);
+  private Encoder m_encoder;
 
-  private final JoystickDrive m_drive = new JoystickDrive(m_swerve, 
-    () -> -m_driverJoystick.getRawAxis(DriveConstants.kJoystickXAxis),
-    () -> -m_driverJoystick.getRawAxis(DriveConstants.kJoystickYxis),
-    () -> -m_driverJoystick.getRawAxis(DriveConstants.kJoystickRotAxis)
-  );
-
-  private SnapToAngle m_snap = new SnapToAngle(m_swerve);
-
-  private JoystickButton m_snapButton = new JoystickButton(m_driverJoystick, Config.kSnapButtonID); 
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
-  public RobotContainer() {    
-    m_swerve.setDefaultCommand(m_drive);
+  public RobotContainer() { 
+    m_encoder = new Encoder();   
 
-    // Configure the trigger bindings
-
-    configureBindings();
-    SmartDashboard.putData("Swerve/Odo/Reset_Odo", new InstantCommand(() -> m_swerve.resetOdoToPose()));
-    SmartDashboard.putData("Swerve/Odo/Reset_Heading", new InstantCommand(() -> m_swerve.resetHeading()));
+    SmartDashboard.putNumber("Encoder Position", m_encoder.get_position());
   }
 
   /**
@@ -66,7 +48,7 @@ public class RobotContainer {
    * joysticks}.
    */
   private void configureBindings() {
-    m_snapButton.onTrue(m_snap);
+
   }
 
   /**
@@ -75,6 +57,6 @@ public class RobotContainer {
    * @return the command to run in autonomous
    */
   public Command getAutonomousCommand() {
-    return new PathPlannerAuto("TestAuto");
+    return null;
   }
 }
