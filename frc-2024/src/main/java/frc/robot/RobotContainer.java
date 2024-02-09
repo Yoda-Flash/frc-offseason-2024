@@ -16,6 +16,7 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants.DriveConstants;
 import frc.robot.commands.JoystickDrive;
 import frc.robot.commands.SnapToAngle;
+import frc.robot.commands.VisionSnapToAngle;
 import frc.robot.subsystems.SwerveDrive;
 
 /**
@@ -42,6 +43,7 @@ public class RobotContainer {
   );
 
   private SnapToAngle m_snap = new SnapToAngle(m_swerve);
+  private VisionSnapToAngle m_visionSnap = new VisionSnapToAngle(m_swerve);
 
   private JoystickButton m_snapButton = new JoystickButton(m_driverJoystick, Config.kSnapButtonID); 
 
@@ -66,7 +68,7 @@ public class RobotContainer {
    * joysticks}.
    */
   private void configureBindings() {
-    m_snapButton.onTrue(m_snap);
+    m_snapButton.onTrue(m_visionSnap);
   }
 
   /**

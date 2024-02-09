@@ -14,8 +14,14 @@ import frc.robot.subsystems.SwerveDrive;
 
 public class SnapToAngle extends Command {
 
+  private static final class Config{
+    public static final double kP = 0.01;
+    public static final double kI = 0;
+    public static final double kD = 0;
+  }
+
   private SwerveDrive m_swerve;
-  private PIDController m_pid = new PIDController(0.01, 0, 0);
+  private PIDController m_pid = new PIDController(Config.kP, Config.kI, Config.kD);
   private double m_turningSpeed;
   //Angles in degrees
   private double m_targetAngle;
@@ -40,6 +46,7 @@ public class SnapToAngle extends Command {
   @Override
   public void execute() {
     m_targetAngle = SmartDashboard.getNumber("Goal angle degrees", 90);
+    SmartDashboard.putNumber("Goal angle degrees", m_targetAngle);
     m_currentAngle = m_swerve.getAngle().getDegrees();
 
     m_turningSpeed = m_pid.calculate(m_currentAngle, m_initAngle + m_targetAngle);
