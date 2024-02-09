@@ -133,7 +133,10 @@ public class RobotContainer {
   );
   
   private SnapToAngle m_snap = new SnapToAngle(m_swerve);
+<<<<<<< HEAD
   private AutoStraighten m_straighten = new AutoStraighten(m_swerve);
+=======
+>>>>>>> 8cfc0c5 (Got tracking working, just need to tune PID constants)
   private VisionSnapToAngle m_visionSnap = new VisionSnapToAngle(m_swerve);
 
   private JoystickButton m_stowButton = new JoystickButton(m_joystick2, Config.kStowButtonID);
@@ -200,6 +203,7 @@ public class RobotContainer {
     // m_elevatorDownButton.whileTrue(m_backwardIntake);
     // m_intakeButton.whileTrue(m_stowed);
     // m_shooterButton.whileTrue(m_ampScore); 
+    m_snapButton.onTrue(m_visionSnap);
   }
 
   /**
