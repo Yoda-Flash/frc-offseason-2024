@@ -167,6 +167,19 @@ public class RobotContainer {
 
 >>>>>>> 53845d1 (Tested and created a working auto track april tag)
 
+  private final JoystickDrive m_drive = new JoystickDrive(m_swerve, 
+    () -> -m_driverJoystick.getRawAxis(DriveConstants.kJoystickXAxis),
+    () -> -m_driverJoystick.getRawAxis(DriveConstants.kJoystickYxis),
+    () -> {
+      if (m_snapButton.getAsBoolean()){
+        return SmartDashboard.getNumber("Turning speed", 0);
+      } else {
+        return -m_driverJoystick.getRawAxis(DriveConstants.kJoystickRotAxis);
+      }
+    }
+  );
+
+
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {  
     m_autoChooser = AutoBuilder.buildAutoChooser();
@@ -218,7 +231,7 @@ public class RobotContainer {
     // m_intakeButton.whileTrue(m_stowed);
     // m_shooterButton.whileTrue(m_ampScore); 
     m_straightenButton.whileTrue(m_straighten);
-    m_snapButton.onTrue(m_visionSnap);
+    m_snapButton.whileTrue(m_visionSnap);
   }
 
   /**
