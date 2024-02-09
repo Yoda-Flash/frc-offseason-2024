@@ -36,16 +36,23 @@ public class RobotContainer {
 
   private final Joystick m_driverJoystick = new Joystick(DriveConstants.kDriveJoystickId);
 
-  private final JoystickDrive m_drive = new JoystickDrive(m_swerve, 
-    () -> -m_driverJoystick.getRawAxis(DriveConstants.kJoystickXAxis),
-    () -> -m_driverJoystick.getRawAxis(DriveConstants.kJoystickYxis),
-    () -> -m_driverJoystick.getRawAxis(DriveConstants.kJoystickRotAxis)
-  );
-
   private SnapToAngle m_snap = new SnapToAngle(m_swerve);
   private VisionSnapToAngle m_visionSnap = new VisionSnapToAngle(m_swerve);
 
   private JoystickButton m_snapButton = new JoystickButton(m_driverJoystick, Config.kSnapButtonID); 
+
+  private final JoystickDrive m_drive = new JoystickDrive(m_swerve, 
+    () -> -m_driverJoystick.getRawAxis(DriveConstants.kJoystickXAxis),
+    () -> -m_driverJoystick.getRawAxis(DriveConstants.kJoystickYxis),
+    () -> {
+      if (m_snapButton.getAsBoolean()){
+        return SmartDashboard.getNumber("Turning speed", 0);
+      } else {
+        return -m_driverJoystick.getRawAxis(DriveConstants.kJoystickRotAxis);
+      }
+    }
+  );
+
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {    
@@ -68,7 +75,7 @@ public class RobotContainer {
    * joysticks}.
    */
   private void configureBindings() {
-    m_snapButton.onTrue(m_visionSnap);
+    m_snapButton.whileTrue(m_visionSnap);
   }
 
   /**
