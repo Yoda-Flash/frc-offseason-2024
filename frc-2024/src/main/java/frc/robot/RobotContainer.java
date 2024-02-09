@@ -17,6 +17,7 @@ import frc.robot.Constants.DriveConstants;
 import frc.robot.commands.AutoStraighten;
 import frc.robot.commands.JoystickDrive;
 import frc.robot.commands.SnapToAngle;
+import frc.robot.commands.VisionSnapToAngle;
 import frc.robot.subsystems.SwerveDrive;
 
 /**
@@ -45,6 +46,7 @@ public class RobotContainer {
 
   private SnapToAngle m_snap = new SnapToAngle(m_swerve);
   private AutoStraighten m_straighten = new AutoStraighten(m_swerve);
+  private VisionSnapToAngle m_visionSnap = new VisionSnapToAngle(m_swerve);
 
   private JoystickButton m_snapButton = new JoystickButton(m_driverJoystick, Config.kSnapButtonID); 
   private JoystickButton m_straightenButton = new JoystickButton(m_driverJoystick, Config.kStraightenButtonID);
@@ -70,8 +72,8 @@ public class RobotContainer {
    * joysticks}.
    */
   private void configureBindings() {
-    m_snapButton.onTrue(m_snap);
     m_straightenButton.whileTrue(m_straighten);
+    m_snapButton.onTrue(m_visionSnap);
   }
 
   /**
