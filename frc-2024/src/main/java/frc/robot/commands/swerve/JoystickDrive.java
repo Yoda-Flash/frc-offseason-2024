@@ -37,6 +37,7 @@ public class JoystickDrive extends Command {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
+    System.out.println("Running joystick");
   }
 
   // Called every time the scheduler runs while the command is scheduled.
