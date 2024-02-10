@@ -22,8 +22,8 @@ public final class Constants {
     public static final double kDriveEncoderVelocityToMetersPerSec = kDriveEncoderPositionToMeters / 60.0;
     public static final double kTurnEncoderPositionToRadians = 2.0 * Math.PI;
     public static final double kTranslationalDeadbandMetersPerSecond = 0.001;
-    // public static final double kMaxTranslationalMetersPerSecond = Units.feetToMeters(14.5);
-    public static final double kMaxTranslationalMetersPerSecond = Units.feetToMeters(4.5);
+    public static final double kMaxTranslationalMetersPerSecond = Units.feetToMeters(14.5);
+    // public static final double kMaxTranslationalMetersPerSecond = Units.feetToMeters(4.5);
 
     
     public static final double kPTurning = 0.5;
@@ -62,13 +62,13 @@ public final class Constants {
     public static boolean kBackRightDriveReversed = true;
 
     public static double kDeadband = 0.05;
-    // public static double kTeleopMaxAccelMetersPerSecondSquared = 3;
-    public static double kTeleopMaxAccelMetersPerSecondSquared = 0.5;
-    // public static double kTeleopMaxAngularAccelRadiansPerSecondSquared = 4;
-    public static double kTeleopMaxAngularAccelRadiansPerSecondSquared = 0.5;
+    public static double kTeleopMaxAccelMetersPerSecondSquared = 3;
+    // public static double kTeleopMaxAccelMetersPerSecondSquared = 0.5;
+    public static double kTeleopMaxAngularAccelRadiansPerSecondSquared = 4;
+    // public static double kTeleopMaxAngularAccelRadiansPerSecondSquared = 0.5;
     public static double kTeleopMaxSpeedMetersPerSecond = kMaxTranslationalMetersPerSecond / 4.0;
-    // public static double kTeleopMaxTurningRadiansPerSecond = 4.0 * Math.PI;
-    public static double kTeleopMaxTurningRadiansPerSecond = 1.5   * Math.PI;
+    public static double kTeleopMaxTurningRadiansPerSecond = 4.0 * Math.PI;
+    // public static double kTeleopMaxTurningRadiansPerSecond = 1.5   * Math.PI;
     public static int kDriveJoystickId = 0;
     public static int kJoystickXAxis = 1;
     public static int kJoystickYxis = 0;
@@ -78,15 +78,15 @@ public final class Constants {
     public static boolean kBackLeftTurningReversed = true;
     public static boolean kBackRightTurningReversed = true;
 
-    public static double kP_X = 0.05;
+    public static double kP_X = 0.75;
     public static double kI_X = 0;
     public static double kD_X = 0;
 
-    public static double kP_Y = 0.05;
+    public static double kP_Y = 0.75;
     public static double kI_Y = 0;
     public static double kD_Y = 0;
 
-    public static double kP_Theta = 0.05;
+    public static double kP_Theta = 0.75;
     public static double kI_Theta = 0;
     public static double kD_Theta = 0;
   }
