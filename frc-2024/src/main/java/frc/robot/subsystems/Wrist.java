@@ -28,6 +28,10 @@ public class Wrist extends SubsystemBase {
     return m_neo.getEncoder().getPosition();
   }
 
+  public void setRotations(double r){
+    m_neo.getEncoder().setPosition(r);
+  }
+
   @Override
   public void periodic() {
     SmartDashboard.putNumber("Distance", getRotations());

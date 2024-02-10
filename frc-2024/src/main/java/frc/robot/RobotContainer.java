@@ -5,6 +5,7 @@
 package frc.robot;
 
 import frc.robot.Constants.OperatorConstants;
+import frc.robot.commands.Sine;
 import frc.robot.commands.TestCommand;
 import frc.robot.subsystems.Wrist;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -20,6 +21,7 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
 public class RobotContainer {
   private Wrist m_wrist = new Wrist();
   private TestCommand m_testCommand = new TestCommand(m_wrist);
+  private Sine m_sine = new Sine(m_wrist, 0.3, 6*Math.PI, 1);
   // The robot's subsystems and commands are defined here...
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
@@ -45,6 +47,6 @@ public class RobotContainer {
    * @return the command to run in autonomous
    */
   public Command getAutonomousCommand() {
-    return m_testCommand;
+    return m_sine;
   }
 }
