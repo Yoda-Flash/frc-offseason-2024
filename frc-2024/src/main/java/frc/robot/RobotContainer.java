@@ -71,7 +71,7 @@ public class RobotContainer {
    */
   private void configureBindings() {
     m_snapButton.onTrue(m_snap);
-    m_straightenButton.whileTrue(m_snap);
+    m_straightenButton.whileTrue(m_straighten);
   }
 
   /**
