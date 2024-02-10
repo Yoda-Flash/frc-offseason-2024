@@ -11,9 +11,9 @@ public class TestCommand extends SequentialCommandGroup {
   /** Creates a new TestCommand. */
   public TestCommand(Wrist wrist) {
     addCommands(
-      new Move(wrist, 0.5, 3),
-      new Move(wrist, 0.7, 2),
-      new Move(wrist, 0.2, 4)
+      new Move(wrist, 0.2, 3),
+      new Move(wrist, 0.3, 2),
+      new Move(wrist, 0.1, 4)
     );
   }
 }

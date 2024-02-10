@@ -23,6 +23,7 @@ public class Move extends Command {
   @Override
   public void initialize() {
     m_timer.reset();
+    m_timer.start();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -35,6 +36,7 @@ public class Move extends Command {
   @Override
   public void end(boolean interrupted) {
     m_wrist.setSpeed(0);
+    m_timer.stop();
   }
 
   // Returns true when the command should end.
