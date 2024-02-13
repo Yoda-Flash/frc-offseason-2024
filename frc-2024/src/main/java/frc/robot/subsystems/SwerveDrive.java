@@ -18,6 +18,7 @@ import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.kinematics.SwerveDriveOdometry;
 import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
+import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.smartdashboard.Field2d;
@@ -90,7 +91,10 @@ public class SwerveDrive extends SubsystemBase {
   private double m_yStartPose;
 
   public void resetHeading() {
+    // m_imu.reset();
+    // DEBUG: CHANGE THIS
     m_imu.reset();
+    // m_imu.setAngleAdjustment(90);
   }
 
   public InstantCommand resetHeadingCommand(){
@@ -185,8 +189,8 @@ public class SwerveDrive extends SubsystemBase {
                         new PIDConstants(this.getXController().getP(), this.getXController().getI(), this.getXController().getD()), // Translation PID constants
                         new PIDConstants(this.getThetaController().getP(), this.getThetaController().getI(), this.getThetaController().getD()), // Translation PID constants
                          // Rotation PID constants
-                        0.5, // Max module speed, in m/s
-                        0.4, // Drive base radius in meters. Distance from robot center to furthest module.
+                        DriveConstants.kMaxTranslationalMetersPerSecond, // Max module speed, in m/s
+                        Units.inchesToMeters(14.0), // Drive base radius in meters. Distance from robot center to furthest module.
                         new ReplanningConfig() // Default path replanning config. See the API for the options here
                 ),
                 () -> {
