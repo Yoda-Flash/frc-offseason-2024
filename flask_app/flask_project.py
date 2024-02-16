@@ -14,7 +14,8 @@ import time
 from networktables import NetworkTables
 
 # To see messages from networktables, you must setup logging
-import logging		
+import logging
+				
 
 app = Flask(__name__)   # Flask constructor
 
@@ -68,6 +69,7 @@ def gen():
 			results = detector.detect(gray)
 			# print("[INFO] {} total AprilTags detected".format(len(results)))
 
+
 			# loop over the AprilTag detection results
 			for r in results:
 				# extract the bounding box (x, y)-coordinates for the AprilTag
@@ -94,7 +96,7 @@ def gen():
 				
 				#distance from tag
 				#fov = math.atan(6.5/12)*(1/2) 
-				fov = 118 #fov for innomakerov9281
+				fov = 110 #fov for innomakerov9281
 				# apriltag_width=6.5 #inches
 				# focal_length= (0.25)/(2*math.tan(fov/2))
 				# per_width= math.sqrt((int(ptB[1])- int(ptA[1]))**2 + (int(ptB[0])- int(ptA[0]))**2)
@@ -104,8 +106,8 @@ def gen():
 				# cv2.putText(frame, "Distance: "+ distance, (100,100),
 				# cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 0), 2)
 				
-				# #angle from center
 				#angle = math.atan(cX-(624/2)/focal_length)*(1/2)
+				#angle/fov = cX/640
 				angle=fov*cX/640
 				angle=angle-(1/2)*fov
 				angle = str(angle)
@@ -113,7 +115,7 @@ def gen():
 				cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 0), 2)
 				sd = NetworkTables.getTable("SmartDashboard")
 				sd.putNumber("angle", angle)
-				sd.getNumber('other',0)
+				a_value = sd.getNumber('robotTime',0)
 			# show the output image after AprilTag detection
 			ret, buffer = cv2.imencode('.jpg', frame)
 			frame = buffer.tobytes()
