@@ -20,6 +20,7 @@ public class AutoStraighten extends Command {
     public static final double kD = 0.001;
     public static final double kMinI = -0.25;
     public static final double kMaxI = 0.25;
+    public static final double kDeadband = 0.05;
   }
 
   private SwerveDrive m_swerve;
@@ -72,6 +73,6 @@ public class AutoStraighten extends Command {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return Math.abs(m_currentAngle) <= 0.5;
+    return Math.abs(m_currentAngle) <= Config.kDeadband;
   }
 }
