@@ -4,7 +4,6 @@
 
 package frc.robot;
 
-import frc.robot.Commands.SwitchSwitching;
 import frc.robot.Subsystems.LimitSwitch;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -23,8 +22,7 @@ public class RobotContainer {
   private static final class Config{ // all need to be changed
 
   }
-  private LimitSwitch m_limitSwitch = new LimitSwitch(0);
-  private SwitchSwitching m_test = new SwitchSwitching(m_limitSwitch);
+  private LimitSwitch m_limitSwitch = new LimitSwitch(12);
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
@@ -54,7 +52,6 @@ public class RobotContainer {
     return null;
   }
   public Command getTeleopCommand() {
-    m_limitSwitch.setDefaultCommand(m_test);
     return null;
   }
 }
