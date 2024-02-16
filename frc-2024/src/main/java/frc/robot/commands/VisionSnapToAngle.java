@@ -19,7 +19,10 @@ public class VisionSnapToAngle extends Command {
   private static final class Config{
     public static final double kP = 0.007;
     public static final double kI = 0;
-    public static final double kD = 0;
+    public static final double kD = 0;    
+    public static final double kMinI = -0.25;
+    public static final double kMaxI = 0.25;
+    public static final double kDeadband = 0.05;
   }
 
   private SwerveDrive m_swerve;
@@ -37,7 +40,8 @@ public class VisionSnapToAngle extends Command {
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {
+  public void initialize() {    
+    m_pid.setIntegratorRange(Config.kMinI, Config.kMaxI);
     System.out.println("Running vision snap");
     m_initAngle = SmartDashboard.getNumber("angle", 0);
     System.out.println("first angle: " + m_initAngle);
@@ -72,6 +76,6 @@ public class VisionSnapToAngle extends Command {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return Math.abs(m_currentAngle) <= 0.5;
+    return Math.abs(m_currentAngle) <= Config.kDeadband;
   }
 }
