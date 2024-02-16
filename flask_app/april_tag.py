@@ -91,6 +91,7 @@ while True:
 			sd.putNumber("angle", angle)
 			a_value = sd.getNumber('robotTime',0)
 			print(angle)
+			#april tag id
 			print(r.tag_id) 
 		# show the output image after AprilTag detection
 		# ret, buffer = cv2.imencode('.jpg', frame)
