@@ -18,10 +18,12 @@ import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.kinematics.SwerveDriveOdometry;
 import edu.wpi.first.math.kinematics.SwerveModulePosition;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
+import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.smartdashboard.Field2d;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.DriveConstants;
 
@@ -89,7 +91,14 @@ public class SwerveDrive extends SubsystemBase {
   private double m_yStartPose;
 
   public void resetHeading() {
+    // m_imu.reset();
+    // DEBUG: CHANGE THIS
     m_imu.reset();
+    // m_imu.setAngleAdjustment(90);
+  }
+
+  public InstantCommand resetHeadingCommand(){
+    return new InstantCommand(this::resetHeading, this);
   }
 
   public void resetOdo(Pose2d pose) {
@@ -177,10 +186,11 @@ public class SwerveDrive extends SubsystemBase {
                 this::getChassisSpeeds, // ChassisSpeeds supplier. MUST BE ROBOT RELATIVE
                 this::driveRobotRelative, // Method that will drive the robot given ROBOT RELATIVE ChassisSpeeds
                 new HolonomicPathFollowerConfig( // HolonomicPathFollowerConfig, this should likely live in your Constants class
-                        new PIDConstants(0.5, 0.0, 0.0), // Translation PID constants
-                        new PIDConstants(0.5, 0.0, 0.0), // Rotation PID constants
-                        0.5, // Max module speed, in m/s
-                        0.4, // Drive base radius in meters. Distance from robot center to furthest module.
+                        new PIDConstants(this.getXController().getP(), this.getXController().getI(), this.getXController().getD()), // Translation PID constants
+                        new PIDConstants(this.getThetaController().getP(), this.getThetaController().getI(), this.getThetaController().getD()), // Translation PID constants
+                         // Rotation PID constants
+                        DriveConstants.kMaxTranslationalMetersPerSecond, // Max module speed, in m/s
+                        Units.inchesToMeters(14.0), // Drive base radius in meters. Distance from robot center to furthest module.
                         new ReplanningConfig() // Default path replanning config. See the API for the options here
                 ),
                 () -> {
@@ -227,5 +237,9 @@ public class SwerveDrive extends SubsystemBase {
     m_yStartPose = SmartDashboard.getNumber("Swerve/Odo/Y", 2);
     SmartDashboard.putNumber("Swerve/Odo/X", m_xStartPose);
     SmartDashboard.putNumber("Swerve/Odo/Y", m_yStartPose);
+
+    
+    // System.out.println("Chassis speeds:" + this.getChassisSpeeds());
+    // System.out.println("X error: " + (3 - m_odo.getPoseMeters().getX()));
   }
 }

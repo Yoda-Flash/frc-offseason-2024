@@ -14,6 +14,7 @@ import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants.DriveConstants;
+import frc.robot.commands.AutoStraighten;
 import frc.robot.commands.JoystickDrive;
 import frc.robot.commands.SnapToAngle;
 import frc.robot.commands.VisionSnapToAngle;
@@ -29,6 +30,7 @@ public class RobotContainer {
 
   private static final class Config{
     public static final int kSnapButtonID = 1;
+    public static final int kStraightenButtonID = 2;
   }
   
   // The robot's subsystems and commands are defined here...
@@ -37,9 +39,11 @@ public class RobotContainer {
   private final Joystick m_driverJoystick = new Joystick(DriveConstants.kDriveJoystickId);
 
   private SnapToAngle m_snap = new SnapToAngle(m_swerve);
+  private AutoStraighten m_straighten = new AutoStraighten(m_swerve);
   private VisionSnapToAngle m_visionSnap = new VisionSnapToAngle(m_swerve);
 
   private JoystickButton m_snapButton = new JoystickButton(m_driverJoystick, Config.kSnapButtonID); 
+  private JoystickButton m_straightenButton = new JoystickButton(m_driverJoystick, Config.kStraightenButtonID);
 
   private final JoystickDrive m_drive = new JoystickDrive(m_swerve, 
     () -> -m_driverJoystick.getRawAxis(DriveConstants.kJoystickXAxis),
@@ -75,6 +79,7 @@ public class RobotContainer {
    * joysticks}.
    */
   private void configureBindings() {
+    m_straightenButton.whileTrue(m_straighten);
     m_snapButton.whileTrue(m_visionSnap);
   }
 
@@ -85,5 +90,9 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     return new PathPlannerAuto("TestAuto");
+  }
+
+  public Command getInitCommand(){
+    return m_swerve.resetHeadingCommand();
   }
 }

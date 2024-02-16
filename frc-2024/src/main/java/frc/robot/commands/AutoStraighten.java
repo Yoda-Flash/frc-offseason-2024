@@ -7,19 +7,17 @@ package frc.robot.commands;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
-import edu.wpi.first.networktables.NetworkTable;
-import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Constants.DriveConstants;
 import frc.robot.subsystems.SwerveDrive;
 
-public class VisionSnapToAngle extends Command {
+public class AutoStraighten extends Command {
 
-  private static final class Config{
-    public static final double kP = 0.007;
-    public static final double kI = 0;
-    public static final double kD = 0;    
+  private static final class Config {
+    public static final double kP = 0.03;
+    public static final double kI = 0.06;
+    public static final double kD = 0.001;
     public static final double kMinI = -0.25;
     public static final double kMaxI = 0.25;
     public static final double kDeadband = 0.05;
@@ -27,49 +25,48 @@ public class VisionSnapToAngle extends Command {
 
   private SwerveDrive m_swerve;
   private PIDController m_pid = new PIDController(Config.kP, Config.kI, Config.kD);
-  // private double m_targetAngle;
-  private double m_currentAngle;
-  private double m_initAngle;
   private double m_turningSpeed;
-  /** Creates a new VisionSnapToAngle. */
-  public VisionSnapToAngle(SwerveDrive swerve) {
+  private double m_currentAngle;
+
+  /** Creates a new AutoStraighten. */
+  public AutoStraighten(SwerveDrive swerve) {
     m_swerve = swerve;
     // Use addRequirements() here to declare subsystem dependencies.
-    // addRequirements(m_swerve);
+    addRequirements(m_swerve);
   }
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {    
+  public void initialize() {
     m_pid.setIntegratorRange(Config.kMinI, Config.kMaxI);
-    System.out.println("Running vision snap");
-    m_initAngle = SmartDashboard.getNumber("angle", 0);
-    System.out.println("first angle: " + m_initAngle);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
-  public void execute() {
-    m_currentAngle = SmartDashboard.getNumber("angle", 0);
-    // m_turningSpeed = m_pid.calculate(m_currentAngle, m_currentAngle + m_targetAngle);
-    m_turningSpeed = m_pid.calculate(m_currentAngle, 0);
+  public void execute() {    
+    m_currentAngle = m_swerve.getAngle().getDegrees();
+    // System.out.println("Current angle:" + m_currentAngle);
 
-    SmartDashboard.putNumber("Turning speed", m_turningSpeed);
+    if (Math.abs(m_currentAngle)>= 0.5){
+      m_turningSpeed = m_pid.calculate(m_currentAngle, 0);
+    
+      SmartDashboard.putNumber("Turning speed", m_turningSpeed);
+      System.out.println("Turning speed:" + m_turningSpeed);
 
-    // Construct chassis speed objects.
-    ChassisSpeeds chassisSpeeds = ChassisSpeeds.fromFieldRelativeSpeeds(0, 0, m_turningSpeed, m_swerve.getAngle());
+      // Construct chassis speed objects.
+      ChassisSpeeds chassisSpeeds = ChassisSpeeds.fromFieldRelativeSpeeds(0, 0, m_turningSpeed, m_swerve.getAngle());
+      
+      // Calculate module states.
+      SwerveModuleState[] moduleStates = DriveConstants.kDriveKinematics.toSwerveModuleStates(chassisSpeeds);
 
-    // Calculate module states.
-    SwerveModuleState[] moduleStates = DriveConstants.kDriveKinematics.toSwerveModuleStates(chassisSpeeds);
-
-    // Set module states.
-    m_swerve.setModuleStates(moduleStates);
+      // Set module states.
+      m_swerve.setModuleStates(moduleStates);
+    }
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    System.out.println("Stop");
     m_swerve.stop();
   }
 
