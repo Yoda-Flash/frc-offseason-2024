@@ -14,10 +14,13 @@ import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants.DriveConstants;
-import frc.robot.commands.AutoStraighten;
-import frc.robot.commands.JoystickDrive;
-import frc.robot.commands.SnapToAngle;
-import frc.robot.subsystems.SwerveDrive;
+import frc.robot.commands.FFTune;
+// import frc.robot.commands.AutoStraighten;
+// import frc.robot.commands.JoystickDrive;
+// import frc.robot.commands.SnapToAngle;
+import frc.robot.commands.TrapezoidProfileTest;
+import frc.robot.subsystems.Motor;
+// import frc.robot.subsystems.SwerveDrive;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -30,34 +33,39 @@ public class RobotContainer {
   private static final class Config{
     public static final int kSnapButtonID = 1;
     public static final int kStraightenButtonID = 2;
+    public static final int kTrapezoidButtonID = 3;
   }
   
   // The robot's subsystems and commands are defined here...
-  private final SwerveDrive m_swerve = new SwerveDrive();
+  // private final SwerveDrive m_swerve = new SwerveDrive();
 
   private final Joystick m_driverJoystick = new Joystick(DriveConstants.kDriveJoystickId);
 
-  private final JoystickDrive m_drive = new JoystickDrive(m_swerve, 
-    () -> -m_driverJoystick.getRawAxis(DriveConstants.kJoystickXAxis),
-    () -> -m_driverJoystick.getRawAxis(DriveConstants.kJoystickYxis),
-    () -> -m_driverJoystick.getRawAxis(DriveConstants.kJoystickRotAxis)
-  );
+  // private final JoystickDrive m_drive = new JoystickDrive(m_swerve, 
+  //   () -> -m_driverJoystick.getRawAxis(DriveConstants.kJoystickXAxis),
+  //   () -> -m_driverJoystick.getRawAxis(DriveConstants.kJoystickYxis),
+  //   () -> -m_driverJoystick.getRawAxis(DriveConstants.kJoystickRotAxis)
+  // );
 
-  private SnapToAngle m_snap = new SnapToAngle(m_swerve);
-  private AutoStraighten m_straighten = new AutoStraighten(m_swerve);
+  private Motor m_motor = new Motor();
+  private TrapezoidProfileTest m_trapezoid = new TrapezoidProfileTest(m_motor);
+
+  // private SnapToAngle m_snap = new SnapToAngle(m_swerve);
+  // private AutoStraighten m_straighten = new AutoStraighten(m_swerve);
 
   private JoystickButton m_snapButton = new JoystickButton(m_driverJoystick, Config.kSnapButtonID); 
   private JoystickButton m_straightenButton = new JoystickButton(m_driverJoystick, Config.kStraightenButtonID);
+  private JoystickButton m_trapezoidButton = new JoystickButton(m_driverJoystick, Config.kTrapezoidButtonID);
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {    
-    m_swerve.setDefaultCommand(m_drive);
+    // m_swerve.setDefaultCommand(m_drive);
 
     // Configure the trigger bindings
 
     configureBindings();
-    SmartDashboard.putData("Swerve/Odo/Reset_Odo", new InstantCommand(() -> m_swerve.resetOdoToPose()));
-    SmartDashboard.putData("Swerve/Odo/Reset_Heading", new InstantCommand(() -> m_swerve.resetHeading()));
+    // SmartDashboard.putData("Swerve/Odo/Reset_Odo", new InstantCommand(() -> m_swerve.resetOdoToPose()));
+    // SmartDashboard.putData("Swerve/Odo/Reset_Heading", new InstantCommand(() -> m_swerve.resetHeading()));
   }
 
   /**
@@ -70,8 +78,9 @@ public class RobotContainer {
    * joysticks}.
    */
   private void configureBindings() {
-    m_snapButton.onTrue(m_snap);
-    m_straightenButton.whileTrue(m_straighten);
+    // m_snapButton.onTrue(m_snap);
+    // m_straightenButton.whileTrue(m_straighten);
+    m_trapezoidButton.onTrue(m_trapezoid);
   }
 
   /**
@@ -80,10 +89,11 @@ public class RobotContainer {
    * @return the command to run in autonomous
    */
   public Command getAutonomousCommand() {
-    return new PathPlannerAuto("TestAuto");
+    // return new PathPlannerAuto("TestAuto");
+    return new FFTune(m_motor);
   }
 
-  public Command getInitCommand(){
-    return m_swerve.resetHeadingCommand();
-  }
+  // public Command getInitCommand(){
+  //   return m_swerve.resetHeadingCommand();
+  // }
 }
