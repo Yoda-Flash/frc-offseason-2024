@@ -22,7 +22,7 @@ public final class Constants {
     public static final double kDriveEncoderVelocityToMetersPerSec = kDriveEncoderPositionToMeters / 60.0;
     public static final double kTurnEncoderPositionToRadians = 2.0 * Math.PI;
     public static final double kTranslationalDeadbandMetersPerSecond = 0.001;
-    public static final double kMaxTranslationalMetersPerSecond = Units.feetToMeters(14.5);
+    public static final double  kMaxTranslationalMetersPerSecond = Units.feetToMeters(14.5);
     // public static final double kMaxTranslationalMetersPerSecond = Units.feetToMeters(4.5);
 
     
@@ -66,7 +66,7 @@ public final class Constants {
     // public static double kTeleopMaxAccelMetersPerSecondSquared = 0.5;
     public static double kTeleopMaxAngularAccelRadiansPerSecondSquared = 4;
     // public static double kTeleopMaxAngularAccelRadiansPerSecondSquared = 0.5;
-    public static double kTeleopMaxSpeedMetersPerSecond = kMaxTranslationalMetersPerSecond;
+    public static double kTeleopMaxSpeedMetersPerSecond = kMaxTranslationalMetersPerSecond/4.0;
     // public static double kTeleopMaxTurningRadiansPerSecond = 4.0 * Math.PI;
     public static double kTeleopMaxTurningRadiansPerSecond = 1.5   * Math.PI;
     public static int kDriveJoystickId = 0;
