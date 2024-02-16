@@ -97,14 +97,14 @@ def gen():
 				#distance from tag
 				#fov = math.atan(6.5/12)*(1/2) 
 				fov = 110 #fov for innomakerov9281
-				# apriltag_width=6.5 #inches
-				# focal_length= (0.25)/(2*math.tan(fov/2))
-				# per_width= math.sqrt((int(ptB[1])- int(ptA[1]))**2 + (int(ptB[0])- int(ptA[0]))**2)
+				apriltag_width=6.5 #inches
+				focal_length= (0.25)/(2*math.tan(fov/2))
+				per_width= math.sqrt((int(ptB[1])- int(ptA[1]))**2 + (int(ptB[0])- int(ptA[0]))**2)
 				
-				# distance = apriltag_width * focal_length/per_width
-				# distance = str(distance)
-				# cv2.putText(frame, "Distance: "+ distance, (100,100),
-				# cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 0), 2)
+				distance = apriltag_width * focal_length/per_width
+				distance = str(distance)
+				cv2.putText(frame, "Distance: "+ distance, (100,100),
+				cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 0), 2)
 				
 				#angle = math.atan(cX-(624/2)/focal_length)*(1/2)
 				#angle/fov = cX/640
