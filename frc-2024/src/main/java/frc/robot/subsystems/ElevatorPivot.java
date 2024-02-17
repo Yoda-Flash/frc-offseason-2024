@@ -6,6 +6,8 @@ package frc.robot.subsystems;
 
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkLowLevel.MotorType;
+
+import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
@@ -15,6 +17,9 @@ public class ElevatorPivot extends SubsystemBase {
   private CANSparkMax m_neo2 = new CANSparkMax(Constants.ElevatorPivot.kMotorID2, MotorType.kBrushless);
   private CANSparkMax m_neo3 = new CANSparkMax(Constants.ElevatorPivot.kMotorID3, MotorType.kBrushless);
   private CANSparkMax m_neo4 = new CANSparkMax(Constants.ElevatorPivot.kMotorID4, MotorType.kBrushless);
+  private Encoder m_encoder = new Encoder(0,1);
+
+
   /** Creates a new ElevatorPivot. */
   public ElevatorPivot() {
     m_neo3.follow(m_neo1);
@@ -37,5 +42,6 @@ public class ElevatorPivot extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
+    m_encoder.getDistance();
   }
 }
