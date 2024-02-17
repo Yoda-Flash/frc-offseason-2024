@@ -17,7 +17,10 @@ import edu.wpi.first.math.util.Units;
  * constants are needed, to reduce verbosity.
  */
 public final class Constants {
-<<<<<<< HEAD
+  
+  public static final double kNeoTicksPerRevolution = 42;
+  public static final double kFalconTicksPerRevolution = 2048;
+
   public static class DriveConstants {
     public static final double kDriveEncoderPositionToMeters = (1.0 / 6.75) * Units.inchesToMeters(4.0 * Math.PI); 
     public static final double kDriveEncoderVelocityToMetersPerSec = kDriveEncoderPositionToMeters / 60.0;
@@ -90,13 +93,10 @@ public final class Constants {
     public static double kP_Theta = 0.75;
     public static double kI_Theta = 0;
     public static double kD_Theta = 0;
-  public static class ElevatorPivot {
-    public static final int kDriverControllerPort = 0;
-=======
-  public static final double kNeoTicksPerRevolution = 42;
-  public static final double kFalconTicksPerRevolution = 2048;
-  public final static class ElevatorPivot {
->>>>>>> ff3eb30 (Added wrist subsystem and command)
+
+  }
+
+  public final static class PivotConstants {
     public static final int kMotorID1 = 1;
     public static final int kMotorID2 = 2;
     public static final int kMotorID3 = 3;
@@ -107,7 +107,8 @@ public final class Constants {
     public static final double kD = 0;
     public static final double kDeadBand = 0.05;
   }
-  public final static class Wrist {
+
+  public final static class WristConstants {
     public static final int kMotorID = 5;
     public static final double kGearRatio = 51.9273;
     public static final double kP = 0.5;
@@ -115,13 +116,13 @@ public final class Constants {
     public static final double kD = 0;
     public static final double kDeadBand = 0.05;
   }
-  public static final class Elevator{
+
+  public static final class ElevatorConstants{
     public static final int kMotorID1 = 6;
     public static final int kMotorID2= 7;
-    public static final double RotationsPerInch = 0.000000001;
+    public static final double RotationsPerInch = 0.00000001;
     public static final double kP = 0.5;
     public static final double kI = 0;
     public static final double kD = 0;
   }
-}
 }

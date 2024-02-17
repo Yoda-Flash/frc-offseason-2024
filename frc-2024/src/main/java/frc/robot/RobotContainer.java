@@ -13,11 +13,15 @@ import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
+<<<<<<< Updated upstream
 import frc.robot.Constants.DriveConstants;
 import frc.robot.commands.AutoStraighten;
 import frc.robot.commands.JoystickDrive;
 import frc.robot.commands.SnapToAngle;
 import frc.robot.subsystems.SwerveDrive;
+=======
+import frc.robot.subsystems.ElevatorPivot;
+>>>>>>> Stashed changes
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -53,6 +57,8 @@ public class RobotContainer {
   private JoystickButton m_snapButton = new JoystickButton(m_driverJoystick, Config.kSnapButtonID); 
   private JoystickButton m_straightenButton = new JoystickButton(m_driverJoystick, Config.kStraightenButtonID);
   // The robot's subsystems and commands are defined here...
+
+  private ElevatorPivot m_pivot = new ElevatorPivot();
   
 
   // Replace with CommandPS4Controller or CommandJoystick if needed

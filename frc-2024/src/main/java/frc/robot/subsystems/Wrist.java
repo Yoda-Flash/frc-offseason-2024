@@ -5,14 +5,14 @@
 package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.Constants;
+import frc.robot.Constants.WristConstants;
 
 import com.ctre.phoenix6.hardware.TalonFX;
 
 
 public class Wrist extends SubsystemBase {
 
-  private TalonFX m_falcon = new TalonFX(Constants.Wrist.kMotorID);
+  private TalonFX m_falcon = new TalonFX(WristConstants.kMotorID);
 
   public Wrist() {
     m_falcon.setPosition(0);
