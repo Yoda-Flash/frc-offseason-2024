@@ -4,9 +4,9 @@
 
 package frc.robot;
 
-import com.pathplanner.lib.commands.PathPlannerAuto;
-
+import frc.robot.Subsystems.LimitSwitch;
 import edu.wpi.first.wpilibj.Joystick;
+import com.pathplanner.lib.commands.PathPlannerAuto;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
@@ -33,6 +33,10 @@ public class RobotContainer {
   }
   
   // The robot's subsystems and commands are defined here...
+  private static final class Config{ // all need to be changed
+
+  }
+  private LimitSwitch m_limitSwitch = new LimitSwitch(12);
   private final SwerveDrive m_swerve = new SwerveDrive();
 
   private final Joystick m_driverJoystick = new Joystick(DriveConstants.kDriveJoystickId);
@@ -48,6 +52,7 @@ public class RobotContainer {
 
   private JoystickButton m_snapButton = new JoystickButton(m_driverJoystick, Config.kSnapButtonID); 
   private JoystickButton m_straightenButton = new JoystickButton(m_driverJoystick, Config.kStraightenButtonID);
+
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {    
@@ -85,5 +90,8 @@ public class RobotContainer {
 
   public Command getInitCommand(){
     return m_swerve.resetHeadingCommand();
+  }
+  public Command getTeleopCommand() {
+    return null;
   }
 }
