@@ -6,17 +6,18 @@ package frc.robot.commands;
 
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj2.command.Command;
+import frc.robot.Constants.WristConstants;
 import frc.robot.Constants;
 import frc.robot.subsystems.Wrist;
 
 public class RotateWrist extends Command {
   private double m_endPosition;
   private Wrist m_wrist;
-  private PIDController m_PID = new PIDController(Constants.Wrist.kP, Constants.Wrist.kI, Constants.Wrist.kD);
+  private PIDController m_PID = new PIDController(WristConstants.kP, WristConstants.kI, WristConstants.kD);
   /** Creates a new RotatePivot. */
   public RotateWrist(double angle, Wrist wrist) {
     m_wrist = new Wrist();
-    m_endPosition = angle*Constants.kFalconTicksPerRevolution*Constants.Wrist.kGearRatio/360;
+    m_endPosition = angle*Constants.kFalconTicksPerRevolution*WristConstants.kGearRatio/360;
   }
   // Called when the command is initially scheduled.
   @Override
@@ -37,6 +38,6 @@ public class RotateWrist extends Command {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return (Math.abs(m_wrist.getEncoderPosition() - m_endPosition) < Constants.Wrist.kDeadBand);
+    return (Math.abs(m_wrist.getEncoderPosition() - m_endPosition) < WristConstants.kDeadBand);
   }
 }

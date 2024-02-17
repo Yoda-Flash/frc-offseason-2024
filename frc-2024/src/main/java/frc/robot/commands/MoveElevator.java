@@ -7,17 +7,18 @@ package frc.robot.commands;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.Elevator;
+import frc.robot.Constants.ElevatorConstants;
 import frc.robot.Constants;
 
 public class MoveElevator extends Command {
 
   private double m_endPosition;
   private Elevator m_elevator;
-  private PIDController m_PID = new PIDController(Constants.Elevator.kP, Constants.Elevator.kI, Constants.Elevator.kD);
+  private PIDController m_PID = new PIDController(ElevatorConstants.kP, ElevatorConstants.kI, ElevatorConstants.kD);
   /** Creates a new MoveElevator. */
   public MoveElevator(double degrees, Elevator elevator) {
     m_elevator = elevator;
-    m_endPosition = degrees*Constants.Elevator.RotationsPerInch*Constants.kNeoTicksPerRevolution;
+    m_endPosition = degrees*ElevatorConstants.RotationsPerInch*Constants.kNeoTicksPerRevolution;
   }
 
   // Called when the command is initially scheduled.
