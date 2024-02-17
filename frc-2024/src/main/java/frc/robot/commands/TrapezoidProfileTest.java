@@ -17,9 +17,9 @@ import static edu.wpi.first.math.trajectory.TrapezoidProfile.State;
 public class TrapezoidProfileTest extends Command {
 
   private Motor m_motor;
-  private TrapezoidProfile m_profile = new TrapezoidProfile(new TrapezoidProfile.Constraints(4000, 500));
+  private TrapezoidProfile m_profile = new TrapezoidProfile(new TrapezoidProfile.Constraints(5000, 1000));
   private PIDController m_pid = new PIDController(0, 0, 0);
-  private SimpleMotorFeedforward m_ff = new SimpleMotorFeedforward(0, 0.000173267300556);
+  private SimpleMotorFeedforward m_ff = new SimpleMotorFeedforward(0, 473);
   private Timer m_timer = new Timer();
   private State m_setpoint = new State();
 
@@ -32,17 +32,18 @@ public class TrapezoidProfileTest extends Command {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    System.out.println("I'm running!");
+    // System.out.println("I'm running!");
     m_timer.restart();
     m_motor.setRotations(0);
-    m_setpoint = new State();
+    // System.out.println("Init rotations:" + m_motor.getRotations());
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_setpoint = m_profile.calculate(0.02, new State(m_motor.getRotations(), m_motor.getVelocity()), 
-      new State(1000, 0.0));
+    State m_current = new State(m_motor.getRotations(), m_motor.getVelocity());
+    State m_goal = new State(1000, 0.0);
+    var m_setpoint = m_profile.calculate(m_timer.get()/60, m_current, m_goal);
     // m_motor.setSpeed(m_pid.calculate(m_motor.getRotations(), m_setpoint.position));
     double speed = m_ff.calculate(m_setpoint.velocity);
     m_motor.setSpeed(speed);
@@ -63,8 +64,7 @@ public class TrapezoidProfileTest extends Command {
 
   // Returns true when the command should end.
   @Override
-  public boolean isFinished() {
-    
-    return m_timer.get() > 5.0;
+  public boolean isFinished() {    
+    return m_motor.getRotations()>=1000;
   }
 }
