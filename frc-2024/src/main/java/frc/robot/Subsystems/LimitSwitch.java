@@ -16,13 +16,13 @@ public class LimitSwitch extends SubsystemBase {
     m_limitSwitch = new DigitalInput(slotDIO);
   }
 
-  public boolean limitSwitchTriggered() {
+  public boolean ifTriggered() {
     return m_limitSwitch.get();
   }
 
   @Override
   public void periodic() {
-    SmartDashboard.putBoolean("current digital input: ", limitSwitchTriggered());
+    SmartDashboard.putBoolean("current digital input: ", ifTriggered());
     // This method will be called once per scheduler run
   }
 }
