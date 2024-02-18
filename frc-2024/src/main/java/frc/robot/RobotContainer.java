@@ -4,7 +4,7 @@
 
 package frc.robot;
 
-import frc.robot.Subsystems.LimitSwitch;
+import frc.robot.subsystems.LimitSwitch;
 import edu.wpi.first.wpilibj.Joystick;
 import com.pathplanner.lib.commands.PathPlannerAuto;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -13,15 +13,14 @@ import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
-<<<<<<< Updated upstream
 import frc.robot.Constants.DriveConstants;
-import frc.robot.commands.AutoStraighten;
-import frc.robot.commands.JoystickDrive;
-import frc.robot.commands.SnapToAngle;
+import frc.robot.commands.pivot.ArcadePivot;
+import frc.robot.commands.pivot.TestPivot;
+import frc.robot.commands.swerve.AutoStraighten;
+import frc.robot.commands.swerve.JoystickDrive;
+import frc.robot.commands.swerve.SnapToAngle;
 import frc.robot.subsystems.SwerveDrive;
-=======
-import frc.robot.subsystems.ElevatorPivot;
->>>>>>> Stashed changes
+import frc.robot.subsystems.Pivot;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -37,42 +36,41 @@ public class RobotContainer {
   }
   
   // The robot's subsystems and commands are defined here...
-  private static final class Config{ // all need to be changed
-
-  }
-  private LimitSwitch m_limitSwitch = new LimitSwitch(12);
-  private final SwerveDrive m_swerve = new SwerveDrive();
+  private LimitSwitch m_switch1 = new LimitSwitch(9);
+  private LimitSwitch m_switch2 = new LimitSwitch(8);
+  // private final SwerveDrive m_swerve = new SwerveDrive();
 
   private final Joystick m_driverJoystick = new Joystick(DriveConstants.kDriveJoystickId);
 
-  private final JoystickDrive m_drive = new JoystickDrive(m_swerve, 
-    () -> -m_driverJoystick.getRawAxis(DriveConstants.kJoystickXAxis),
-    () -> -m_driverJoystick.getRawAxis(DriveConstants.kJoystickYxis),
-    () -> -m_driverJoystick.getRawAxis(DriveConstants.kJoystickRotAxis)
-  );
+  // private final JoystickDrive m_drive = new JoystickDrive(m_swerve, 
+  //   () -> -m_driverJoystick.getRawAxis(DriveConstants.kJoystickXAxis),
+  //   () -> -m_driverJoystick.getRawAxis(DriveConstants.kJoystickYxis),
+  //   () -> -m_driverJoystick.getRawAxis(DriveConstants.kJoystickRotAxis)
+  // );
 
-  private SnapToAngle m_snap = new SnapToAngle(m_swerve);
-  private AutoStraighten m_straighten = new AutoStraighten(m_swerve);
+  // private SnapToAngle m_snap = new SnapToAngle(m_swerve);
+  // private AutoStraighten m_straighten = new AutoStraighten(m_swerve);
 
-  private JoystickButton m_snapButton = new JoystickButton(m_driverJoystick, Config.kSnapButtonID); 
-  private JoystickButton m_straightenButton = new JoystickButton(m_driverJoystick, Config.kStraightenButtonID);
+  // private JoystickButton m_snapButton = new JoystickButton(m_driverJoystick, Config.kSnapButtonID); 
+  // private JoystickButton m_straightenButton = new JoystickButton(m_driverJoystick, Config.kStraightenButtonID);
   // The robot's subsystems and commands are defined here...
 
-  private ElevatorPivot m_pivot = new ElevatorPivot();
-  
+  private Pivot m_pivot = new Pivot();
+  // private TestPivot m_testPivot = new TestPivot(m_pivot, m_driverJoystick, m_switch1, m_switch2);
+  private ArcadePivot m_arcadePivot = new ArcadePivot(m_pivot, m_driverJoystick, m_switch1, m_switch2);
 
   // Replace with CommandPS4Controller or CommandJoystick if needed
 
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {    
-    m_swerve.setDefaultCommand(m_drive);
+    // m_swerve.setDefaultCommand(m_drive);
 
     // Configure the trigger bindings
 
     configureBindings();
-    SmartDashboard.putData("Swerve/Odo/Reset_Odo", new InstantCommand(() -> m_swerve.resetOdoToPose()));
-    SmartDashboard.putData("Swerve/Odo/Reset_Heading", new InstantCommand(() -> m_swerve.resetHeading()));
+    // SmartDashboard.putData("Swerve/Odo/Reset_Odo", new InstantCommand(() -> m_swerve.resetOdoToPose()));
+    // SmartDashboard.putData("Swerve/Odo/Reset_Heading", new InstantCommand(() -> m_swerve.resetHeading()));
   }
 
   /**
@@ -85,8 +83,8 @@ public class RobotContainer {
    * joysticks}.
    */
   private void configureBindings() {
-    m_snapButton.onTrue(m_snap);
-    m_straightenButton.whileTrue(m_straighten);
+    // m_snapButton.onTrue(m_snap);
+    // m_straightenButton.whileTrue(m_straighten);
   }
 
   /**
@@ -98,10 +96,11 @@ public class RobotContainer {
     return new PathPlannerAuto("TestAuto");
   }
 
-  public Command getInitCommand(){
-    return m_swerve.resetHeadingCommand();
-  }
+  // public Command getInitCommand(){
+  //   return m_swerve.resetHeadingCommand();
+  // }
   public Command getTeleopCommand() {
-    return null;
+    // m_arcadePivot.schedule();
+    return m_arcadePivot;
   }
 }

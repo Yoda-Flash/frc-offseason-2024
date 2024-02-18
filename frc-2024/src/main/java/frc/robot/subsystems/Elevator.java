@@ -29,6 +29,13 @@ public class Elevator extends SubsystemBase {
     m_neo2.set(speed);
   }
 
+  public void setLeftSpeed(double speed){
+    m_neo1.set(speed);
+  }
+
+  public void setRightSpeed(double speed){
+    m_neo2.set(speed);
+  }
 
   @Override
   public void periodic() {
