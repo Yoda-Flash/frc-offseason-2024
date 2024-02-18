@@ -17,6 +17,7 @@ import edu.wpi.first.math.util.Units;
  * constants are needed, to reduce verbosity.
  */
 public final class Constants {
+<<<<<<< HEAD
   
   public static final double kNeoTicksPerRevolution = 42;
   public static final double kFalconTicksPerRevolution = 2048;
@@ -97,6 +98,11 @@ public final class Constants {
   }
 
   public final static class PivotConstants {
+=======
+  public static final double kNeoTicksPerRevolution = 42;
+  public static final double kFalconTicksPerRevolution = 2048;
+  public final static class ElevatorPivot {
+>>>>>>> 7a7e5e42076b87f0295d22789f45dab15f3c4564
     public static final int kMotorID1 = 1;
     public static final int kMotorID2 = 2;
     public static final int kMotorID3 = 3;
@@ -107,8 +113,12 @@ public final class Constants {
     public static final double kD = 0;
     public static final double kDeadBand = 0.05;
   }
+<<<<<<< HEAD
 
   public final static class WristConstants {
+=======
+  public final static class Wrist {
+>>>>>>> 7a7e5e42076b87f0295d22789f45dab15f3c4564
     public static final int kMotorID = 5;
     public static final double kGearRatio = 51.9273;
     public static final double kP = 0.5;
@@ -116,11 +126,18 @@ public final class Constants {
     public static final double kD = 0;
     public static final double kDeadBand = 0.05;
   }
+<<<<<<< HEAD
 
   public static final class ElevatorConstants{
     public static final int kMotorID1 = 6;
     public static final int kMotorID2= 7;
     public static final double RotationsPerInch = 0.00000001;
+=======
+  public static final class Elevator{
+    public static final int kMotorID1 = 6;
+    public static final int kMotorID2= 7;
+    public static final double RotationsPerInch = 0.000000001;
+>>>>>>> 7a7e5e42076b87f0295d22789f45dab15f3c4564
     public static final double kP = 0.5;
     public static final double kI = 0;
     public static final double kD = 0;
