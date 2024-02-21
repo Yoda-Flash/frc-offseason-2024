@@ -37,15 +37,7 @@ public class Elevator extends SubsystemBase {
 
   public void setSpeed(double speed){
     m_neo1.set(speed);
-    m_neo2.set(speed);
-  }
-
-  public void setLeftSpeed(double speed){
-    m_neo1.set(speed);
-  }
-
-  public void setRightSpeed(double speed){
-    m_neo2.set(speed);
+    // m_neo2.set(speed);
   }
 <<<<<<< HEAD
 =======
