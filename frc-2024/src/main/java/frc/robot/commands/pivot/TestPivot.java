@@ -40,7 +40,7 @@ public class TestPivot extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_pivot.setLeftSpeed(m_joystick.getRawAxis(Config.kAxis)*Config.kMultiplier);
+    // m_pivot.setLeftSpeed(m_joystick.getRawAxis(Config.kAxis)*Config.kMultiplier);
   }
 
   // Called once the command ends or is interrupted.
@@ -52,7 +52,7 @@ public class TestPivot extends Command {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    if (m_switch1.ifTriggered() || m_switch2.ifTriggered()){
+    if (!m_switch1.ifTriggered() || !m_switch2.ifTriggered()){
       return true;
     } else {
       return false;

@@ -4,13 +4,8 @@
 
 package frc.robot;
 
-<<<<<<< HEAD
-import frc.robot.subsystems.LimitSwitch;
 import edu.wpi.first.wpilibj.Joystick;
-import com.pathplanner.lib.commands.PathPlannerAuto;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-=======
->>>>>>> 7a7e5e42076b87f0295d22789f45dab15f3c4564
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
@@ -23,6 +18,7 @@ import frc.robot.commands.swerve.AutoStraighten;
 import frc.robot.commands.swerve.JoystickDrive;
 import frc.robot.commands.swerve.SnapToAngle;
 import frc.robot.subsystems.SwerveDrive;
+import frc.robot.subsystems.LimitSwitch;
 import frc.robot.subsystems.Pivot;
 
 /**
@@ -39,9 +35,6 @@ public class RobotContainer {
   }
   
   // The robot's subsystems and commands are defined here...
-<<<<<<< HEAD
-  private LimitSwitch m_switch1 = new LimitSwitch(9);
-  private LimitSwitch m_switch2 = new LimitSwitch(8);
   // private final SwerveDrive m_swerve = new SwerveDrive();
 
   private final Joystick m_driverJoystick = new Joystick(DriveConstants.kDriveJoystickId);
@@ -61,15 +54,10 @@ public class RobotContainer {
 
   private Pivot m_pivot = new Pivot();
   // private TestPivot m_testPivot = new TestPivot(m_pivot, m_driverJoystick, m_switch1, m_switch2);
-  private ArcadePivot m_arcadePivot = new ArcadePivot(m_pivot, m_driverJoystick, m_switch1, m_switch2);
+  private ArcadePivot m_arcadePivot = new ArcadePivot(m_pivot, m_driverJoystick);
 
   // Replace with CommandPS4Controller or CommandJoystick if needed
 
-=======
-  
-
-  // Replace with CommandPS4Controller or CommandJoystick if needed
->>>>>>> 7a7e5e42076b87f0295d22789f45dab15f3c4564
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {    
@@ -92,16 +80,8 @@ public class RobotContainer {
    * joysticks}.
    */
   private void configureBindings() {
-<<<<<<< HEAD
     // m_snapButton.onTrue(m_snap);
     // m_straightenButton.whileTrue(m_straighten);
-=======
-    // Schedule `ExampleCommand` when `exampleCondition` changes to `true`
-
-
-    // Schedule `exampleMethodCommand` when the Xbox controller's B button is pressed,
-    // cancelling on release.
->>>>>>> 7a7e5e42076b87f0295d22789f45dab15f3c4564
   }
 
   /**
@@ -110,19 +90,12 @@ public class RobotContainer {
    * @return the command to run in autonomous
    */
   public Command getAutonomousCommand() {
-<<<<<<< HEAD
-    return new PathPlannerAuto("TestAuto");
-  }
-
-  // public Command getInitCommand(){
-  //   return m_swerve.resetHeadingCommand();
-  // }
-  public Command getTeleopCommand() {
-    // m_arcadePivot.schedule();
-    return m_arcadePivot;
-=======
     // An example command will be run in autonomous
     return null;
->>>>>>> 7a7e5e42076b87f0295d22789f45dab15f3c4564
+  }
+
+  public Command getTeleopCommand(){
+    // m_arcadePivot.schedule();
+    return m_arcadePivot;
   }
 }

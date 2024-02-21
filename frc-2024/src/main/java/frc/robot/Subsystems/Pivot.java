@@ -16,43 +16,51 @@ import frc.robot.Constants.PivotConstants;
 
 public class Pivot extends SubsystemBase {
 
-  private TalonFX m_neo1 = new TalonFX(PivotConstants.kMotorID1);
-  private TalonFX m_neo2 = new TalonFX(PivotConstants.kMotorID2);
-  private TalonFX m_neo3 = new TalonFX(PivotConstants.kMotorID3);
-  private TalonFX m_neo4 = new TalonFX(PivotConstants.kMotorID4);
+  private TalonFX m_falcon1 = new TalonFX(PivotConstants.kMotorID1);
+  private TalonFX m_falcon2 = new TalonFX(PivotConstants.kMotorID2);
+  private TalonFX m_falcon3 = new TalonFX(PivotConstants.kMotorID3);
+  private TalonFX m_falcon4 = new TalonFX(PivotConstants.kMotorID4);
   private DutyCycleEncoder m_encoder = new DutyCycleEncoder(0);
+
+  private LimitSwitch m_forward = new LimitSwitch(9);
+  private LimitSwitch m_backward = new LimitSwitch(8);
 
 
   /** Creates a new ElevatorPivot. */
   public Pivot() {
-  //   m_neo2.follow(m_neo1);
-  //   m_neo4.follow(m_neo3);
-    m_neo1.setInverted(true);
-    m_neo2.setInverted(true);
+  //   m_falcon2.follow(m_falcon1);
+  //   m_falcon4.follow(m_falcon3);
+    m_falcon1.setInverted(true);
+    m_falcon2.setInverted(true);
 
-    // m_neo1.getEncoder().setPosition(0);
+    // m_falcon1.getEncoder().setPosition(0);
   }
 
   // public double getEncoderPosition(){
-  //   return m_neo1.getEncoder().getPosition();
+  //   return m_falcon1.getEncoder().getPosition();
   // }
 
   public void setSpeed(double speed){
-    m_neo1.set(speed);
-    m_neo3.set(speed);
+    m_falcon1.set(speed);
+    m_falcon2.set(speed);
+    m_falcon3.set(speed);
+    m_falcon4.set(speed);
   }
 
-  public void setLeftSpeed(double speed){
-    m_neo3.set(speed);
+  public Boolean ifForwardTriggered(){
+    return m_forward.ifTriggered();
   }
 
-  public void setRightSpeed(double speed){
-    m_neo1.set(speed);
+  public Boolean ifBackwardTriggered(){
+    return m_backward.ifTriggered();
   }
 
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
-    SmartDashboard.putNumber("Absolute Distance", m_encoder.getAbsolutePosition()*360);
+    SmartDashboard.putNumber("Absolute Distance", m_encoder.getAbsolutePosition()*360.0);
+    
+    SmartDashboard.putBoolean("Forward switch: ", m_forward.ifTriggered());
+    SmartDashboard.putBoolean("Backward switch: ", m_backward.ifTriggered());
   }
 }

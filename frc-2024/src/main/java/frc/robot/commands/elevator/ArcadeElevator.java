@@ -11,7 +11,7 @@ import frc.robot.subsystems.Elevator;
 public class ArcadeElevator extends Command {
  private static final class Config{
     public static final int kAxis = 1;
-    public static final double kMultiplier = 0.8;
+    public static final double kMultiplier = 0.1;
   }
 
   private Elevator m_elevator;
@@ -35,6 +35,7 @@ public class ArcadeElevator extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+    System.out.println(m_joystick.getRawAxis(Config.kAxis)*Config.kMultiplier);
     m_elevator.setSpeed(m_joystick.getRawAxis(Config.kAxis)*Config.kMultiplier);
   }
 

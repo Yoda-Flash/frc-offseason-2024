@@ -13,16 +13,15 @@ public class ArcadePivot extends Command {
 
     private static final class Config{
     public static final int kAxis = 1;
-    public static final double kMultiplier = 0.1;
+    public static final double kMultiplier = 0.5;
   }
 
   private Pivot m_pivot;
   private Joystick m_joystick;
-  private LimitSwitch m_switch1;
-  private LimitSwitch m_switch2;
+  private double m_joystickInput;
 
   /** Creates a new ArcadePivot. */
-  public ArcadePivot(Pivot pivot, Joystick joystick, LimitSwitch switch1, LimitSwitch switch2) {
+  public ArcadePivot(Pivot pivot, Joystick joystick) {
     m_pivot = pivot;
     m_joystick = joystick;
     // Use addRequirements() here to declare subsystem dependencies.
@@ -39,8 +38,16 @@ public class ArcadePivot extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    System.out.println("I'm executing");
-    m_pivot.setSpeed(m_joystick.getRawAxis(Config.kAxis)*Config.kMultiplier);
+    m_joystickInput = m_joystick.getRawAxis(Config.kAxis)*Config.kMultiplier;
+    if (!m_pivot.ifForwardTriggered() && m_joystickInput > 0){
+      m_pivot.setSpeed(0);
+      System.out.println("Forward pressed, moving forward, setting speed to 0");
+    } else if (!m_pivot.ifBackwardTriggered() && m_joystickInput < 0){
+      m_pivot.setSpeed(0);
+      System.out.println("Backwards pressed, moving backward, setting speed to 0");
+    } else {
+      m_pivot.setSpeed(m_joystickInput);
+    }
   }
 
   // Called once the command ends or is interrupted.

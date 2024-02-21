@@ -12,11 +12,11 @@ public class RotatePivot extends Command {
 
   private double m_endPosition;
   private ElevatorPivot m_elevatorPivot;
-  private PIDController m_PID = new PIDController(Constants.ElevatorPivot.kP, Constants.ElevatorPivot.kI, Constants.ElevatorPivot.kD);
+  private PIDController m_PID = new PIDController(Constants.PivotConstants.kP, Constants.PivotConstants.kI, Constants.PivotConstants.kD);
   /** Creates a new RotatePivot. */
   public RotatePivot(double angle, ElevatorPivot elevatorPivot) {
     m_elevatorPivot = elevatorPivot;
-    m_endPosition = (angle - 90)*Constants.kNeoTicksPerRevolution*Constants.ElevatorPivot.kGearRatio/360;
+    m_endPosition = (angle - 90)*Constants.kNeoTicksPerRevolution*Constants.PivotConstants.kGearRatio/360;
   }
   // Called when the command is initially scheduled.
   @Override
@@ -37,6 +37,6 @@ public class RotatePivot extends Command {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return (Math.abs(m_elevatorPivot.getEncoderPosition() - m_endPosition) < Constants.ElevatorPivot.kDeadBand);
+    return (Math.abs(m_elevatorPivot.getEncoderPosition() - m_endPosition) < Constants.PivotConstants.kDeadBand);
   }
 }

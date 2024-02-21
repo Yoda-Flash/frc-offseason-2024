@@ -8,7 +8,7 @@ import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
-public class LimitSwitch extends SubsystemBase {
+public class LimitSwitch {
 
   private DigitalInput m_limitSwitch;
 
@@ -18,11 +18,5 @@ public class LimitSwitch extends SubsystemBase {
 
   public boolean ifTriggered() {
     return m_limitSwitch.get();
-  }
-
-  @Override
-  public void periodic() {
-    SmartDashboard.putBoolean("current digital input: ", ifTriggered());
-    // This method will be called once per scheduler run
   }
 }
