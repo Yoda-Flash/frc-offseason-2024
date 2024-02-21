@@ -6,6 +6,7 @@ package frc.robot;
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 import frc.robot.subsystems.LimitSwitch;
 import edu.wpi.first.wpilibj.Joystick;
@@ -16,6 +17,10 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 =======
 >>>>>>> cf483b6 (Made all the commands/subsystems for the elevator pivot)
+=======
+import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+>>>>>>> 3d2e4b4 (Got pivot working with arcade)
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
@@ -35,6 +40,7 @@ import frc.robot.commands.swerve.JoystickDrive;
 import frc.robot.commands.swerve.SnapToAngle;
 >>>>>>> 89f08a7 (Tested pivot, need to update Falcons to v6)
 import frc.robot.subsystems.SwerveDrive;
+import frc.robot.subsystems.LimitSwitch;
 import frc.robot.subsystems.Pivot;
 
 /**
@@ -55,9 +61,6 @@ public class RobotContainer {
   private final SwerveDrive m_swerve = new SwerveDrive();
 =======
   // The robot's subsystems and commands are defined here...
-<<<<<<< HEAD
-  private LimitSwitch m_switch1 = new LimitSwitch(9);
-  private LimitSwitch m_switch2 = new LimitSwitch(8);
   // private final SwerveDrive m_swerve = new SwerveDrive();
 >>>>>>> 89f08a7 (Tested pivot, need to update Falcons to v6)
 
@@ -78,15 +81,18 @@ public class RobotContainer {
 
   private Pivot m_pivot = new Pivot();
   // private TestPivot m_testPivot = new TestPivot(m_pivot, m_driverJoystick, m_switch1, m_switch2);
-  private ArcadePivot m_arcadePivot = new ArcadePivot(m_pivot, m_driverJoystick, m_switch1, m_switch2);
+  private ArcadePivot m_arcadePivot = new ArcadePivot(m_pivot, m_driverJoystick);
 
   // Replace with CommandPS4Controller or CommandJoystick if needed
 
+<<<<<<< HEAD
 =======
   
 
   // Replace with CommandPS4Controller or CommandJoystick if needed
 >>>>>>> cf483b6 (Made all the commands/subsystems for the elevator pivot)
+=======
+>>>>>>> 3d2e4b4 (Got pivot working with arcade)
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {    
@@ -109,9 +115,9 @@ public class RobotContainer {
    * joysticks}.
    */
   private void configureBindings() {
-<<<<<<< HEAD
     // m_snapButton.onTrue(m_snap);
     // m_straightenButton.whileTrue(m_straighten);
+<<<<<<< HEAD
 =======
     // Schedule `ExampleCommand` when `exampleCondition` changes to `true`
 
@@ -119,6 +125,8 @@ public class RobotContainer {
     // Schedule `exampleMethodCommand` when the Xbox controller's B button is pressed,
     // cancelling on release.
 >>>>>>> cf483b6 (Made all the commands/subsystems for the elevator pivot)
+=======
+>>>>>>> 3d2e4b4 (Got pivot working with arcade)
   }
 
   /**
@@ -127,19 +135,16 @@ public class RobotContainer {
    * @return the command to run in autonomous
    */
   public Command getAutonomousCommand() {
-<<<<<<< HEAD
-    return new PathPlannerAuto("TestAuto");
-  }
-
-  // public Command getInitCommand(){
-  //   return m_swerve.resetHeadingCommand();
-  // }
-  public Command getTeleopCommand() {
-    // m_arcadePivot.schedule();
-    return m_arcadePivot;
-=======
     // An example command will be run in autonomous
     return null;
+<<<<<<< HEAD
 >>>>>>> cf483b6 (Made all the commands/subsystems for the elevator pivot)
+=======
+  }
+
+  public Command getTeleopCommand(){
+    // m_arcadePivot.schedule();
+    return m_arcadePivot;
+>>>>>>> 3d2e4b4 (Got pivot working with arcade)
   }
 }

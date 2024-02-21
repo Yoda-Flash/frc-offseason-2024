@@ -19,6 +19,9 @@ import edu.wpi.first.math.util.Units;
 public final class Constants {
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 3d2e4b4 (Got pivot working with arcade)
   
   public static final double kNeoTicksPerRevolution = 42;
   public static final double kFalconTicksPerRevolution = 2048;
@@ -127,6 +130,7 @@ public final class Constants {
     public static final int kMotorID1 = 6;
     public static final int kMotorID2= 7;
     public static final double RotationsPerInch = 0.00000001;
+<<<<<<< HEAD
     public static final double kP = 0.5;
     public static final double kI = 0;
     public static final double kD = 0;
@@ -161,6 +165,8 @@ public final class Constants {
     public static final int kMotorID1 = 6;
     public static final int kMotorID2= 7;
     public static final double RotationsPerInch = 0.000000001;
+=======
+>>>>>>> 3d2e4b4 (Got pivot working with arcade)
     public static final double kP = 0.5;
     public static final double kI = 0;
     public static final double kD = 0;

@@ -4,23 +4,28 @@
 
 package frc.robot.subsystems;
 
+import edu.wpi.first.wpilibj.motorcontrol.Talon;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-<<<<<<< HEAD
 import frc.robot.Constants.WristConstants;
+<<<<<<< HEAD
 =======
 import frc.robot.Constants;
 >>>>>>> ff3eb30 (Added wrist subsystem and command)
 
+=======
+>>>>>>> 3d2e4b4 (Got pivot working with arcade)
 import com.ctre.phoenix6.hardware.TalonFX;
 
 
 public class Wrist extends SubsystemBase {
 
-<<<<<<< HEAD
   private TalonFX m_falcon = new TalonFX(WristConstants.kMotorID);
+<<<<<<< HEAD
 =======
   private TalonFX m_falcon = new TalonFX(Constants.Wrist.kMotorID);
 >>>>>>> ff3eb30 (Added wrist subsystem and command)
+=======
+>>>>>>> 3d2e4b4 (Got pivot working with arcade)
 
   public Wrist() {
     m_falcon.setPosition(0);
