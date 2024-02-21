@@ -68,14 +68,14 @@ while True:
 			#fov = math.atan(6.5/12)*(1/2) 
 			fov = 110 #fov for innomakerov9281
 			#FOV = 2 arctan x/2f
-			apriltag_width=6.5 #inches
-			focal_length= 2 * math.tan(fov/2)/(0.25)
-			# focal_length=0.11
-			per_width = int(ptB[0])- int(ptA[0])
-			#per_width= math.sqrt((int(ptB[1])- int(ptA[1]))**2 + (int(ptB[0])- int(ptA[0]))**2)
+			# apriltag_width=6.5 #inches
+			# focal_length= 2 * math.tan(fov/2)/(0.25)
+			# # focal_length=0.11
+			# per_width = int(ptB[0])- int(ptA[0])
+			# #per_width= math.sqrt((int(ptB[1])- int(ptA[1]))**2 + (int(ptB[0])- int(ptA[0]))**2)
 			
-			distance = apriltag_width * focal_length/per_width
-			print(distance)
+			# distance = apriltag_width * focal_length/per_width
+			# print(distance)
 			# distance = str(distance)
 			# cv2.putText(frame, "Distance: "+ distance, (100,100),
 			# cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 0), 2)
@@ -90,9 +90,24 @@ while True:
 			sd = NetworkTables.getTable("SmartDashboard")
 			sd.putNumber("angle", angle)
 			a_value = sd.getNumber('robotTime',0)
-			print(angle)
-			#april tag id
-			print(r.tag_id) 
+			print("Angle: {}".format(angle))
+			print("Tag_ID: {}".format(r.tag_id)) 
+
+			v_fov = 89.331
+			v_angle = v_fov*cY/1280
+			v_angle = v_angle-(1/2)*v_fov
+			opp=2 #random 
+			hyp=2 #random 
+			camera_angle =2*math.atan(opp/hyp)
+			distance = 48.03/math.tan(v_angle + camera_angle)
+			if r.tag_id==3 and r.tag_id==4 and r.tag_id==7 and r.tag_id==8 and r.tag_id==1 and r.tag_id==2 and r.tag_id==9 and r.tag_id==10:
+			 	distance = 48.03/math.tan(v_angle + camera_angle)
+			elif r.tag_id==5 and r.tag_id==6:
+				distance = 59.97/math.tan(v_angle + camera_angle)
+			elif r.tag_id==11 and r.tag_id==12 and r.tag_id==13 and r.tag_id==14 and r.tag_id==15 and r.tag_id==16:
+				distance = 47.63/math.tan(v_angle + camera_angle)
+
+			print("Distance: {}".format(distance))
 		# show the output image after AprilTag detection
 		# ret, buffer = cv2.imencode('.jpg', frame)
 		# frame = buffer.tobytes()
