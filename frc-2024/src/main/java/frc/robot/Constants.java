@@ -76,6 +76,7 @@ public final class Constants {
     public static double kTeleopMaxAngularAccelRadiansPerSecondSquared = 3;
     // public static double kTeleopMaxAngularAccelRadiansPerSecondSquared = 0.5;
     // public static double kTeleopMaxSpeedMetersPerSecond = kMaxTranslationalMetersPerSecond * 0.8;
+    // public static double kTeleopMaxSpeedMetersPerSecond = kMaxTranslationalMetersPerSecond/4.0;
     public static double kTeleopMaxSpeedMetersPerSecond = kMaxTranslationalMetersPerSecond;
     // public static double kTeleopMaxTurningRadiansPerSecond = 4.0 * Math.PI;
     public static double kTeleopMaxTurningRadiansPerSecond = 1.5 * Math.PI;
