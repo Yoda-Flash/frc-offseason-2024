@@ -4,9 +4,9 @@
 
 package frc.robot;
 
-import frc.robot.Subsystems.LimitSwitch;
-import edu.wpi.first.wpilibj.Joystick;
 import com.pathplanner.lib.commands.PathPlannerAuto;
+
+import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
@@ -17,6 +17,7 @@ import frc.robot.Constants.DriveConstants;
 import frc.robot.commands.AutoStraighten;
 import frc.robot.commands.JoystickDrive;
 import frc.robot.commands.SnapToAngle;
+import frc.robot.subsystems.LimitSwitch;
 import frc.robot.subsystems.SwerveDrive;
 
 /**
@@ -32,10 +33,6 @@ public class RobotContainer {
     public static final int kStraightenButtonID = 2;
   }
   
-  // The robot's subsystems and commands are defined here...
-  private static final class Config{ // all need to be changed
-
-  }
   private LimitSwitch m_limitSwitch = new LimitSwitch(12);
   private final SwerveDrive m_swerve = new SwerveDrive();
 
