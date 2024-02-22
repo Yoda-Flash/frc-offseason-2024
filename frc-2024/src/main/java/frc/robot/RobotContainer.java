@@ -28,18 +28,22 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants.DriveConstants;
 <<<<<<< HEAD
+<<<<<<< HEAD
 import frc.robot.commands.AutoStraighten;
 import frc.robot.commands.JoystickDrive;
 import frc.robot.commands.SnapToAngle;
 import frc.robot.subsystems.LimitSwitch;
 =======
+=======
+import frc.robot.commands.elevator.ArcadeElevator;
+>>>>>>> 86a8a89 (Tested pivot, can test elevator)
 import frc.robot.commands.pivot.ArcadePivot;
-import frc.robot.commands.pivot.TestPivot;
 import frc.robot.commands.swerve.AutoStraighten;
 import frc.robot.commands.swerve.JoystickDrive;
 import frc.robot.commands.swerve.SnapToAngle;
 >>>>>>> 89f08a7 (Tested pivot, need to update Falcons to v6)
 import frc.robot.subsystems.SwerveDrive;
+import frc.robot.subsystems.Elevator;
 import frc.robot.subsystems.LimitSwitch;
 import frc.robot.subsystems.Pivot;
 
@@ -82,6 +86,9 @@ public class RobotContainer {
   private Pivot m_pivot = new Pivot();
   // private TestPivot m_testPivot = new TestPivot(m_pivot, m_driverJoystick, m_switch1, m_switch2);
   private ArcadePivot m_arcadePivot = new ArcadePivot(m_pivot, m_driverJoystick);
+
+  private Elevator m_elevator = new Elevator();
+  private ArcadeElevator m_arcadeElevator = new ArcadeElevator(m_elevator, m_driverJoystick);
 
   // Replace with CommandPS4Controller or CommandJoystick if needed
 
@@ -144,7 +151,12 @@ public class RobotContainer {
 
   public Command getTeleopCommand(){
     // m_arcadePivot.schedule();
+<<<<<<< HEAD
     return m_arcadePivot;
 >>>>>>> 3d2e4b4 (Got pivot working with arcade)
+=======
+    // m_elevator.setDefaultCommand(m_arcadeElevator);
+    return m_arcadeElevator;
+>>>>>>> 86a8a89 (Tested pivot, can test elevator)
   }
 }
