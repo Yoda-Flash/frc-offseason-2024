@@ -118,8 +118,8 @@ public final class Constants {
   }
 
   public static final class ElevatorConstants{
-    public static final int kMotorID1 = 6;
-    public static final int kMotorID2= 7;
+    public static final int kMotorID1 = 5;
+    public static final int kMotorID2= 1;
     public static final double RotationsPerInch = 0.00000001;
     public static final double kP = 0.5;
     public static final double kI = 0;

@@ -12,12 +12,13 @@ import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants.DriveConstants;
+import frc.robot.commands.elevator.ArcadeElevator;
 import frc.robot.commands.pivot.ArcadePivot;
-import frc.robot.commands.pivot.TestPivot;
 import frc.robot.commands.swerve.AutoStraighten;
 import frc.robot.commands.swerve.JoystickDrive;
 import frc.robot.commands.swerve.SnapToAngle;
 import frc.robot.subsystems.SwerveDrive;
+import frc.robot.subsystems.Elevator;
 import frc.robot.subsystems.LimitSwitch;
 import frc.robot.subsystems.Pivot;
 
@@ -55,6 +56,9 @@ public class RobotContainer {
   private Pivot m_pivot = new Pivot();
   // private TestPivot m_testPivot = new TestPivot(m_pivot, m_driverJoystick, m_switch1, m_switch2);
   private ArcadePivot m_arcadePivot = new ArcadePivot(m_pivot, m_driverJoystick);
+
+  private Elevator m_elevator = new Elevator();
+  private ArcadeElevator m_arcadeElevator = new ArcadeElevator(m_elevator, m_driverJoystick);
 
   // Replace with CommandPS4Controller or CommandJoystick if needed
 
@@ -96,6 +100,7 @@ public class RobotContainer {
 
   public Command getTeleopCommand(){
     // m_arcadePivot.schedule();
-    return m_arcadePivot;
+    // m_elevator.setDefaultCommand(m_arcadeElevator);
+    return m_arcadeElevator;
   }
 }

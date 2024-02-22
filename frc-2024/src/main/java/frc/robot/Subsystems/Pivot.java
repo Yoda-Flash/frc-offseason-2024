@@ -6,6 +6,7 @@ package frc.robot.subsystems;
 
 // import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 import com.ctre.phoenix6.hardware.TalonFX;
+import com.ctre.phoenix6.signals.NeutralModeValue;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkLowLevel.MotorType;
 
@@ -32,6 +33,10 @@ public class Pivot extends SubsystemBase {
   //   m_falcon4.follow(m_falcon3);
     m_falcon1.setInverted(true);
     m_falcon2.setInverted(true);
+    m_falcon1.setNeutralMode(NeutralModeValue.Brake);
+    m_falcon2.setNeutralMode(NeutralModeValue.Brake);
+    m_falcon3.setNeutralMode(NeutralModeValue.Brake);
+    m_falcon4.setNeutralMode(NeutralModeValue.Brake);
 
     // m_falcon1.getEncoder().setPosition(0);
   }

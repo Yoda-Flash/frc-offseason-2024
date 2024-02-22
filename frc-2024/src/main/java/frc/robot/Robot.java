@@ -88,9 +88,7 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopPeriodic() {
     m_teleopCommand = m_robotContainer.getTeleopCommand();
-    if (m_teleopCommand != null) {
-      m_teleopCommand.schedule();
-    }
+    m_teleopCommand.schedule();
   }
 
   @Override
