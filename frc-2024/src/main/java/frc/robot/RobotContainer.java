@@ -5,9 +5,11 @@
 package frc.robot;
 
 import frc.robot.Constants.OperatorConstants;
-import frc.robot.commands.TurnMovingOrange;
-import frc.robot.commands.TurnStillGreen;
-import frc.robot.commands.TurnStillOrange;
+import frc.robot.Commands.MovingOrange;
+import frc.robot.Commands.Purple;
+import frc.robot.Commands.TurnMovingOrange;
+import frc.robot.Commands.TurnStillGreen;
+import frc.robot.Commands.TurnStillOrange;
 import frc.robot.subsystem.LED;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -31,16 +33,20 @@ public class RobotContainer {
   }
 
   private LED m_led = new LED();
-  private Joystick m_joystick = new Joystick(Config.kJoystick);
+  //private Joystick m_joystick = new Joystick(Config.kJoystick);
 
   private TurnStillOrange m_stillOrange = new TurnStillOrange(m_led);
-  private JoystickButton m_stillOrangeButton = new JoystickButton(m_joystick, Config.kStillOrangeButtonID);
+  //private JoystickButton m_stillOrangeButton = new JoystickButton(m_joystick, Config.kStillOrangeButtonID);
+  
+  private MovingOrange m_flyingOrange = new MovingOrange(m_led);
 
   private TurnMovingOrange m_movingOrange = new TurnMovingOrange(m_led);
-  private JoystickButton m_movingOrangeButton = new JoystickButton(m_joystick, Config.kMovingOrangeButtonID);
+  //private JoystickButton m_movingOrangeButton = new JoystickButton(m_joystick, Config.kMovingOrangeButtonID);
 
   private TurnStillGreen m_stillGreen = new TurnStillGreen(m_led);
-  private JoystickButton m_stillGreenButton = new JoystickButton(m_joystick, Config.kStillGreenButtonID);
+  //private JoystickButton m_stillGreenButton = new JoystickButton(m_joystick, Config.kStillGreenButtonID);
+
+  private Purple m_purple = new Purple(m_led);
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
@@ -58,9 +64,9 @@ public class RobotContainer {
    * joysticks}.
    */
   private void configureBindings() {
-    m_stillOrangeButton.onTrue(m_stillOrange);
-    m_movingOrangeButton.onTrue(m_movingOrange);
-    m_stillGreenButton.onTrue(m_stillGreen);
+    //m_stillOrangeButton.onTrue(m_stillOrange);
+    //m_movingOrangeButton.onTrue(m_movingOrange);
+    //m_stillGreenButton.onTrue(m_stillGreen);
   }
 
   /**
@@ -70,6 +76,6 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     // An example command will be run in autonomous
-    return null;
+    return m_movingOrange;
   }
 }

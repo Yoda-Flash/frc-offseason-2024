@@ -4,20 +4,14 @@
 
 package frc.robot.Commands;
 
-import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystem.LED;
 
-public class TurnMovingOrange extends Command {
-
+public class Red extends Command {
   private LED m_led;
-  private Timer m_timer;
-
-  /** Creates a new TurnMovingOrange. */
-  public TurnMovingOrange(LED led) {
+  /** Creates a new Red. */
+  public Red(LED led) {
     m_led = led;
-    m_timer = new Timer();
-    
     // Use addRequirements() here to declare subsystem dependencies.
   }
 
@@ -25,20 +19,12 @@ public class TurnMovingOrange extends Command {
   @Override
   public void initialize() {
     m_led.initLED();
-    m_timer.start();
-    m_led.setColor(0);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if(m_timer.hasElapsed(0.5) && !m_timer.hasElapsed(1)){
-      m_led.setColor(4);
-    }
-    if(m_timer.hasElapsed(1)) {
-      m_led.setColor(0);
-      m_timer.restart();
-    }
+    m_led.setColor(2);
   }
 
   // Called once the command ends or is interrupted.

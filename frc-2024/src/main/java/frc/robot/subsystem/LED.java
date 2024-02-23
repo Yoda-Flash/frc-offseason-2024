@@ -9,6 +9,7 @@ import java.util.ArrayList;
 
 import edu.wpi.first.wpilibj.AddressableLED;
 import edu.wpi.first.wpilibj.AddressableLEDBuffer;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
@@ -29,25 +30,18 @@ public class LED extends SubsystemBase {
     purple
   }
 
-  private ArrayList<Integer> m_colorsList = new ArrayList<Integer>();
+  //private ArrayList<ArrayList<Integer>> m_colorsList = new ArrayList<ArrayList<Integer>>();
+  private int [][] m_colorList = {{255,64,0},{0,255,0},{255,0,0},{173,8,191},{0,0,0}};
 
 
   /** Creates a new LED. */
   public LED() {
     m_led.setLength(m_buffer.getLength());
-
-    m_colorsList.add(30);
-    m_colorsList.add(125);
-    m_colorsList.add(360);
-    m_colorsList.add(275);
   }
 
   public void setColor(int colorEnum){
     for (var i = 0; i < m_buffer.getLength(); i++) {
-      // m_buffer.setHSV(i, m_colorsList.get(colorEnum), 99, 99);
-      System.out.println(m_colorsList.get(colorEnum));
-      // m_buffer.setHSV(i, 30, 99, 99);
-      m_buffer.setRGB(i, 245, 245, 245);
+      m_buffer.setRGB(i, m_colorList[colorEnum][0], m_colorList[colorEnum][1], m_colorList[colorEnum][2]);
     }
     System.out.println("Run run run");
     m_led.setData(m_buffer);
@@ -60,6 +54,10 @@ public class LED extends SubsystemBase {
   public void stopLED(){
     m_led.stop();
   }
+  public void setIndividualColor(int index, int red, int green, int blue) {
+    m_buffer.setRGB(index, red, green, blue);
+    m_led.setData(m_buffer);
+  }
 
   // public InstantCommand turnOrange(){
   //   return new InstantCommand(this::setOrange, this);
@@ -68,6 +66,6 @@ public class LED extends SubsystemBase {
   @Override 
   public void periodic() {
     // This method will be called once per scheduler run
-    m_led.start();
+    //m_led.start();
   }
 }
