@@ -36,13 +36,23 @@ import frc.robot.subsystems.LimitSwitch;
 =======
 =======
 import frc.robot.commands.elevator.ArcadeElevator;
+<<<<<<< HEAD
 >>>>>>> 86a8a89 (Tested pivot, can test elevator)
+=======
+import frc.robot.commands.elevator.PIDDown;
+import frc.robot.commands.elevator.PIDUp;
+>>>>>>> bbc24cf (Tested elevator, pivot, wrist, added elevator up PID)
 import frc.robot.commands.pivot.ArcadePivot;
 import frc.robot.commands.swerve.AutoStraighten;
 import frc.robot.commands.swerve.JoystickDrive;
 import frc.robot.commands.swerve.SnapToAngle;
+<<<<<<< HEAD
 >>>>>>> 89f08a7 (Tested pivot, need to update Falcons to v6)
+=======
+import frc.robot.commands.wrist.ArcadeWrist;
+>>>>>>> bbc24cf (Tested elevator, pivot, wrist, added elevator up PID)
 import frc.robot.subsystems.SwerveDrive;
+import frc.robot.subsystems.Wrist;
 import frc.robot.subsystems.Elevator;
 import frc.robot.subsystems.LimitSwitch;
 import frc.robot.subsystems.Pivot;
@@ -89,6 +99,13 @@ public class RobotContainer {
 
   private Elevator m_elevator = new Elevator();
   private ArcadeElevator m_arcadeElevator = new ArcadeElevator(m_elevator, m_driverJoystick);
+  private PIDUp m_elevatorUp = new PIDUp(m_elevator);
+  private JoystickButton m_elevatorUpButton = new JoystickButton(m_driverJoystick, 1);
+  private PIDDown m_elevatorDown = new PIDDown(m_elevator);
+  private JoystickButton m_elevatorDownButton = new JoystickButton(m_driverJoystick, 2);
+
+  private Wrist m_wrist = new Wrist();
+  private ArcadeWrist m_arcadeWrist = new ArcadeWrist(m_wrist, m_driverJoystick);
 
   // Replace with CommandPS4Controller or CommandJoystick if needed
 
@@ -125,6 +142,7 @@ public class RobotContainer {
     // m_snapButton.onTrue(m_snap);
     // m_straightenButton.whileTrue(m_straighten);
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
     // Schedule `ExampleCommand` when `exampleCondition` changes to `true`
 
@@ -134,6 +152,11 @@ public class RobotContainer {
 >>>>>>> cf483b6 (Made all the commands/subsystems for the elevator pivot)
 =======
 >>>>>>> 3d2e4b4 (Got pivot working with arcade)
+=======
+    m_elevatorUpButton.whileTrue(m_elevatorUp);
+    m_elevatorDownButton.whileTrue(m_elevatorDown);
+
+>>>>>>> bbc24cf (Tested elevator, pivot, wrist, added elevator up PID)
   }
 
   /**
@@ -156,7 +179,11 @@ public class RobotContainer {
 >>>>>>> 3d2e4b4 (Got pivot working with arcade)
 =======
     // m_elevator.setDefaultCommand(m_arcadeElevator);
+<<<<<<< HEAD
     return m_arcadeElevator;
 >>>>>>> 86a8a89 (Tested pivot, can test elevator)
+=======
+    return m_arcadeWrist;
+>>>>>>> bbc24cf (Tested elevator, pivot, wrist, added elevator up PID)
   }
 }

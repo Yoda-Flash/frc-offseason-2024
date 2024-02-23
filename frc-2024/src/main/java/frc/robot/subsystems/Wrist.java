@@ -15,6 +15,7 @@ import frc.robot.Constants;
 =======
 >>>>>>> 3d2e4b4 (Got pivot working with arcade)
 import com.ctre.phoenix6.hardware.TalonFX;
+import com.ctre.phoenix6.signals.NeutralModeValue;
 
 
 public class Wrist extends SubsystemBase {
@@ -29,6 +30,7 @@ public class Wrist extends SubsystemBase {
 
   public Wrist() {
     m_falcon.setPosition(0);
+    m_falcon.setNeutralMode(NeutralModeValue.Brake);
   }
 
   public double getEncoderPosition(){

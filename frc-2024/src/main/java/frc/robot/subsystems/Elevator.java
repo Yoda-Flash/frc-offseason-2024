@@ -5,7 +5,11 @@
 package frc.robot.subsystems;
 
 import com.revrobotics.CANSparkMax;
+import com.revrobotics.CANSparkBase.IdleMode;
 import com.revrobotics.CANSparkLowLevel.MotorType;
+
+import edu.wpi.first.wpilibj.DutyCycleEncoder;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.ElevatorConstants;
 
@@ -13,6 +17,7 @@ public class Elevator extends SubsystemBase {
 
   private CANSparkMax m_neo1 = new CANSparkMax(ElevatorConstants.kMotorID1, MotorType.kBrushless);
   private CANSparkMax m_neo2 = new CANSparkMax(ElevatorConstants.kMotorID2, MotorType.kBrushless);
+<<<<<<< HEAD
 <<<<<<< HEAD
 =======
 import frc.robot.Constants;
@@ -24,20 +29,43 @@ public class Elevator extends SubsystemBase {
 >>>>>>> 31fa534 (Created Elevator subsytem and command)
 =======
 >>>>>>> 3d2e4b4 (Got pivot working with arcade)
+=======
+  private DutyCycleEncoder m_encoder = new DutyCycleEncoder(0);
+
+  private LimitSwitch m_top = new LimitSwitch(1);
+  private LimitSwitch m_bottom = new LimitSwitch(8);
+>>>>>>> bbc24cf (Tested elevator, pivot, wrist, added elevator up PID)
 
   /** Creates a new Elevator. */
   public Elevator() {
-    m_neo2.setInverted(true);
     m_neo1.getEncoder().setPosition(0);
+    m_neo1.setIdleMode(IdleMode.kBrake);
+    m_neo2.setIdleMode(IdleMode.kBrake);
   }
 
   public double getEncoderPosition(){
-    return m_neo1.getEncoder().getPosition();
+    // return m_neo1.getEncoder().getPosition();
+    return m_encoder.get();
+  }
+
+  public Boolean ifTopTriggered(){
+    return m_top.ifTriggered();
+  }
+
+  public Boolean ifBottomTriggered(){
+    return m_bottom.ifTriggered();
   }
 
   public void setSpeed(double speed){
-    m_neo1.set(speed);
-    // m_neo2.set(speed);
+    if (!ifTopTriggered() && speed<0) {
+      speed = 0;
+    } else if (!ifBottomTriggered() && speed>0){
+      speed = 0;
+    }
+    System.out.println(-speed);
+    m_neo1.set(-speed);
+    m_neo2.set(-speed);
+
   }
 <<<<<<< HEAD
 =======
@@ -45,8 +73,22 @@ public class Elevator extends SubsystemBase {
 =======
 >>>>>>> 3d2e4b4 (Got pivot working with arcade)
 
+  public double getLeftSpeed(){
+    return m_neo1.getEncoder().getVelocity();
+  }
+
+  public double getRightSpeed(){
+    return m_neo2.getEncoder().getVelocity();
+  }
+
+
+
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
+    SmartDashboard.putNumber("Elevator encoder", getEncoderPosition());
+
+    SmartDashboard.putBoolean("Top switch", m_top.ifTriggered());
+    SmartDashboard.putBoolean("Bottom switch", m_bottom.ifTriggered());
   }
 }
