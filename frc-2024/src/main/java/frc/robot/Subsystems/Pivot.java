@@ -21,10 +21,10 @@ public class Pivot extends SubsystemBase {
   private TalonFX m_falcon2 = new TalonFX(PivotConstants.kMotorID2);
   private TalonFX m_falcon3 = new TalonFX(PivotConstants.kMotorID3);
   private TalonFX m_falcon4 = new TalonFX(PivotConstants.kMotorID4);
-  private DutyCycleEncoder m_encoder = new DutyCycleEncoder(0);
+  private DutyCycleEncoder m_encoder = new DutyCycleEncoder(2);
 
   private LimitSwitch m_forward = new LimitSwitch(9);
-  private LimitSwitch m_backward = new LimitSwitch(8);
+  private LimitSwitch m_backward = new LimitSwitch(7);
 
 
   /** Creates a new ElevatorPivot. */
@@ -63,7 +63,7 @@ public class Pivot extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
-    SmartDashboard.putNumber("Absolute Distance", m_encoder.getAbsolutePosition()*360.0);
+    SmartDashboard.putNumber("Pivot", m_encoder.getAbsolutePosition()*360.0);
     
     SmartDashboard.putBoolean("Forward switch: ", m_forward.ifTriggered());
     SmartDashboard.putBoolean("Backward switch: ", m_backward.ifTriggered());

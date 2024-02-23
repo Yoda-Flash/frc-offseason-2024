@@ -8,6 +8,7 @@ import edu.wpi.first.wpilibj.motorcontrol.Talon;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.WristConstants;
 import com.ctre.phoenix6.hardware.TalonFX;
+import com.ctre.phoenix6.signals.NeutralModeValue;
 
 
 public class Wrist extends SubsystemBase {
@@ -16,6 +17,7 @@ public class Wrist extends SubsystemBase {
 
   public Wrist() {
     m_falcon.setPosition(0);
+    m_falcon.setNeutralMode(NeutralModeValue.Brake);
   }
 
   public double getEncoderPosition(){

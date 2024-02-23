@@ -4,27 +4,20 @@
 
 package frc.robot.commands.elevator;
 
-import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.Elevator;
 
-public class ArcadeElevator extends Command {
- private static final class Config{
-    public static final int kAxis = 1;
-    public static final double kMultiplier = 0.5;
-  }
+public class PIDDown extends Command {
 
   private Elevator m_elevator;
-  private Joystick m_joystick;
-  private double m_joystickInput;
+  private PIDController m_pid = new PIDController(0.15, 0, 0);
 
-  /** Creates a new TestElevator. */
-  public ArcadeElevator(Elevator elevator, Joystick joystick) {
+  /** Creates a new PIDElevatorTest. */
+  public PIDDown(Elevator elevator) {
     m_elevator = elevator;
-    m_joystick = joystick;
     // Use addRequirements() here to declare subsystem dependencies.
-
     addRequirements(m_elevator);
   }
 
@@ -37,12 +30,16 @@ public class ArcadeElevator extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_joystickInput = m_joystick.getRawAxis(Config.kAxis)*Config.kMultiplier;
-    SmartDashboard.putNumber("Elevator input", m_joystickInput);
-    SmartDashboard.putNumber("Elevator left output", m_elevator.getLeftSpeed());
-    SmartDashboard.putNumber("Elevator right output", m_elevator.getRightSpeed());
-    m_elevator.setSpeed(m_joystickInput);
-    
+    var speed = m_pid.calculate(m_elevator.getEncoderPosition(), 0.70);
+    System.out.println("I'm running");
+
+    if (!(Math.abs(m_elevator.getEncoderPosition() - 0.70)<= 0.05)){
+    System.out.println("I'm running in if-else loop");
+    System.out.println(speed);
+    SmartDashboard.putNumber("PID value", speed);
+    m_elevator.setSpeed(speed);
+  
+    }
   }
 
   // Called once the command ends or is interrupted.
@@ -54,6 +51,6 @@ public class ArcadeElevator extends Command {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    return (Math.abs(m_elevator.getEncoderPosition() - 0.70)<= 0.05);
   }
 }

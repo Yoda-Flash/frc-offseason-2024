@@ -13,11 +13,15 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants.DriveConstants;
 import frc.robot.commands.elevator.ArcadeElevator;
+import frc.robot.commands.elevator.PIDDown;
+import frc.robot.commands.elevator.PIDUp;
 import frc.robot.commands.pivot.ArcadePivot;
 import frc.robot.commands.swerve.AutoStraighten;
 import frc.robot.commands.swerve.JoystickDrive;
 import frc.robot.commands.swerve.SnapToAngle;
+import frc.robot.commands.wrist.ArcadeWrist;
 import frc.robot.subsystems.SwerveDrive;
+import frc.robot.subsystems.Wrist;
 import frc.robot.subsystems.Elevator;
 import frc.robot.subsystems.LimitSwitch;
 import frc.robot.subsystems.Pivot;
@@ -59,6 +63,13 @@ public class RobotContainer {
 
   private Elevator m_elevator = new Elevator();
   private ArcadeElevator m_arcadeElevator = new ArcadeElevator(m_elevator, m_driverJoystick);
+  private PIDUp m_elevatorUp = new PIDUp(m_elevator);
+  private JoystickButton m_elevatorUpButton = new JoystickButton(m_driverJoystick, 1);
+  private PIDDown m_elevatorDown = new PIDDown(m_elevator);
+  private JoystickButton m_elevatorDownButton = new JoystickButton(m_driverJoystick, 2);
+
+  private Wrist m_wrist = new Wrist();
+  private ArcadeWrist m_arcadeWrist = new ArcadeWrist(m_wrist, m_driverJoystick);
 
   // Replace with CommandPS4Controller or CommandJoystick if needed
 
@@ -86,6 +97,9 @@ public class RobotContainer {
   private void configureBindings() {
     // m_snapButton.onTrue(m_snap);
     // m_straightenButton.whileTrue(m_straighten);
+    m_elevatorUpButton.whileTrue(m_elevatorUp);
+    m_elevatorDownButton.whileTrue(m_elevatorDown);
+
   }
 
   /**
@@ -101,6 +115,6 @@ public class RobotContainer {
   public Command getTeleopCommand(){
     // m_arcadePivot.schedule();
     // m_elevator.setDefaultCommand(m_arcadeElevator);
-    return m_arcadeElevator;
+    return m_arcadeWrist;
   }
 }
