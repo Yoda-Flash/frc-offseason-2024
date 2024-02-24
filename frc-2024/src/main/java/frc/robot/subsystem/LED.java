@@ -22,13 +22,18 @@ public class LED extends SubsystemBase {
 
   private AddressableLED m_led = new AddressableLED(Config.kPort);
   private AddressableLEDBuffer m_buffer = new AddressableLEDBuffer(Config.kLength);
+  private Timer m_timer = new Timer();
 
-  private enum m_ledColors {
-    orange,
-    green,
-    red,
-    purple
+  public enum LED_State {
+    ROBOT_MOVING,
+    ROBOT_STILL,
+    TRYING_PICKUP,
+    PIECE_STORED,
+    SHOOTING,
+    ALIGN,
+    RAINBOW /*If I can figure it out */
   }
+  private LED_State m_state;
 
   //private ArrayList<ArrayList<Integer>> m_colorsList = new ArrayList<ArrayList<Integer>>();
   private int [][] m_colorList = {{255,64,0},{0,255,0},{255,0,0},{173,8,191},{0,0,0}};
@@ -58,14 +63,61 @@ public class LED extends SubsystemBase {
     m_buffer.setRGB(index, red, green, blue);
     m_led.setData(m_buffer);
   }
+  public void setState(LED_State newState) {
+    m_state = newState;
+  }
 
-  // public InstantCommand turnOrange(){
-  //   return new InstantCommand(this::setOrange, this);
-  // }
+  public void blinkingOrange() {
+    setColor(0);
+    m_timer.restart();
+    if(m_timer.hasElapsed(0.5) && !m_timer.hasElapsed(1)){
+      setColor(4);
+    }
+    if(m_timer.hasElapsed(1)) {
+      setColor(0);
+    }
+  }
+
+  public void movingOrange() {
+    setColor(0);
+    m_timer.restart();
+    for(var i = 0; i < m_buffer.getLength(); i++){
+      if(m_timer.hasElapsed(((0.0 + i)/10)) && !m_timer.hasElapsed(((1.0 + i)/10))){
+        setIndividualColor(i, 0, 0, 0);
+      }
+      if(m_timer.hasElapsed(((1.0 + i)/10))){
+        setIndividualColor(i, 255, 64, 0);
+      }
+    }
+  }
 
   @Override 
   public void periodic() {
+    //not sure if this works yet.
+    m_led.start();
     // This method will be called once per scheduler run
-    //m_led.start();
+    switch(m_state) {
+      case ROBOT_MOVING:
+        break;
+      case ROBOT_STILL:
+        setColor(2);
+        break;
+      case TRYING_PICKUP:
+        blinkingOrange();
+        break;
+      case PIECE_STORED:
+        setColor(0);
+        break;
+      case SHOOTING:
+        movingOrange();
+        break;
+      case ALIGN:
+        setColor(3);
+        break;
+      case RAINBOW:
+        break;
+      default:
+        setColor(1);
+    }
   }
 }

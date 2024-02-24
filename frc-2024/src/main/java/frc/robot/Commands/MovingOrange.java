@@ -31,7 +31,7 @@ public class MovingOrange extends Command {
   public void execute() {
     for(var i = 0; i < 30; i++){
       if(m_timer.hasElapsed(((0.0 + i)/10)) && !m_timer.hasElapsed(((1.0 + i)/10))){
-        m_led.setIndividualColor(i, 255, 10, 0);
+        m_led.setIndividualColor(i, 0, 0, 0);
       }
       if(m_timer.hasElapsed(((1.0 + i)/10))){
         m_led.setIndividualColor(i, 255, 64, 0);

@@ -5,10 +5,12 @@
 package frc.robot;
 
 import frc.robot.Constants.OperatorConstants;
+import frc.robot.Commands.BlinkingOrange;
+import frc.robot.Commands.Green;
 import frc.robot.Commands.MovingOrange;
 import frc.robot.Commands.Purple;
-import frc.robot.Commands.TurnMovingOrange;
-import frc.robot.Commands.TurnStillGreen;
+import frc.robot.Commands.BlinkingOrange;
+import frc.robot.Commands.Green;
 import frc.robot.Commands.TurnStillOrange;
 import frc.robot.subsystem.LED;
 import edu.wpi.first.wpilibj.Joystick;
@@ -27,24 +29,24 @@ public class RobotContainer {
 
   private static final class Config{
     public static final int kJoystick = 0;
-    public static final int kStillOrangeButtonID = 1;
-    public static final int kMovingOrangeButtonID = 2;
-    public static final int kStillGreenButtonID = 3;
+    public static final int korangeButtonID = 1;
+    public static final int kBlinkingOrangeButtonID = 2;
+    public static final int kGreenButtonID = 3;
   }
 
   private LED m_led = new LED();
   //private Joystick m_joystick = new Joystick(Config.kJoystick);
 
-  private TurnStillOrange m_stillOrange = new TurnStillOrange(m_led);
-  //private JoystickButton m_stillOrangeButton = new JoystickButton(m_joystick, Config.kStillOrangeButtonID);
+  private TurnStillOrange m_orange = new TurnStillOrange(m_led);
+  //private JoystickButton m_orangeButton = new JoystickButton(m_joystick, Config.korangeButtonID);
   
-  private MovingOrange m_flyingOrange = new MovingOrange(m_led);
+  private MovingOrange m_movingOrange = new MovingOrange(m_led);
 
-  private TurnMovingOrange m_movingOrange = new TurnMovingOrange(m_led);
-  //private JoystickButton m_movingOrangeButton = new JoystickButton(m_joystick, Config.kMovingOrangeButtonID);
+  private BlinkingOrange m_blinkingOrange = new BlinkingOrange(m_led);
+  //private JoystickButton m_blinkingOrangeButton = new JoystickButton(m_joystick, Config.kBlinkingOrangeButtonID);
 
-  private TurnStillGreen m_stillGreen = new TurnStillGreen(m_led);
-  //private JoystickButton m_stillGreenButton = new JoystickButton(m_joystick, Config.kStillGreenButtonID);
+  private Green m_green = new Green(m_led);
+  //private JoystickButton m_greenButton = new JoystickButton(m_joystick, Config.kGreenButtonID);
 
   private Purple m_purple = new Purple(m_led);
 
@@ -64,9 +66,9 @@ public class RobotContainer {
    * joysticks}.
    */
   private void configureBindings() {
-    //m_stillOrangeButton.onTrue(m_stillOrange);
-    //m_movingOrangeButton.onTrue(m_movingOrange);
-    //m_stillGreenButton.onTrue(m_stillGreen);
+    //m_orangeButton.onTrue(m_orange);
+    //m_blinkingOrangeButton.onTrue(m_blinkingOrange);
+    //m_greenButton.onTrue(m_green);
   }
 
   /**
@@ -76,6 +78,6 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     // An example command will be run in autonomous
-    return m_movingOrange;
+    return m_blinkingOrange;
   }
 }

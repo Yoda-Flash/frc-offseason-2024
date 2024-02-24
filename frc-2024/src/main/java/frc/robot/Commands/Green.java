@@ -7,12 +7,11 @@ package frc.robot.Commands;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystem.LED;
 
-public class TurnStillGreen extends Command {
+public class Green extends Command {
 
   private LED m_led;
 
-  /** Creates a new TurnStillGreen. */
-  public TurnStillGreen(LED led) {
+  public Green(LED led) {
     m_led = led;
     // Use addRequirements() here to declare subsystem dependencies.
   }

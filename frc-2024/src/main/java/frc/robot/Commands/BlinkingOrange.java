@@ -8,13 +8,11 @@ import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystem.LED;
 
-public class TurnMovingOrange extends Command {
+public class BlinkingOrange extends Command {
 
   private LED m_led;
   private Timer m_timer;
-
-  /** Creates a new TurnMovingOrange. */
-  public TurnMovingOrange(LED led) {
+  public BlinkingOrange(LED led) {
     m_led = led;
     m_timer = new Timer();
     
