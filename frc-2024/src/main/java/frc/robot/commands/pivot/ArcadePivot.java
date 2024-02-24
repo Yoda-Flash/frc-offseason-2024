@@ -39,15 +39,15 @@ public class ArcadePivot extends Command {
   @Override
   public void execute() {
     m_joystickInput = m_joystick.getRawAxis(Config.kAxis)*Config.kMultiplier;
-    if (!m_pivot.ifForwardTriggered() && m_joystickInput > 0){
-      m_pivot.setSpeed(0);
-      System.out.println("Forward pressed, moving forward, setting speed to 0");
-    } else if (!m_pivot.ifBackwardTriggered() && m_joystickInput < 0){
-      m_pivot.setSpeed(0);
-      System.out.println("Backwards pressed, moving backward, setting speed to 0");
-    } else {
+    // if (!m_pivot.ifForwardTriggered() && m_joystickInput > 0){
+    //   m_pivot.setSpeed(0);
+    //   System.out.println("Forward pressed, moving forward, setting speed to 0");
+    // } else if (!m_pivot.ifBackwardTriggered() && m_joystickInput < 0){
+    //   m_pivot.setSpeed(0);
+    //   System.out.println("Backwards pressed, moving backward, setting speed to 0");
+    // } else {
       m_pivot.setSpeed(m_joystickInput);
-    }
+    // }
   }
 
   // Called once the command ends or is interrupted.

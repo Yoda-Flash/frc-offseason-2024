@@ -16,6 +16,8 @@ import frc.robot.commands.elevator.ArcadeElevator;
 import frc.robot.commands.elevator.PIDDown;
 import frc.robot.commands.elevator.PIDUp;
 import frc.robot.commands.pivot.ArcadePivot;
+import frc.robot.commands.pivot.PIDBackward;
+import frc.robot.commands.pivot.PIDForward;
 import frc.robot.commands.swerve.AutoStraighten;
 import frc.robot.commands.swerve.JoystickDrive;
 import frc.robot.commands.swerve.SnapToAngle;
@@ -37,6 +39,10 @@ public class RobotContainer {
   private static final class Config{
     public static final int kSnapButtonID = 1;
     public static final int kStraightenButtonID = 2;
+    public static final int kElevatorUpButtonID = 1;
+    public static final int kElevatorDownButtonID = 2;
+    public static final int kPivotForwardButtonID = 3;
+    public static final int kPivotBackwardButtonID = 4;
   }
   
   // The robot's subsystems and commands are defined here...
@@ -58,15 +64,18 @@ public class RobotContainer {
   // The robot's subsystems and commands are defined here...
 
   private Pivot m_pivot = new Pivot();
-  // private TestPivot m_testPivot = new TestPivot(m_pivot, m_driverJoystick, m_switch1, m_switch2);
   private ArcadePivot m_arcadePivot = new ArcadePivot(m_pivot, m_driverJoystick);
+  private PIDForward m_pivotForward = new PIDForward(m_pivot);
+  private JoystickButton m_pivotFowardButton = new JoystickButton(m_driverJoystick, Config.kPivotForwardButtonID);
+  private PIDBackward m_pivotBackward = new PIDBackward(m_pivot);
+  private JoystickButton m_pivotBackwardButton = new JoystickButton(m_driverJoystick, Config.kPivotBackwardButtonID);
 
   private Elevator m_elevator = new Elevator();
   private ArcadeElevator m_arcadeElevator = new ArcadeElevator(m_elevator, m_driverJoystick);
   private PIDUp m_elevatorUp = new PIDUp(m_elevator);
-  private JoystickButton m_elevatorUpButton = new JoystickButton(m_driverJoystick, 1);
+  private JoystickButton m_elevatorUpButton = new JoystickButton(m_driverJoystick, Config.kElevatorUpButtonID);
   private PIDDown m_elevatorDown = new PIDDown(m_elevator);
-  private JoystickButton m_elevatorDownButton = new JoystickButton(m_driverJoystick, 2);
+  private JoystickButton m_elevatorDownButton = new JoystickButton(m_driverJoystick, Config.kElevatorDownButtonID);
 
   private Wrist m_wrist = new Wrist();
   private ArcadeWrist m_arcadeWrist = new ArcadeWrist(m_wrist, m_driverJoystick);
@@ -97,8 +106,10 @@ public class RobotContainer {
   private void configureBindings() {
     // m_snapButton.onTrue(m_snap);
     // m_straightenButton.whileTrue(m_straighten);
-    m_elevatorUpButton.whileTrue(m_elevatorUp);
-    m_elevatorDownButton.whileTrue(m_elevatorDown);
+    m_elevatorUpButton.onTrue(m_elevatorUp);
+    m_elevatorDownButton.onTrue(m_elevatorDown);
+    m_pivotFowardButton.onTrue(m_pivotForward);
+    m_pivotBackwardButton.onTrue(m_pivotBackward);
 
   }
 
