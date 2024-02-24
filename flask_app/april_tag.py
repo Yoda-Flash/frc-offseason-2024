@@ -94,7 +94,7 @@ while True:
 			print("Tag_ID: {}".format(r.tag_id)) 
 
 			v_fov = 89.331
-			v_angle = v_fov*cY/1280
+			v_angle = v_fov*cY/400
 			v_angle = v_angle-(1/2)*v_fov
 			opp=2 #random 
 			hyp=2 #random 
