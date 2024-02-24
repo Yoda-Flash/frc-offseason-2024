@@ -45,13 +45,6 @@ public class Pivot extends SubsystemBase {
   //   return m_falcon1.getEncoder().getPosition();
   // }
 
-  public void setSpeed(double speed){
-    m_falcon1.set(speed);
-    m_falcon2.set(speed);
-    m_falcon3.set(speed);
-    m_falcon4.set(speed);
-  }
-
   public Boolean ifForwardTriggered(){
     return m_forward.ifTriggered();
   }
@@ -63,6 +56,19 @@ public class Pivot extends SubsystemBase {
   public double getEncoderPosition(){
     return m_encoder.getAbsolutePosition()*360.0;
   }
+
+  public void setSpeed(double speed){
+    if (!ifForwardTriggered() && speed>0) {
+      speed = 0;
+    } else if (!ifBackwardTriggered() && speed<0){
+      speed = 0;
+    }
+    m_falcon1.set(speed);
+    m_falcon2.set(speed);
+    m_falcon3.set(speed);
+    m_falcon4.set(speed);
+  }
+
 
   @Override
   public void periodic() {
