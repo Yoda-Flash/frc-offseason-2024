@@ -43,8 +43,8 @@ import frc.robot.commands.elevator.PIDDown;
 import frc.robot.commands.elevator.PIDUp;
 >>>>>>> bbc24cf (Tested elevator, pivot, wrist, added elevator up PID)
 import frc.robot.commands.pivot.ArcadePivot;
-import frc.robot.commands.pivot.PIDBackward;
-import frc.robot.commands.pivot.PIDForward;
+import frc.robot.commands.pivot.PIDBack;
+import frc.robot.commands.pivot.PIDFront;
 import frc.robot.commands.swerve.AutoStraighten;
 import frc.robot.commands.swerve.JoystickDrive;
 import frc.robot.commands.swerve.SnapToAngle;
@@ -52,7 +52,12 @@ import frc.robot.commands.swerve.SnapToAngle;
 >>>>>>> 89f08a7 (Tested pivot, need to update Falcons to v6)
 =======
 import frc.robot.commands.wrist.ArcadeWrist;
+<<<<<<< HEAD
 >>>>>>> bbc24cf (Tested elevator, pivot, wrist, added elevator up PID)
+=======
+import frc.robot.commands.wrist.PIDBackward;
+import frc.robot.commands.wrist.PIDForward;
+>>>>>>> fd0313e (Tuned pivot PID somewhat, need to debug wrist PID)
 import frc.robot.subsystems.SwerveDrive;
 import frc.robot.subsystems.Wrist;
 import frc.robot.subsystems.Elevator;
@@ -74,6 +79,8 @@ public class RobotContainer {
     public static final int kElevatorDownButtonID = 2;
     public static final int kPivotForwardButtonID = 3;
     public static final int kPivotBackwardButtonID = 4;
+    public static final int kWristForwardButtonID = 5;
+    public static final int kWristBackwardButtonID = 6;
   }
   
 <<<<<<< HEAD
@@ -101,9 +108,9 @@ public class RobotContainer {
 
   private Pivot m_pivot = new Pivot();
   private ArcadePivot m_arcadePivot = new ArcadePivot(m_pivot, m_driverJoystick);
-  private PIDForward m_pivotForward = new PIDForward(m_pivot);
+  private PIDFront m_pivotForward = new PIDFront(m_pivot);
   private JoystickButton m_pivotFowardButton = new JoystickButton(m_driverJoystick, Config.kPivotForwardButtonID);
-  private PIDBackward m_pivotBackward = new PIDBackward(m_pivot);
+  private PIDBack m_pivotBackward = new PIDBack(m_pivot);
   private JoystickButton m_pivotBackwardButton = new JoystickButton(m_driverJoystick, Config.kPivotBackwardButtonID);
 
   private Elevator m_elevator = new Elevator();
@@ -115,6 +122,11 @@ public class RobotContainer {
 
   private Wrist m_wrist = new Wrist();
   private ArcadeWrist m_arcadeWrist = new ArcadeWrist(m_wrist, m_driverJoystick);
+  private PIDForward m_wristForward = new PIDForward(m_wrist);
+  private JoystickButton m_wristForwardButton = new JoystickButton(m_driverJoystick, Config.kWristForwardButtonID);
+  private PIDBackward m_wristBackward = new PIDBackward(m_wrist);
+  private JoystickButton m_wristBackwardButton = new JoystickButton(m_driverJoystick, Config.kWristForwardButtonID);
+
 
   // Replace with CommandPS4Controller or CommandJoystick if needed
 
@@ -153,6 +165,7 @@ public class RobotContainer {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
     // Schedule `ExampleCommand` when `exampleCondition` changes to `true`
 
@@ -173,6 +186,14 @@ public class RobotContainer {
 >>>>>>> cf33461 (Cleaned up code a little, prepared PIDs for elevator and pivot)
 
 >>>>>>> bbc24cf (Tested elevator, pivot, wrist, added elevator up PID)
+=======
+    // m_elevatorUpButton.onTrue(m_elevatorUp);
+    // m_elevatorDownButton.onTrue(m_elevatorDown);
+    // m_pivotFowardButton.whileTrue(m_pivotForward);
+    // m_pivotBackwardButton.whileTrue(m_pivotBackward);
+    m_wristForwardButton.whileTrue(m_wristForward);
+    m_wristBackwardButton.whileTrue(m_wristBackward);
+>>>>>>> fd0313e (Tuned pivot PID somewhat, need to debug wrist PID)
   }
 
   /**
@@ -190,6 +211,7 @@ public class RobotContainer {
 
   public Command getTeleopCommand(){
 <<<<<<< HEAD
+<<<<<<< HEAD
     // m_arcadePivot.schedule();
 <<<<<<< HEAD
     return m_arcadePivot;
@@ -205,6 +227,10 @@ public class RobotContainer {
 =======
     m_pivot.setDefaultCommand(m_arcadePivot);
     m_elevator.setDefaultCommand(m_arcadeElevator);
+=======
+    // m_pivot.setDefaultCommand(m_arcadePivot);
+  //   m_elevator.setDefaultCommand(m_arcadeElevator);
+>>>>>>> fd0313e (Tuned pivot PID somewhat, need to debug wrist PID)
     m_wrist.setDefaultCommand(m_arcadeWrist);
     return null;
 >>>>>>> 1449110 (Cleaned up code a little, prepared PIDs for elevator and pivot)
