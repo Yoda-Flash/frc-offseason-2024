@@ -18,8 +18,8 @@ public class TrapezoidProfileTest extends Command {
 
   private Motor m_motor;
   private TrapezoidProfile m_profile = new TrapezoidProfile(new TrapezoidProfile.Constraints(5000, 1000));
-  private PIDController m_pid = new PIDController(0, 0, 0);
-  private SimpleMotorFeedforward m_ff = new SimpleMotorFeedforward(0, 473);
+  private PIDController m_pid = new PIDController(0.1, 0, 0);
+  private SimpleMotorFeedforward m_ff = new SimpleMotorFeedforward(1, 0);
   private Timer m_timer = new Timer();
   private State m_setpoint = new State();
 
@@ -46,7 +46,8 @@ public class TrapezoidProfileTest extends Command {
     var m_setpoint = m_profile.calculate(m_timer.get()/60, m_current, m_goal);
     // m_motor.setSpeed(m_pid.calculate(m_motor.getRotations(), m_setpoint.position));
     double speed = m_ff.calculate(m_setpoint.velocity);
-    m_motor.setSpeed(speed);
+    m_motor.setSpeed(-m_pid.calculate(m_motor.getRotations(), m_setpoint.position) + speed);
+    //m_motor.setSpeed(speed);
 
     SmartDashboard.putNumber("FFTest/Trapezoid", speed);
     SmartDashboard.putNumber("FFTest/RPMTrap", m_setpoint.velocity);

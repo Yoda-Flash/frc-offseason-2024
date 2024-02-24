@@ -39,7 +39,7 @@ public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   // private final SwerveDrive m_swerve = new SwerveDrive();
 
-  private final Joystick m_driverJoystick = new Joystick(DriveConstants.kDriveJoystickId);
+  //private final Joystick m_driverJoystick = new Joystick(DriveConstants.kDriveJoystickId);
 
   // private final JoystickDrive m_drive = new JoystickDrive(m_swerve, 
   //   () -> -m_driverJoystick.getRawAxis(DriveConstants.kJoystickXAxis),
@@ -53,10 +53,10 @@ public class RobotContainer {
   // private SnapToAngle m_snap = new SnapToAngle(m_swerve);
   // private AutoStraighten m_straighten = new AutoStraighten(m_swerve);
 
-  private JoystickButton m_snapButton = new JoystickButton(m_driverJoystick, Config.kSnapButtonID); 
+  /*private JoystickButton m_snapButton = new JoystickButton(m_driverJoystick, Config.kSnapButtonID); 
   private JoystickButton m_straightenButton = new JoystickButton(m_driverJoystick, Config.kStraightenButtonID);
   private JoystickButton m_trapezoidButton = new JoystickButton(m_driverJoystick, Config.kTrapezoidButtonID);
-
+  */
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {    
     // m_swerve.setDefaultCommand(m_drive);
@@ -80,7 +80,7 @@ public class RobotContainer {
   private void configureBindings() {
     // m_snapButton.onTrue(m_snap);
     // m_straightenButton.whileTrue(m_straighten);
-    m_trapezoidButton.onTrue(m_trapezoid);
+    //m_trapezoidButton.onTrue(m_trapezoid);
   }
 
   /**
@@ -90,7 +90,7 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     // return new PathPlannerAuto("TestAuto");
-    return new FFTune(m_motor);
+    return new TrapezoidProfileTest(m_motor);
   }
 
   // public Command getInitCommand(){

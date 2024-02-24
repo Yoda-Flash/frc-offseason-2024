@@ -13,7 +13,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class Motor extends SubsystemBase {
 
-  private CANSparkMax m_neo = new CANSparkMax(4, MotorType.kBrushless);
+  private CANSparkMax m_neo = new CANSparkMax(7, MotorType.kBrushless);
   private Timer m_timer = new Timer();
 
   /** Creates a new Motor. */
@@ -31,6 +31,10 @@ public class Motor extends SubsystemBase {
 
   public void setRotations(double r){
     m_neo.getEncoder().setPosition(r);
+  }
+
+  public void setVoltage(double r){
+    m_neo.setVoltage(-r);
   }
 
   public double getVelocity() {

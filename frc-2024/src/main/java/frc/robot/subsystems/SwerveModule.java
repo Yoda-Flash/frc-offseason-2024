@@ -97,13 +97,13 @@ public class SwerveModule extends SubsystemBase {
     }
 
     state = SwerveModuleState.optimize(state, getState().angle);
-    SmartDashboard.putNumber("Swerve/Commanded/Speed_" + m_moduleId, state.speedMetersPerSecond);
-    SmartDashboard.putNumber("Swerve/Commanded/Angle_" + m_moduleId, state.angle.getRadians());
+    //SmartDashboard.putNumber("Swerve/Commanded/Speed_" + m_moduleId, state.speedMetersPerSecond);
+    //SmartDashboard.putNumber("Swerve/Commanded/Angle_" + m_moduleId, state.angle.getRadians());
 
     m_driveMotor.set(state.speedMetersPerSecond / DriveConstants.kMaxTranslationalMetersPerSecond);
     m_turnMotor.set(m_turningPIDController.calculate(getRotation().getRadians(), state.angle.getRadians()));
 
-    SmartDashboard.putString("Swerve_" + m_moduleId + "_state", state.toString());
+    //SmartDashboard.putString("Swerve_" + m_moduleId + "_state", state.toString());
   }
 
   public Translation2d getTranslation(){
@@ -125,7 +125,7 @@ public class SwerveModule extends SubsystemBase {
 
   @Override
   public void periodic() {
-    SmartDashboard.putNumber("Swerve/Angle/Module_" + m_moduleId, getRotation().getRadians());
-    SmartDashboard.putNumber("Swerve/Speed/Module_" + m_moduleId, getDriveVelocity());
+    //SmartDashboard.putNumber("Swerve/Angle/Module_" + m_moduleId, getRotation().getRadians());
+    //SmartDashboard.putNumber("Swerve/Speed/Module_" + m_moduleId, getDriveVelocity());
   }
 }
