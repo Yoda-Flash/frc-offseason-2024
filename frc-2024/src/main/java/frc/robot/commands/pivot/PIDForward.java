@@ -2,64 +2,61 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
-package frc.robot.commands.elevator;
+package frc.robot.commands.pivot;
 
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.subsystems.Elevator;
+import frc.robot.subsystems.Pivot;
 
-public class PIDDown extends Command {
+public class PIDForward extends Command {
 
   private static final class Config{
-    public static final double kSetpoint = 0.70;
+    public static final double kSetpoint = 350;
     public static final double kDeadband = 0.05;
-    public static final double kP = 0.15;
+    public static final double kP = 0.05;
     public static final double kI = 0;
     public static final double kD = 0;
   }
 
-  private Elevator m_elevator;
+  private Pivot m_pivot;
   private PIDController m_pid = new PIDController(Config.kP, Config.kI, Config.kD);
   private double m_speed;
 
-  /** Creates a new PIDElevatorTest. */
-  public PIDDown(Elevator elevator) {
-    m_elevator = elevator;
+  /** Creates a new PIDForward. */
+  public PIDForward(Pivot pivot) {
+    m_pivot = pivot;
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(m_elevator);
+    addRequirements(m_pivot);
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    m_elevator.setSpeed(0);
+    m_pivot.setSpeed(0);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_speed = m_pid.calculate(m_elevator.getEncoderPosition(), Config.kSetpoint);
+    m_speed = m_pid.calculate(m_pivot.getEncoderPosition(), Config.kSetpoint);
     System.out.println("I'm running");
 
-    if (!(Math.abs(m_elevator.getEncoderPosition() - Config.kSetpoint)<= Config.kDeadband)){
-    System.out.println("I'm running in if-else loop");
-    System.out.println(m_speed);
-    SmartDashboard.putNumber("PID value", m_speed);
-    m_elevator.setSpeed(m_speed);
-  
+    if (!(Math.abs(m_pivot.getEncoderPosition() - Config.kSetpoint)<= Config.kDeadband)){
+      System.out.println("I'm running in if-else loop");
+      System.out.println(m_speed);
+      SmartDashboard.putNumber("PID value", m_speed);
+      m_pivot.setSpeed(m_speed);
     }
   }
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {
-    m_elevator.setSpeed(0);
-  }
+  public void end(boolean interrupted) {}
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return (Math.abs(m_elevator.getEncoderPosition() - Config.kSetpoint)<= Config.kDeadband);
+    return Math.abs(m_pivot.getEncoderPosition() - Config.kSetpoint)<= Config.kDeadband;
   }
 }

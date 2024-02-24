@@ -113,8 +113,9 @@ public class RobotContainer {
   }
 
   public Command getTeleopCommand(){
-    // m_arcadePivot.schedule();
-    // m_elevator.setDefaultCommand(m_arcadeElevator);
-    return m_arcadeWrist;
+    m_pivot.setDefaultCommand(m_arcadePivot);
+    m_elevator.setDefaultCommand(m_arcadeElevator);
+    m_wrist.setDefaultCommand(m_arcadeWrist);
+    return null;
   }
 }
