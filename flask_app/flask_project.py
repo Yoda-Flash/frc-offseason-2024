@@ -1,4 +1,3 @@
-# an object of WSGI application  
 from __future__ import print_function
 from webcam import WebcamVideoStream
 from fps import FPS
@@ -9,13 +8,12 @@ from flask import Flask, Response, render_template
 import apriltag 
 import math
 import threading 
-# import sys
-# import time
+import sys
+import time
 from networktables import NetworkTables
 
 # To see messages from networktables, you must setup logging
-import logging
-				
+import logging		
 
 app = Flask(__name__)   # Flask constructor
 
@@ -78,19 +76,25 @@ def gen():
 				ptC = (int(ptC[0]), int(ptC[1]))
 				ptD = (int(ptD[0]), int(ptD[1]))
 				ptA = (int(ptA[0]), int(ptA[1]))
+				# draw the bounding box of the AprilTag detection
+				# cv2.line(frame, ptA, ptB, (0, 255, 0), 2)
+
+				# cv2.line(frame, ptB, ptC, (0, 255, 0), 2)
+				# cv2.line(frame, ptC, ptD, (0, 255, 0), 2)
+				# cv2.line(frame, ptD, ptA, (0, 255, 0), 2)
 				# draw the center (x, y)-coordinates of the AprilTag
 				(cX, cY) = (int(r.center[0]), int(r.center[1]))
 				cv2.circle(frame, (cX, cY), 5, (0, 0, 255), -1)
 				# draw the tag family on the image
 				tagFamily = r.tag_family.decode("utf-8")
-				cv2.putText(frame, tagFamily, (ptA[0], ptA[1] - 15),
-				cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 0), 2)
+				# cv2.putText(frame, tagFamily, (ptA[0], ptA[1] - 15),
+				# cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 0), 2)
 
 				# print("[INFO] tag family: {}".format(tagFamily))
 				
 				#distance from tag
 				#fov = math.atan(6.5/12)*(1/2) 
-				fov = 110 #fov for innomakerov9281
+				fov = 118 #fov for innomakerov9281
 				# apriltag_width=6.5 #inches
 				# focal_length= (0.25)/(2*math.tan(fov/2))
 				# per_width= math.sqrt((int(ptB[1])- int(ptA[1]))**2 + (int(ptB[0])- int(ptA[0]))**2)
@@ -100,8 +104,9 @@ def gen():
 				# cv2.putText(frame, "Distance: "+ distance, (100,100),
 				# cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 0), 2)
 				
+				# #angle from center
 				#angle = math.atan(cX-(624/2)/focal_length)*(1/2)
-				#angle/fov = cX/640
+
 				angle=fov*cX/640
 				angle=angle-(1/2)*fov
 				angle = str(angle)
@@ -110,27 +115,40 @@ def gen():
 				sd = NetworkTables.getTable("SmartDashboard")
 				sd.putNumber("angle", angle)
 				a_value = sd.getNumber('robotTime',0)
-
-				v_angle = fov*cY/640
-				v_angle = v_angle-(1/2)*fov
-				distance = 0
-				if(r.tag_id==3 and r.tag_id==4 and r.tag_id==7 and r.tag_id==8 and r.tan_id==1 and r.tan_id==2 and r.tan_id==9 and r.tan_id==10):
+				print("Angle: {}".format(angle))
+				print("Tag_ID: {}".format(r.tag_id)) 				
+				#arcsinpercievedheight/actual height
+				#v_angle = math.asin(int(ptD[0])/48.03)
+				v_fov = 89.331
+				v_angle = v_fov*cY/400
+				print(frame.shape)
+				#v_angle = v_angle-(1/2)*v_fov
+				# opp=2 #random 
+				# hyp=2 #random 
+				# camera_angle =2*math.atan(opp/hyp)
+				distance = 48.03/math.tan(v_angle)
+				if r.tag_id==3 and r.tag_id==4 and r.tag_id==7 and r.tag_id==8 and r.tag_id==1 and r.tag_id==2 and r.tag_id==9 and r.tag_id==10:
+			 		#v_angle = math.asin(math.sqrt((int(ptB[1])- int(ptD[1]))**2 + (int(ptB[0])- int(ptD[0]))**2)/48.03)
 					distance = 48.03/math.tan(v_angle)
-				elif(r.tag_id==5 and r.tan_id==6):
+				elif r.tag_id==5 and r.tag_id==6:
+					#v_angle = math.asin(math.sqrt((int(ptB[1])- int(ptD[1]))**2 + (int(ptB[0])- int(ptD[0]))**2)/59.97)
 					distance = 59.97/math.tan(v_angle)
-				elif(r.tag_id==11 and r.tan_id==12 and r.tan_id==13 and r.tan_id==14 and r.tan_id==15 and r.tan_id==16):
+				elif r.tag_id==11 and r.tag_id==12 and r.tag_id==13 and r.tag_id==14 and r.tag_id==15 and r.tag_id==16:
+					#v_angle = math.asin(math.sqrt((int(ptB[1])- int(ptD[1]))**2 + (int(ptB[0])- int(ptD[0]))**2)/47.63)
 					distance = 47.63/math.tan(v_angle)
-				else:
-					distance = 0
-				distance = str(distance)
-				cv2.putText(frame, "Distance: "+ distance, (100,100),
+
+				print("Distance: {}".format(distance))
+				# distance = str(distance)
+				# cv2.putText(frame, "Distance: "+ distance, (100,100),
+				# cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 0), 2)
+				v_angle = str(v_angle)
+				cv2.putText(frame, "Vertical Angle: "+ v_angle, (100,100),
 				cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 0), 2)
 			# show the output image after AprilTag detection
-				ret, buffer = cv2.imencode('.jpg', frame)
-				frame = buffer.tobytes()
+			ret, buffer = cv2.imencode('.jpg', frame)
+			frame = buffer.tobytes()
 			yield (b'--frame\r\n'
-					b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')  # concat frame one by one and show result
-	
+				b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')  # concat frame one by one and show result
 # A decorator used to tell the application 
 # which URL is associated function 
 @app.route('/')       
