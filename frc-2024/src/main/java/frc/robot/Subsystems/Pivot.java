@@ -60,6 +60,10 @@ public class Pivot extends SubsystemBase {
     return m_backward.ifTriggered();
   }
 
+  public double getEncoderPosition(){
+    return m_encoder.getAbsolutePosition()*360.0;
+  }
+
   @Override
   public void periodic() {
     // This method will be called once per scheduler run

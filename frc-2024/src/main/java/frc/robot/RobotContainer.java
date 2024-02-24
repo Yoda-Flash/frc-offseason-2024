@@ -173,6 +173,7 @@ public class RobotContainer {
   }
 
   public Command getTeleopCommand(){
+<<<<<<< HEAD
     // m_arcadePivot.schedule();
 <<<<<<< HEAD
     return m_arcadePivot;
@@ -185,5 +186,11 @@ public class RobotContainer {
 =======
     return m_arcadeWrist;
 >>>>>>> bbc24cf (Tested elevator, pivot, wrist, added elevator up PID)
+=======
+    m_pivot.setDefaultCommand(m_arcadePivot);
+    m_elevator.setDefaultCommand(m_arcadeElevator);
+    m_wrist.setDefaultCommand(m_arcadeWrist);
+    return null;
+>>>>>>> 1449110 (Cleaned up code a little, prepared PIDs for elevator and pivot)
   }
 }
