@@ -115,6 +115,7 @@ public final class Constants {
     public static final double kI = 0;
     public static final double kD = 0;
     public static final double kDeadBand = 0.05;
+    public static final double kEncoderOffset = 0.886434;
   }
 
   public static final class ElevatorConstants{
