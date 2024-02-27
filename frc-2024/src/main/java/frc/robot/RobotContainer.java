@@ -12,6 +12,8 @@ import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants.DriveConstants;
+import frc.robot.commands.BackwardIntake;
+import frc.robot.commands.ForwardIntake;
 import frc.robot.commands.elevator.ArcadeElevator;
 import frc.robot.commands.elevator.PIDDown;
 import frc.robot.commands.elevator.PIDUp;
@@ -86,8 +88,10 @@ public class RobotContainer {
   private PIDForward m_wristForward = new PIDForward(m_wrist);
   private JoystickButton m_wristForwardButton = new JoystickButton(m_driverJoystick, Config.kWristForwardButtonID);
   private PIDBackward m_wristBackward = new PIDBackward(m_wrist);
-  private JoystickButton m_wristBackwardButton = new JoystickButton(m_driverJoystick, Config.kWristForwardButtonID);
+  private JoystickButton m_wristBackwardButton = new JoystickButton(m_driverJoystick, Config.kWristBackwardButtonID);
 
+  private ForwardIntake m_forwardIntake = new ForwardIntake(m_pivot, m_wrist);
+  private BackwardIntake m_backwardIntake = new BackwardIntake(m_pivot, m_wrist);
 
   // Replace with CommandPS4Controller or CommandJoystick if needed
 
@@ -117,10 +121,13 @@ public class RobotContainer {
     // m_straightenButton.whileTrue(m_straighten);
     // m_elevatorUpButton.onTrue(m_elevatorUp);
     // m_elevatorDownButton.onTrue(m_elevatorDown);
-    // m_pivotFowardButton.whileTrue(m_pivotForward);
-    // m_pivotBackwardButton.whileTrue(m_pivotBackward);
+    m_pivotFowardButton.whileTrue(m_pivotForward);
+    m_pivotBackwardButton.whileTrue(m_pivotBackward);
+
     m_wristForwardButton.whileTrue(m_wristForward);
     m_wristBackwardButton.whileTrue(m_wristBackward);
+    m_elevatorUpButton.onTrue(m_forwardIntake);
+    m_elevatorDownButton.onTrue(m_backwardIntake);
   }
 
   /**
@@ -134,9 +141,9 @@ public class RobotContainer {
   }
 
   public Command getTeleopCommand(){
-    // m_pivot.setDefaultCommand(m_arcadePivot);
-  //   m_elevator.setDefaultCommand(m_arcadeElevator);
     m_wrist.setDefaultCommand(m_arcadeWrist);
+    m_pivot.setDefaultCommand(m_arcadePivot);
+  //   m_elevator.setDefaultCommand(m_arcadeElevator);
     return null;
   }
 }

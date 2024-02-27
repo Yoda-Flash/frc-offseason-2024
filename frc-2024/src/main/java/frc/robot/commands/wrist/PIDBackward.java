@@ -12,9 +12,9 @@ import frc.robot.subsystems.Wrist;
 public class PIDBackward extends Command {
 
     private static final class Config{
-    public static final double kSetpoint = -0.005;
-    public static final double kDeadband = 0.05;
-    public static final double kP = 0.05;
+    public static final double kSetpoint = -0.010;
+    public static final double kDeadband = 0.005;
+    public static final double kP = 2.2;
     public static final double kI = 0;
     public static final double kD = 0;
   }
@@ -26,7 +26,7 @@ public class PIDBackward extends Command {
   /** Creates a new PIDForward. */
   public PIDBackward(Wrist wrist) {
     m_wrist = wrist;
-    // Use addRequirements() here to declare subsystem dependencies.
+    // Use addRequirements() here to declare subsystem dependenxcies.
     addRequirements(m_wrist);
   }
 
@@ -40,12 +40,12 @@ public class PIDBackward extends Command {
   @Override
   public void execute() {
     m_speed = m_pid.calculate(m_wrist.getEncoderPosition(), Config.kSetpoint);
-     if (!(Math.abs(m_wrist.getEncoderPosition() - Config.kSetpoint)<= Config.kDeadband)){
+    //  if (!(Math.abs(m_wrist.getEncoderPosition() - Config.kSetpoint)<= Config.kDeadband)){
       System.out.println("I'm running in if-else loop");
       System.out.println(m_speed);
       SmartDashboard.putNumber("PID value", m_speed);
-      m_wrist.setSpeed(0);
-    }
+      m_wrist.setSpeed(m_speed);
+    // }
   }
 
   // Called once the command ends or is interrupted.
