@@ -29,12 +29,17 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants.DriveConstants;
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 import frc.robot.commands.AutoStraighten;
 import frc.robot.commands.JoystickDrive;
 import frc.robot.commands.SnapToAngle;
 import frc.robot.subsystems.LimitSwitch;
 =======
 =======
+=======
+import frc.robot.commands.BackwardIntake;
+import frc.robot.commands.ForwardIntake;
+>>>>>>> 4e3b679 (Created command groups for pivot and wrist)
 import frc.robot.commands.elevator.ArcadeElevator;
 <<<<<<< HEAD
 >>>>>>> 86a8a89 (Tested pivot, can test elevator)
@@ -125,8 +130,10 @@ public class RobotContainer {
   private PIDForward m_wristForward = new PIDForward(m_wrist);
   private JoystickButton m_wristForwardButton = new JoystickButton(m_driverJoystick, Config.kWristForwardButtonID);
   private PIDBackward m_wristBackward = new PIDBackward(m_wrist);
-  private JoystickButton m_wristBackwardButton = new JoystickButton(m_driverJoystick, Config.kWristForwardButtonID);
+  private JoystickButton m_wristBackwardButton = new JoystickButton(m_driverJoystick, Config.kWristBackwardButtonID);
 
+  private ForwardIntake m_forwardIntake = new ForwardIntake(m_pivot, m_wrist);
+  private BackwardIntake m_backwardIntake = new BackwardIntake(m_pivot, m_wrist);
 
   // Replace with CommandPS4Controller or CommandJoystick if needed
 
@@ -189,11 +196,17 @@ public class RobotContainer {
 =======
     // m_elevatorUpButton.onTrue(m_elevatorUp);
     // m_elevatorDownButton.onTrue(m_elevatorDown);
-    // m_pivotFowardButton.whileTrue(m_pivotForward);
-    // m_pivotBackwardButton.whileTrue(m_pivotBackward);
+    m_pivotFowardButton.whileTrue(m_pivotForward);
+    m_pivotBackwardButton.whileTrue(m_pivotBackward);
+
     m_wristForwardButton.whileTrue(m_wristForward);
     m_wristBackwardButton.whileTrue(m_wristBackward);
+<<<<<<< HEAD
 >>>>>>> fd0313e (Tuned pivot PID somewhat, need to debug wrist PID)
+=======
+    m_elevatorUpButton.onTrue(m_forwardIntake);
+    m_elevatorDownButton.onTrue(m_backwardIntake);
+>>>>>>> 4e3b679 (Created command groups for pivot and wrist)
   }
 
   /**
@@ -210,6 +223,7 @@ public class RobotContainer {
   }
 
   public Command getTeleopCommand(){
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
     // m_arcadePivot.schedule();
@@ -231,7 +245,11 @@ public class RobotContainer {
     // m_pivot.setDefaultCommand(m_arcadePivot);
   //   m_elevator.setDefaultCommand(m_arcadeElevator);
 >>>>>>> fd0313e (Tuned pivot PID somewhat, need to debug wrist PID)
+=======
+>>>>>>> 4e3b679 (Created command groups for pivot and wrist)
     m_wrist.setDefaultCommand(m_arcadeWrist);
+    m_pivot.setDefaultCommand(m_arcadePivot);
+  //   m_elevator.setDefaultCommand(m_arcadeElevator);
     return null;
 >>>>>>> 1449110 (Cleaned up code a little, prepared PIDs for elevator and pivot)
   }

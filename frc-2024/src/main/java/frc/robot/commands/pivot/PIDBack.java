@@ -14,9 +14,9 @@ public class PIDBack extends Command {
   private static final class Config{
     public static final double kSetpoint = -0.05;
     public static final double kDeadband = 0.01;
-    public static final double kP = 0.55;
-    public static final double kI = 0;
-    public static final double kD = 0;
+    public static final double kP = 2.5;
+    public static final double kI = 0.20;
+    public static final double kD = 0.15;
   }
 
   private Pivot m_pivot;
