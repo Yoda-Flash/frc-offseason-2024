@@ -18,57 +18,61 @@ import edu.wpi.first.math.util.Units;
  */
 public final class Constants {
   public static class DriveConstants {
-    public static final double kDriveEncoderPositionToMeters = (1.0 / 6.75) * Units.inchesToMeters(4.0 * Math.PI); 
+    // public static final double kDriveEncoderPositionToMeters = (1.0 / 6.75) * Units.inchesToMeters(4.0 * Math.PI); 
+    public static final double kDriveEncoderPositionToMeters = Units.inchesToMeters(4.0 * Math.PI) / 6.75;
     public static final double kDriveEncoderVelocityToMetersPerSec = kDriveEncoderPositionToMeters / 60.0;
     public static final double kTurnEncoderPositionToRadians = 2.0 * Math.PI;
     public static final double kTranslationalDeadbandMetersPerSecond = 0.001;
-    public static final double  kMaxTranslationalMetersPerSecond = Units.feetToMeters(14.5);
+    public static final double  kMaxTranslationalMetersPerSecond = Units.feetToMeters(15.1);
     // public static final double kMaxTranslationalMetersPerSecond = Units.feetToMeters(4.5);
 
     
     public static final double kPTurning = 0.5;
     public static final double kITurning = 0.0;
     public static final double kDTurning = 0.0;
+    public static final double kPDriving = 0.3;
+    public static final double kIDriving = 0.0;
+    public static final double kDDriving = 0.0;
     public static final double kWheelBase = Units.inchesToMeters(28);
     public static final SwerveDriveKinematics kDriveKinematics = new SwerveDriveKinematics(
-      new Translation2d(kWheelBase / 2.0, kWheelBase / 2.0),
-      new Translation2d(kWheelBase / 2.0, -kWheelBase / 2.0),
-      new Translation2d(-kWheelBase / 2.0, kWheelBase / 2.0),
-      new Translation2d(-kWheelBase / 2.0, -kWheelBase / 2.0)
+      new Translation2d(0.3556 - 0.065, 0.3556 - 0.068),
+      new Translation2d(0.3556 - 0.066, -0.3556 + 0.066),
+      new Translation2d(0.3556 - 0.645, -0.3556 + 0.644),
+      new Translation2d(0.3556 - 0.644, -0.3556 + 0.063)
     );
     // TODO: gather all of these constants.
     public static int kFrontLeftDriveId = 2;
     public static int kFrontLeftTurnId = 1;
     public static int kFrontLeftAbsoluteEncoderPort = 0;
-    public static double kFrontLeftAbsoluteEncoderOffset = -2.000703539422531 ;
+    public static double kFrontLeftAbsoluteEncoderOffset = -0.529990463821544 - (Math.PI / 2.0);
     public static boolean kFrontLeftDriveReversed = false;
 
     public static int kFrontRightDriveId = 4;
     public static int kFrontRightTurnId = 3;
     public static int kFrontRightAbsoluteEncoderPort = 1;
-    public static double kFrontRightAbsoluteEncoderOffset = 3.012447823937954;
+    public static double kFrontRightAbsoluteEncoderOffset = 1.415447275814819 + (Math.PI / 2.0);
     public static boolean kFrontRightDriveReversed = true;
 
     public static int kBackLeftDriveId = 8;
     public static int kBackLeftTurnId = 7;
     public static int kBackLeftAbsoluteEncoderPort = 3;
-    public static double kBackLeftAbsoluteEncoderOffset = 2.821914151725208;
+    public static double kBackLeftAbsoluteEncoderOffset = 1.253910661599266 + (Math.PI / 2.0);
     public static boolean kBackLeftDriveReversed = false;
 
     public static int kBackRightDriveId = 6;
     public static int kBackRightTurnId = 5;
     public static int kBackRightAbsoluteEncoderPort = 2;
-    public static double kBackRightAbsoluteEncoderOffset = 4.275249192969147;
+    public static double kBackRightAbsoluteEncoderOffset = -0.456511594330128 - (Math.PI / 2.0);
     public static boolean kBackRightDriveReversed = true;
 
     public static double kDeadband = 0.05;
-    public static double kTeleopMaxAccelMetersPerSecondSquared = 3;
+    public static double kTeleopMaxAccelMetersPerSecondSquared = 2.5;
     // public static double kTeleopMaxAccelMetersPerSecondSquared = 0.5;
-    public static double kTeleopMaxAngularAccelRadiansPerSecondSquared = 4;
+    public static double kTeleopMaxAngularAccelRadiansPerSecondSquared = 3;
     // public static double kTeleopMaxAngularAccelRadiansPerSecondSquared = 0.5;
-    public static double kTeleopMaxSpeedMetersPerSecond = kMaxTranslationalMetersPerSecond/4.0;
+    public static double kTeleopMaxSpeedMetersPerSecond = kMaxTranslationalMetersPerSecond * 0.8;
     // public static double kTeleopMaxTurningRadiansPerSecond = 4.0 * Math.PI;
-    public static double kTeleopMaxTurningRadiansPerSecond = 1.5   * Math.PI;
+    public static double kTeleopMaxTurningRadiansPerSecond = 1.5 * Math.PI;
     public static int kDriveJoystickId = 0;
     public static int kJoystickXAxis = 1;
     public static int kJoystickYxis = 0;

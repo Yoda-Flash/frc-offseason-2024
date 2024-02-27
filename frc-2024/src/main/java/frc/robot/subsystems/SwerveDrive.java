@@ -130,6 +130,13 @@ public class SwerveDrive extends SubsystemBase {
     setModuleStates(states);  
   }
 
+  public void resetAllDistances() {
+    m_frontLeft.resetEncoders();
+    m_frontRight.resetEncoders();
+    m_backLeft.resetEncoders();
+    m_backRight.resetEncoders();
+  }
+
   public void printVelocitiesandPositions(){
     System.out.println("Front left Velocity: " + m_frontLeft.getDriveVelocity());
     System.out.println("Front left Position: " + m_frontLeft.getDrivePosition());
@@ -205,6 +212,8 @@ public class SwerveDrive extends SubsystemBase {
                 },
                 this // Reference to this subsystem to set requirements
      );
+
+     SmartDashboard.putData("Swerve/Distance/reset", new InstantCommand(this::resetAllDistances));
   }
 
   public void stop() {

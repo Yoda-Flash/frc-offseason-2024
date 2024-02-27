@@ -17,6 +17,7 @@ import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.DutyCycleEncoder;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.DriveConstants;
 
@@ -28,6 +29,7 @@ public class SwerveModule extends SubsystemBase {
   private final DutyCycleEncoder m_absoluteEncoder;
 
   private final double m_absoluteEncoderOffset;
+  private final PIDController m_drivingPIDController;
   private final PIDController m_turningPIDController;
 
   private final int m_moduleId;
@@ -54,12 +56,19 @@ public class SwerveModule extends SubsystemBase {
     m_turningPIDController = new PIDController(DriveConstants.kPTurning, DriveConstants.kITurning,
         DriveConstants.kDTurning);
     m_turningPIDController.enableContinuousInput(-Math.PI, Math.PI);
+    m_drivingPIDController = new PIDController(DriveConstants.kPDriving, DriveConstants.kIDriving, 
+        DriveConstants.kDDriving);
     m_moduleId = moduleId;
 
     m_turnMotor.setIdleMode(IdleMode.kBrake);
     m_driveMotor.setIdleMode(IdleMode.kBrake);
     m_driveMotor.setInverted(driveReversed);
     m_turnMotor.setInverted(turningReversed);
+
+    resetEncoders();
+
+    SmartDashboard.putData("Swerve/Distance/reset_" + m_moduleId,  new InstantCommand(() -> resetEncoders()));
+
   }
 
   public double getDrivePosition() {
@@ -97,10 +106,13 @@ public class SwerveModule extends SubsystemBase {
     }
 
     state = SwerveModuleState.optimize(state, getState().angle);
-    SmartDashboard.putNumber("Swerve/Commanded/Speed_" + m_moduleId, state.speedMetersPerSecond);
+    SmartDashboard.putNumber("Swerve/Speed/Commanded/Module_" + m_moduleId, state.speedMetersPerSecond);
     SmartDashboard.putNumber("Swerve/Commanded/Angle_" + m_moduleId, state.angle.getRadians());
+    SmartDashboard.putNumber("Swerve/Angle/Commanded/Module_" + m_moduleId, state.angle.getRadians());
 
-    m_driveMotor.set(state.speedMetersPerSecond / DriveConstants.kMaxTranslationalMetersPerSecond);
+    double ff = state.speedMetersPerSecond / DriveConstants.kMaxTranslationalMetersPerSecond;
+    double pid = m_drivingPIDController.calculate(getDriveVelocity(), state.speedMetersPerSecond);
+    m_driveMotor.set(ff + pid);
     m_turnMotor.set(m_turningPIDController.calculate(getRotation().getRadians(), state.angle.getRadians()));
 
     SmartDashboard.putString("Swerve_" + m_moduleId + "_state", state.toString());
@@ -115,17 +127,18 @@ public class SwerveModule extends SubsystemBase {
     m_turnMotor.set(0.0);
   }
 
-  public double getDriveCurrent(){
+  public double getDriveCurrent() {
     return m_driveMotor.getOutputCurrent();
   }
 
-  public double getTurnCurrent(){
+  public double getTurnCurrent() {
     return m_turnMotor.getOutputCurrent();
   }
 
   @Override
   public void periodic() {
-    SmartDashboard.putNumber("Swerve/Angle/Module_" + m_moduleId, getRotation().getRadians());
-    SmartDashboard.putNumber("Swerve/Speed/Module_" + m_moduleId, getDriveVelocity());
+    SmartDashboard.putNumber("Swerve/Angle/Measured/Module_" + m_moduleId, getTurningPosition());
+    SmartDashboard.putNumber("Swerve/Speed/Measured/Module_" + m_moduleId, getDriveVelocity());
+    SmartDashboard.putNumber("Swerve/Distance/Module_" + m_moduleId, getDrivePosition());
   }
 }
