@@ -4,17 +4,10 @@
 
 package frc.robot;
 
-import com.pathplanner.lib.commands.PathPlannerAuto;
-
-import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
-import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
-import frc.robot.Constants.DriveConstants;
-import frc.robot.commands.FFTune;
 // import frc.robot.commands.AutoStraighten;
 // import frc.robot.commands.JoystickDrive;
 // import frc.robot.commands.SnapToAngle;
@@ -48,7 +41,6 @@ public class RobotContainer {
   // );
 
   private Motor m_motor = new Motor();
-  private TrapezoidProfileTest m_trapezoid = new TrapezoidProfileTest(m_motor);
 
   // private SnapToAngle m_snap = new SnapToAngle(m_swerve);
   // private AutoStraighten m_straighten = new AutoStraighten(m_swerve);
@@ -81,6 +73,8 @@ public class RobotContainer {
     // m_snapButton.onTrue(m_snap);
     // m_straightenButton.whileTrue(m_straighten);
     //m_trapezoidButton.onTrue(m_trapezoid);
+    // m_motor.setDefaultCommand(m_trapezoid);
+    SmartDashboard.putData("FFTest/runTest", new TrapezoidProfileTest(m_motor, 50.0));
   }
 
   /**
@@ -90,7 +84,8 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     // return new PathPlannerAuto("TestAuto");
-    return new TrapezoidProfileTest(m_motor);
+    // return new FFTune(m_motor);
+    return null;
   }
 
   // public Command getInitCommand(){

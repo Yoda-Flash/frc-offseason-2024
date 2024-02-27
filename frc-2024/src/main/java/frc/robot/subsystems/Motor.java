@@ -14,7 +14,6 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 public class Motor extends SubsystemBase {
 
   private CANSparkMax m_neo = new CANSparkMax(7, MotorType.kBrushless);
-  private Timer m_timer = new Timer();
 
   /** Creates a new Motor. */
   public Motor() {
