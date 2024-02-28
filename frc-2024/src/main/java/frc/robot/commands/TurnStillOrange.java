@@ -6,34 +6,34 @@ package frc.robot.Commands;
 
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystem.LED;
+import frc.robot.subsystem.LED.LED_State;
 
 public class TurnStillOrange extends Command {
 
   private LED m_led;
 
   /** Creates a new TurnOrange. */
-  public TurnStillOrange(LED led) {
+  public TurnStillOrange(LED led, LED_State newstate) {
     m_led = led;
+    m_led.setState(newstate);
     // Use addRequirements() here to declare subsystem dependencies.
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    m_led.initLED();
-    System.out.println("I'm running!");
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_led.setColor(0); 
+   
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    m_led.stopLED();
+   
   }
 
   // Returns true when the command should end.

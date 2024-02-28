@@ -63,30 +63,56 @@ public class LED extends SubsystemBase {
     m_buffer.setRGB(index, red, green, blue);
     m_led.setData(m_buffer);
   }
+  public void setIndividualColor(int index, int color) {
+    m_buffer.setRGB(index, m_colorList[color][0], m_colorList[color][1], m_colorList[color][2]);
+    m_led.setData(m_buffer);
+  }
   public void setState(LED_State newState) {
     m_state = newState;
   }
 
-  public void blinkingOrange() {
-    setColor(0);
+  public void blinking(int color) {
+    setColor(color);
     m_timer.restart();
     if(m_timer.hasElapsed(0.5) && !m_timer.hasElapsed(1)){
       setColor(4);
     }
     if(m_timer.hasElapsed(1)) {
-      setColor(0);
+      setColor(color);
     }
   }
 
-  public void movingOrange() {
-    setColor(0);
+  public void moving(int color) {
+    setColor(color);
     m_timer.restart();
     for(var i = 0; i < m_buffer.getLength(); i++){
       if(m_timer.hasElapsed(((0.0 + i)/10)) && !m_timer.hasElapsed(((1.0 + i)/10))){
-        setIndividualColor(i, 0, 0, 0);
+        setIndividualColor(i, 4);
       }
       if(m_timer.hasElapsed(((1.0 + i)/10))){
-        setIndividualColor(i, 255, 64, 0);
+        setIndividualColor(i, color);
+      }
+    }
+  }
+
+  public void shooting(int color) {
+    setColor(4);
+    for(int i = 1; i < 6; i++) {
+      setIndividualColor(m_buffer.getLength()-i, color);
+    }
+    for(var i = 0; i < m_buffer.getLength(); i++) {
+      m_timer.restart();
+      if (i <= 4) {
+        if(m_timer.hasElapsed(0.1) && !m_timer.hasElapsed(0.2)) {
+          setIndividualColor(i, color);
+          setIndividualColor(m_buffer.getLength()-5+i, 4);
+        }
+      }
+      else {
+        if(m_timer.hasElapsed(0.1) && !m_timer.hasElapsed(0.2)) {
+          setIndividualColor(i, color);
+          setIndividualColor(i-5, 4);
+        }
       }
     }
   }
@@ -103,13 +129,13 @@ public class LED extends SubsystemBase {
         setColor(2);
         break;
       case TRYING_PICKUP:
-        blinkingOrange();
+        blinking(0);
         break;
       case PIECE_STORED:
         setColor(0);
         break;
       case SHOOTING:
-        movingOrange();
+        moving(0);
         break;
       case ALIGN:
         setColor(3);

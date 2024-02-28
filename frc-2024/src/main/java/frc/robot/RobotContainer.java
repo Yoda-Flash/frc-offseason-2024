@@ -13,6 +13,7 @@ import frc.robot.Commands.BlinkingOrange;
 import frc.robot.Commands.Green;
 import frc.robot.Commands.TurnStillOrange;
 import frc.robot.subsystem.LED;
+import frc.robot.subsystem.LED.LED_State;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
@@ -37,7 +38,7 @@ public class RobotContainer {
   private LED m_led = new LED();
   //private Joystick m_joystick = new Joystick(Config.kJoystick);
 
-  private TurnStillOrange m_orange = new TurnStillOrange(m_led);
+  private TurnStillOrange m_orange = new TurnStillOrange(m_led, LED_State.PIECE_STORED);
   //private JoystickButton m_orangeButton = new JoystickButton(m_joystick, Config.korangeButtonID);
   
   private MovingOrange m_movingOrange = new MovingOrange(m_led);
@@ -78,6 +79,6 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     // An example command will be run in autonomous
-    return m_blinkingOrange;
+    return m_orange;
   }
 }
