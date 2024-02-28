@@ -28,10 +28,11 @@ public class FFTune extends Command {
   public void execute() {
     double s = SmartDashboard.getNumber("FFTest/speed", 0);
     m_motor.setSpeed(s);
+
+
     SmartDashboard.putNumber("FFTest/CalculatedKV", s / m_motor.getVelocity());
     SmartDashboard.putNumber("FFTest/RPM", m_motor.getVelocity());
     SmartDashboard.putNumber("FFTest/Rots", m_motor.getRotations());
-
   }
 
   // Called once the command ends or is interrupted.

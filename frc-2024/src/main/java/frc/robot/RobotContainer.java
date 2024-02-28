@@ -11,7 +11,7 @@ import edu.wpi.first.wpilibj2.command.button.Trigger;
 // import frc.robot.commands.AutoStraighten;
 // import frc.robot.commands.JoystickDrive;
 // import frc.robot.commands.SnapToAngle;
-import frc.robot.commands.TrapezoidProfileTest;
+import frc.robot.commands.SparkMaxTrapezoidalProfile;
 import frc.robot.subsystems.Motor;
 // import frc.robot.subsystems.SwerveDrive;
 
@@ -74,7 +74,7 @@ public class RobotContainer {
     // m_straightenButton.whileTrue(m_straighten);
     //m_trapezoidButton.onTrue(m_trapezoid);
     // m_motor.setDefaultCommand(m_trapezoid);
-    SmartDashboard.putData("FFTest/runTest", new TrapezoidProfileTest(m_motor, 50.0));
+    SmartDashboard.putData("FFTest/runTest", new SparkMaxTrapezoidalProfile(m_motor, 400.0));
   }
 
   /**

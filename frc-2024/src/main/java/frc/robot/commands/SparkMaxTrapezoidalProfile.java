@@ -14,18 +14,22 @@ import frc.robot.subsystems.Motor;
 
 import static edu.wpi.first.math.trajectory.TrapezoidProfile.State;
 
-public class TrapezoidProfileTest extends Command {
+import com.revrobotics.SparkMaxAlternateEncoder;
+
+public class SparkMaxTrapezoidalProfile extends Command {
 
   private Motor m_motor;
-  private TrapezoidProfile m_profile = new TrapezoidProfile(new TrapezoidProfile.Constraints(3000.0, 5000.0 * 60.0));
-  private PIDController m_pid = new PIDController(0.0, 0, 0);
+  private TrapezoidProfile m_profile = new TrapezoidProfile(new TrapezoidProfile.Constraints(3000, 3000.0 * 60.0));
+  private PIDController m_pid = new PIDController(0.4, 0, 0);
   private SimpleMotorFeedforward m_ff = new SimpleMotorFeedforward(0.0, 0.00017156857726);
+  private State m_sample = new State();
   private State m_goal;
+  private double m_prevTime;
 
   /** Creates a new TrapezoidProfileTest. */
-  public TrapezoidProfileTest(Motor motor, double goal) {
-    m_goal = new State(goal, 0);
+  public SparkMaxTrapezoidalProfile(Motor motor, double goal) {
     m_motor = motor;
+    m_goal = new State(goal, 0);
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(m_motor);
   }
@@ -35,24 +39,28 @@ public class TrapezoidProfileTest extends Command {
   public void initialize() {
     // System.out.println("I'm running!");
     m_motor.setRotations(0);
-    SmartDashboard.putBoolean("FFTest/startstop", false);
+    m_sample = new State(0.0, 0.0);
+    m_prevTime = Timer.getFPGATimestamp();
     // System.out.println("Init rotations:" + m_motor.getRotations());
+    SmartDashboard.putBoolean("FFTest/startstop", false);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
     // Calculate measured and setpoint states.
-    State m_current = new State(m_motor.getRotations(), m_motor.getVelocity());
-    State m_setpoint = m_profile.calculate(0.02 / 60.0, m_current, m_goal);
+    double currTime = Timer.getFPGATimestamp();
+    m_sample = m_profile.calculate((currTime - m_prevTime) / 60.0, m_sample, m_goal);
+    m_prevTime = currTime;
 
-    double ff = m_ff.calculate(m_setpoint.velocity);
-    double pid = m_pid.calculate(m_motor.getRotations(), m_setpoint.position);
+    double ff = m_ff.calculate(m_sample.velocity);
+    double pid = m_pid.calculate(m_motor.getRotations(), m_sample.position);
     double speed = ff + pid;
     m_motor.setSpeed(speed);
 
     SmartDashboard.putNumber("FFTest/Trapezoid", speed);
-    SmartDashboard.putNumber("FFTest/RPMTrap", m_setpoint.velocity);
+    SmartDashboard.putNumber("FFTest/RPMTrap", m_sample.velocity);
+    SmartDashboard.putNumber("FFTest/PosTrap", m_sample.position);
     SmartDashboard.putNumber("FFTest/position", m_motor.getRotations());
     SmartDashboard.putNumber("FFTest/velocity", m_motor.getVelocity());
   }
@@ -63,12 +71,13 @@ public class TrapezoidProfileTest extends Command {
     System.out.println("stopping!");
     m_motor.setSpeed(0);
     m_motor.setRotations(0);
+    SmartDashboard.putBoolean("FFTest/startstop", true);
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {  
-    SmartDashboard.putBoolean("FFTest/startstop", true);
-    return m_motor.getRotations()>=m_goal.position;
+    double deadband = 0.005;
+    return Math.abs(m_motor.getRotations() - m_goal.position) <= deadband;
   }
 }
