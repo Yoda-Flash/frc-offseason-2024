@@ -41,6 +41,7 @@ public class SparkMaxTrapezoidalProfile extends Command {
     m_motor.setRotations(0);
     m_sample = new State(0.0, 0.0);
     m_prevTime = Timer.getFPGATimestamp();
+
     // System.out.println("Init rotations:" + m_motor.getRotations());
     SmartDashboard.putBoolean("FFTest/startstop", false);
   }
