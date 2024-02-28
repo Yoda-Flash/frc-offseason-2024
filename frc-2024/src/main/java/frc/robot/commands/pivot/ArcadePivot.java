@@ -38,7 +38,7 @@ public class ArcadePivot extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_joystickInput = m_joystick.getRawAxis(Config.kAxis)*Config.kMultiplier;
+    m_joystickInput = -m_joystick.getRawAxis(Config.kAxis)*Config.kMultiplier;
     // if (!m_pivot.ifForwardTriggered() && m_joystickInput > 0){
     //   m_pivot.setSpeed(0);
     //   // System.out.println("Forward pressed, moving forward, setting speed to 0");

@@ -6,6 +6,7 @@ package frc.robot;
 
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
+import edu.wpi.first.math.trajectory.TrapezoidProfile;
 import edu.wpi.first.math.util.Units;
 
 /**
@@ -116,6 +117,22 @@ public final class Constants {
     public static final double kD = 0;
     public static final double kDeadBand = 0.05;
     public static final double kAbsEncoderOffset = 0.8624; // subtractive.
+
+    public static final double kCruiseVelocity = 0.0;
+    public static final double kMaxAccel = 0.0;
+
+    public static final TrapezoidProfile.Constraints kConstraints = new TrapezoidProfile.Constraints(kCruiseVelocity, kMaxAccel);
+
+    // These will very likely be different than the ones used above,
+    // since are not applied atop of feedforward.
+    public static final double kPTrap = 0;
+    public static final double kITrap = 0;
+    public static final double kDTrap = 0;
+
+    public static final double kS = 0;
+    public static final double kV = 0;
+
+    public static final double kPositionDeadband = 0.01;
   }
 
   public final static class WristConstants {
@@ -123,12 +140,28 @@ public final class Constants {
     public static final int kEncoderID = 0;
     public static final int kForwardSwitchID = 12;
     public static final int kBackwardSwitchID = 19;
-    public static final double kGearRatio = 51.9273;
+    public static final double kGearRatio = 89.6000;
     public static final double kP = 0.5;
     public static final double kI = 0;
     public static final double kD = 0;
     public static final double kDeadBand = 0.05;
     public static final double kEncoderOffset = 0.886434;
+
+    public static final double kCruiseVelocity = 0.0;
+    public static final double kMaxAccel = 0.0;
+
+    public static final TrapezoidProfile.Constraints kConstraints = new TrapezoidProfile.Constraints(kCruiseVelocity, kMaxAccel);
+
+    // These will very likely be different than the ones used above,
+    // since are not applied atop of feedforward.
+    public static final double kPTrap = 0;
+    public static final double kITrap = 0;
+    public static final double kDTrap = 0;
+
+    public static final double kS = 0;
+    public static final double kV = 0;
+
+    public static final double kPositionDeadband = 0.01;
   }
 
   public static final class ElevatorConstants {
@@ -141,6 +174,23 @@ public final class Constants {
     public static final double kP = 0.5;
     public static final double kI = 0;
     public static final double kD = 0;
+    public static final double kGearRatio = 17.5000;
+
+    public static final double kCruiseVelocity = 0.0;
+    public static final double kMaxAccel = 0.0;
+
+    public static final TrapezoidProfile.Constraints kConstraints = new TrapezoidProfile.Constraints(kCruiseVelocity, kMaxAccel);
+
+    // These will very likely be different than the ones used above,
+    // since are not applied atop of feedforward.
+    public static final double kPTrap = 0;
+    public static final double kITrap = 0;
+    public static final double kDTrap = 0;
+
+    public static final double kS = 0;
+    public static final double kV = 0;
+
+    public static final double kPositionDeadband = 0.01;
   }
 
   public static final class IntakeConstants {

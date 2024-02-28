@@ -4,7 +4,10 @@
 
 package frc.robot.subsystems;
 
+import com.ctre.phoenix6.StatusSignal;
+import com.ctre.phoenix6.configs.TalonFXConfiguration;
 import com.ctre.phoenix6.hardware.TalonFX;
+import com.ctre.phoenix6.signals.InvertedValue;
 import com.ctre.phoenix6.signals.NeutralModeValue;
 
 import edu.wpi.first.wpilibj.DutyCycleEncoder;
@@ -19,9 +22,23 @@ public class Wrist extends SubsystemBase {
   private DutyCycleEncoder m_encoder = new DutyCycleEncoder(0);
   private LimitSwitch m_forward = new LimitSwitch(WristConstants.kForwardSwitchID);
   private LimitSwitch m_backward = new LimitSwitch(WristConstants.kBackwardSwitchID);
+
+  private StatusSignal<Double> m_velocity;
+  private StatusSignal<Double> m_position;
+
   public Wrist() {
+    TalonFXConfiguration config = new TalonFXConfiguration();
+    
+    config.MotorOutput.NeutralMode = NeutralModeValue.Brake;
+    config.MotorOutput.Inverted = InvertedValue.CounterClockwise_Positive;
+    config.Feedback.SensorToMechanismRatio = WristConstants.kGearRatio;
+
+    m_falcon.getConfigurator().apply(config);
+
     m_falcon.setPosition(0);
-    m_falcon.setNeutralMode(NeutralModeValue.Brake);
+
+    m_velocity = m_falcon.getVelocity();
+    m_position = m_falcon.getPosition();
   }
 
   public double getEncoderPosition(){
@@ -45,6 +62,17 @@ public class Wrist extends SubsystemBase {
     SmartDashboard.putNumber("Wrist speed", speed);
     m_falcon.set(speed);
   }
+
+  public double getVelocity() {
+    return m_velocity.refresh().getValueAsDouble();
+  }
+
+  // This should be equal to the value returned by getEncoderPosition,
+  // within an uncertainty.
+  public double getMotorSensorPosition() {
+    return m_position.refresh().getValueAsDouble();
+  }
+
 
   @Override
   public void periodic() {
