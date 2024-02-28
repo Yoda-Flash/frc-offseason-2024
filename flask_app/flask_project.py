@@ -144,7 +144,7 @@ def gen():
                                         #v_angle = math.asin(math.sqrt((int(ptB[1])- int(ptD[1]))**2 + (int(ptB[0])- int(ptD[0]))**2)/47.63)
                     distance = 47.63-height_of_camera/math.tan(v_angle+angle_of_camera)
 
-
+				# next steps: camera distortion-- check if angle is accurate
 				print("Distance: {}".format(distance))
 				# distance = str(distance)
 				# cv2.putText(frame, "Distance: "+ distance, (100,100),
