@@ -6,12 +6,12 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.subsystems.Motor;
+import frc.robot.subsystems.TalonFXMotor;
 
 public class FFTune extends Command {
-  private Motor m_motor;
+  private TalonFXMotor m_motor;
   /** Creates a new FFTune. */
-  public FFTune(Motor motor) {
+  public FFTune(TalonFXMotor motor) {
     m_motor = motor;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(motor);
@@ -28,10 +28,11 @@ public class FFTune extends Command {
   public void execute() {
     double s = SmartDashboard.getNumber("FFTest/speed", 0);
     m_motor.setSpeed(s);
+
+
     SmartDashboard.putNumber("FFTest/CalculatedKV", s / m_motor.getVelocity());
     SmartDashboard.putNumber("FFTest/RPM", m_motor.getVelocity());
     SmartDashboard.putNumber("FFTest/Rots", m_motor.getRotations());
-
   }
 
   // Called once the command ends or is interrupted.

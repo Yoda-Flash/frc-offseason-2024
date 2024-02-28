@@ -8,12 +8,10 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
-// import frc.robot.commands.AutoStraighten;
-// import frc.robot.commands.JoystickDrive;
-// import frc.robot.commands.SnapToAngle;
-import frc.robot.commands.TrapezoidProfileTest;
-import frc.robot.subsystems.Motor;
+import frc.robot.commands.FFTune;
+import frc.robot.commands.TalonFXTrapezoidalProfile;
 // import frc.robot.subsystems.SwerveDrive;
+import frc.robot.subsystems.TalonFXMotor;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -40,7 +38,7 @@ public class RobotContainer {
   //   () -> -m_driverJoystick.getRawAxis(DriveConstants.kJoystickRotAxis)
   // );
 
-  private Motor m_motor = new Motor();
+  private TalonFXMotor m_motor = new TalonFXMotor();
 
   // private SnapToAngle m_snap = new SnapToAngle(m_swerve);
   // private AutoStraighten m_straighten = new AutoStraighten(m_swerve);
@@ -74,7 +72,7 @@ public class RobotContainer {
     // m_straightenButton.whileTrue(m_straighten);
     //m_trapezoidButton.onTrue(m_trapezoid);
     // m_motor.setDefaultCommand(m_trapezoid);
-    SmartDashboard.putData("FFTest/runTest", new TrapezoidProfileTest(m_motor, 50.0));
+    SmartDashboard.putData("FFTest/runTest", new TalonFXTrapezoidalProfile(m_motor, 20.0));
   }
 
   /**
@@ -84,8 +82,8 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     // return new PathPlannerAuto("TestAuto");
-    // return new FFTune(m_motor);
-    return null;
+    return new FFTune(m_motor);
+    // return null;
   }
 
   // public Command getInitCommand(){

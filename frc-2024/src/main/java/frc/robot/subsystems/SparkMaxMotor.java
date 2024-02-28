@@ -11,12 +11,12 @@ import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
-public class Motor extends SubsystemBase {
+public class SparkMaxMotor extends SubsystemBase {
 
   private CANSparkMax m_neo = new CANSparkMax(7, MotorType.kBrushless);
 
   /** Creates a new Motor. */
-  public Motor() {
+  public SparkMaxMotor() {
     m_neo.getEncoder().setPosition(0.0);
   }
 
