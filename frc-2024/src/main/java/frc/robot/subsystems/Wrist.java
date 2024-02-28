@@ -10,6 +10,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.WristConstants;
 
+import com.ctre.phoenix6.configs.TalonFXConfiguration;
 import com.ctre.phoenix6.hardware.TalonFX;
 import com.ctre.phoenix6.signals.NeutralModeValue;
 
@@ -20,9 +21,16 @@ public class Wrist extends SubsystemBase {
   private LimitSwitch m_forward = new LimitSwitch(5);
   private LimitSwitch m_backward = new LimitSwitch(4);
   private DutyCycleEncoder m_encoder = new DutyCycleEncoder(6);
+
   public Wrist() {
+    TalonFXConfiguration config = new TalonFXConfiguration();
+    
+    config.MotorOutput.NeutralMode = NeutralModeValue.Brake;
+    config.Feedback.SensorToMechanismRatio = WristConstants.kGearRatio;
+
+    m_falcon.getConfigurator().apply(config);
+
     m_falcon.setPosition(0);
-    m_falcon.setNeutralMode(NeutralModeValue.Brake);
   }
 
   public double getEncoderPosition(){

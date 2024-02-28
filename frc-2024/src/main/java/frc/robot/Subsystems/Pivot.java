@@ -4,11 +4,12 @@
 
 package frc.robot.subsystems;
 
+import com.ctre.phoenix6.StatusSignal;
+import com.ctre.phoenix6.configs.TalonFXConfiguration;
 // import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 import com.ctre.phoenix6.hardware.TalonFX;
+import com.ctre.phoenix6.signals.InvertedValue;
 import com.ctre.phoenix6.signals.NeutralModeValue;
-import com.revrobotics.CANSparkMax;
-import com.revrobotics.CANSparkLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj.DutyCycleEncoder;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -26,26 +27,35 @@ public class Pivot extends SubsystemBase {
   private LimitSwitch m_forward = new LimitSwitch(9);
   private LimitSwitch m_backward = new LimitSwitch(7);
 
+  private StatusSignal<Double> m_velocity; // using motor 1 as the reference.
 
   /** Creates a new ElevatorPivot. */
   public Pivot() {
-  //   m_falcon2.follow(m_falcon1);
-  //   m_falcon4.follow(m_falcon3);
-    m_falcon1.setInverted(true);
-    m_falcon2.setInverted(true);
-    m_falcon1.setNeutralMode(NeutralModeValue.Brake);
-    m_falcon2.setNeutralMode(NeutralModeValue.Brake);
-    m_falcon3.setNeutralMode(NeutralModeValue.Brake);
-    m_falcon4.setNeutralMode(NeutralModeValue.Brake);
+    TalonFXConfiguration configRight = new TalonFXConfiguration();
+    TalonFXConfiguration configLeft = new TalonFXConfiguration();
 
-    // m_falcon1.getEncoder().setPosition(0);
+    configRight.MotorOutput.Inverted = InvertedValue.Clockwise_Positive;
+    configRight.MotorOutput.NeutralMode = NeutralModeValue.Brake;
+    configRight.Feedback.SensorToMechanismRatio = PivotConstants.kGearRatio;
+
+    configLeft.MotorOutput.Inverted = InvertedValue.CounterClockwise_Positive;
+    configLeft.MotorOutput.NeutralMode = NeutralModeValue.Brake;
+    configLeft.Feedback.SensorToMechanismRatio = PivotConstants.kGearRatio;
+
+
+    m_falcon1.getConfigurator().apply(configRight);
+    m_falcon2.getConfigurator().apply(configRight);
+    m_falcon3.getConfigurator().apply(configLeft);
+    m_falcon4.getConfigurator().apply(configLeft);
+
+    m_velocity = m_falcon1.getVelocity();
   }
 
-  public Boolean ifForwardTriggered(){
+  public Boolean ifForwardOpen(){
     return m_forward.ifTriggered();
   }
 
-  public Boolean ifBackwardTriggered(){
+  public Boolean ifBackwardOpen(){
     return m_backward.ifTriggered();
   }
 
@@ -58,28 +68,31 @@ public class Pivot extends SubsystemBase {
   }
 
   public void setSpeed(double speed){
-    if (!ifForwardTriggered() && speed<0) {
+    if (!ifForwardOpen() && speed < 0) {
       speed = 0;
-    } else if (!ifBackwardTriggered() && speed>0){
+    } else if (!ifBackwardOpen() && speed > 0){
       speed = 0;
     }
-    m_falcon1.set(-speed);
-    m_falcon2.set(-speed);
-    m_falcon3.set(-speed);
-    m_falcon4.set(-speed);
+    m_falcon1.set(speed);
+    m_falcon2.set(speed);
+    m_falcon3.set(speed);
+    m_falcon4.set(speed);
   }
 
+  public double getVelocity() {
+    return m_velocity.refresh().getValueAsDouble();
+  }
 
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
     SmartDashboard.putNumber("Pivot", getEncoderPosition());
     
-    SmartDashboard.putBoolean("Forward switch: ", ifForwardTriggered());
-    SmartDashboard.putBoolean("Backward switch: ", ifBackwardTriggered());
+    SmartDashboard.putBoolean("Forward switch: ", ifForwardOpen());
+    SmartDashboard.putBoolean("Backward switch: ", ifBackwardOpen());
 
-    if (!ifBackwardTriggered()){
-      resetEncoderPosition();;
+    if (!ifBackwardOpen()) {
+      resetEncoderPosition();
     }
   }
 }

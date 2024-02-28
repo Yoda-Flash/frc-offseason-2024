@@ -37,7 +37,7 @@ public class ArcadeElevator extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_joystickInput = m_joystick.getRawAxis(Config.kAxis)*Config.kMultiplier;
+    m_joystickInput = -m_joystick.getRawAxis(Config.kAxis)*Config.kMultiplier;
     SmartDashboard.putNumber("Elevator input", m_joystickInput);
     SmartDashboard.putNumber("Elevator left output", m_elevator.getLeftSpeed());
     SmartDashboard.putNumber("Elevator right output", m_elevator.getRightSpeed());
