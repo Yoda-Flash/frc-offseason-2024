@@ -126,20 +126,24 @@ def gen():
 				v_angle = v_angle - (1/2)*v_fov
 				print(frame.shape)
 				#v_angle = v_angle-(1/2)*v_fov
-				
+				angle_of_camera = 0
+                height_of_camera = 31.7
+                testing_height = 44.125 
 				# opp=2 #random 
 				# hyp=2 #random 
 				# camera_angle =2*math.atan(opp/hyp)
 				distance = 48.03/math.tan(v_angle)
-				if r.tag_id==3 and r.tag_id==4 and r.tag_id==7 and r.tag_id==8 and r.tag_id==1 and r.tag_id==2 and r.tag_id==9 and r.tag_id==10:
-			 		#v_angle = math.asin(math.sqrt((int(ptB[1])- int(ptD[1]))**2 + (int(ptB[0])- int(ptD[0]))**2)/48.03)
-					distance = 48.03/math.tan(v_angle)
-				elif r.tag_id==5 and r.tag_id==6:
-					#v_angle = math.asin(math.sqrt((int(ptB[1])- int(ptD[1]))**2 + (int(ptB[0])- int(ptD[0]))**2)/59.97)
-					distance = 59.97/math.tan(v_angle)
-				elif r.tag_id==11 and r.tag_id==12 and r.tag_id==13 and r.tag_id==14 and r.tag_id==15 and r.tag_id==16:
-					#v_angle = math.asin(math.sqrt((int(ptB[1])- int(ptD[1]))**2 + (int(ptB[0])- int(ptD[0]))**2)/47.63)
-					distance = 47.63/math.tan(v_angle)
+				if r.tag_id==3 or r.tag_id==4 or r.tag_id==7 or r.tag_id==8 or r.tag_id==1 or r.tag_id==2 or r.tag_id==9 or r.tag_id==10:
+                    #v_angle = math.asin(math.sqrt((int(ptB[1])- int(ptD[1]))**2 + (int(ptB[0])- int(ptD[0]))**2)/48.03)
+                    #distance = 48.03-height_of_camera/math.tan(v_angle+angle_of_camera)
+                    distance = (testing_height-height_of_camera)/math.tan(v_angle+angle_of_camera)                  
+                elif r.tag_id==5 or r.tag_id==6:
+                                        #v_angle = math.asin(math.sqrt((int(ptB[1])- int(ptD[1]))**2 + (int(ptB[0])- int(ptD[0]))**2)/59.97)
+                    distance = 59.97-height_of_camera/math.tan(v_angle+angle_of_camera)
+                elif r.tag_id==11 or r.tag_id==12 or r.tag_id==13 or r.tag_id==14 or r.tag_id==15 or r.tag_id==16:
+                                        #v_angle = math.asin(math.sqrt((int(ptB[1])- int(ptD[1]))**2 + (int(ptB[0])- int(ptD[0]))**2)/47.63)
+                    distance = 47.63-height_of_camera/math.tan(v_angle+angle_of_camera)
+
 
 				print("Distance: {}".format(distance))
 				# distance = str(distance)
