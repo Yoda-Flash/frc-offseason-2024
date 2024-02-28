@@ -17,24 +17,11 @@ public class Elevator extends SubsystemBase {
 
   private CANSparkMax m_neo1 = new CANSparkMax(ElevatorConstants.kMotorID1, MotorType.kBrushless);
   private CANSparkMax m_neo2 = new CANSparkMax(ElevatorConstants.kMotorID2, MotorType.kBrushless);
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-import frc.robot.Constants;
 
-public class Elevator extends SubsystemBase {
-
-  private CANSparkMax m_neo1 = new CANSparkMax(Constants.Elevator.kMotorID1, MotorType.kBrushless);
-  private CANSparkMax m_neo2 = new CANSparkMax(Constants.Elevator.kMotorID2, MotorType.kBrushless);
->>>>>>> 31fa534 (Created Elevator subsytem and command)
-=======
->>>>>>> 3d2e4b4 (Got pivot working with arcade)
-=======
   private DutyCycleEncoder m_encoder = new DutyCycleEncoder(0);
 
   private LimitSwitch m_top = new LimitSwitch(1);
   private LimitSwitch m_bottom = new LimitSwitch(8);
->>>>>>> bbc24cf (Tested elevator, pivot, wrist, added elevator up PID)
 
   /** Creates a new Elevator. */
   public Elevator() {
@@ -67,12 +54,7 @@ public class Elevator extends SubsystemBase {
     m_neo2.set(-speed);
 
   }
-<<<<<<< HEAD
-=======
->>>>>>> 31fa534 (Created Elevator subsytem and command)
-=======
->>>>>>> 3d2e4b4 (Got pivot working with arcade)
-
+  
   public double getLeftSpeed(){
     return m_neo1.getEncoder().getVelocity();
   }

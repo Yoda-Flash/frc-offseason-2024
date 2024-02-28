@@ -4,65 +4,33 @@
 
 package frc.robot;
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
 import frc.robot.subsystems.LimitSwitch;
 import edu.wpi.first.wpilibj.Joystick;
->>>>>>> 89f08a7 (Tested pivot, need to update Falcons to v6)
 import com.pathplanner.lib.commands.PathPlannerAuto;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-=======
->>>>>>> cf483b6 (Made all the commands/subsystems for the elevator pivot)
-=======
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
->>>>>>> 3d2e4b4 (Got pivot working with arcade)
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants.DriveConstants;
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-import frc.robot.commands.AutoStraighten;
 import frc.robot.commands.JoystickDrive;
-import frc.robot.commands.SnapToAngle;
 import frc.robot.subsystems.LimitSwitch;
-=======
-=======
-=======
 import frc.robot.commands.BackwardIntake;
 import frc.robot.commands.ForwardIntake;
->>>>>>> 4e3b679 (Created command groups for pivot and wrist)
 import frc.robot.commands.elevator.ArcadeElevator;
-<<<<<<< HEAD
->>>>>>> 86a8a89 (Tested pivot, can test elevator)
-=======
 import frc.robot.commands.elevator.PIDDown;
 import frc.robot.commands.elevator.PIDUp;
->>>>>>> bbc24cf (Tested elevator, pivot, wrist, added elevator up PID)
 import frc.robot.commands.pivot.ArcadePivot;
 import frc.robot.commands.pivot.PIDBack;
 import frc.robot.commands.pivot.PIDFront;
-import frc.robot.commands.swerve.AutoStraighten;
-import frc.robot.commands.swerve.JoystickDrive;
-import frc.robot.commands.swerve.SnapToAngle;
-<<<<<<< HEAD
->>>>>>> 89f08a7 (Tested pivot, need to update Falcons to v6)
-=======
 import frc.robot.commands.wrist.ArcadeWrist;
-<<<<<<< HEAD
->>>>>>> bbc24cf (Tested elevator, pivot, wrist, added elevator up PID)
-=======
 import frc.robot.commands.wrist.PIDBackward;
 import frc.robot.commands.wrist.PIDForward;
->>>>>>> fd0313e (Tuned pivot PID somewhat, need to debug wrist PID)
 import frc.robot.subsystems.SwerveDrive;
 import frc.robot.subsystems.Wrist;
 import frc.robot.subsystems.Elevator;
@@ -88,13 +56,8 @@ public class RobotContainer {
     public static final int kWristBackwardButtonID = 6;
   }
   
-<<<<<<< HEAD
   private LimitSwitch m_limitSwitch = new LimitSwitch(12);
   private final SwerveDrive m_swerve = new SwerveDrive();
-=======
-  // The robot's subsystems and commands are defined here...
-  // private final SwerveDrive m_swerve = new SwerveDrive();
->>>>>>> 89f08a7 (Tested pivot, need to update Falcons to v6)
 
   private final Joystick m_driverJoystick = new Joystick(DriveConstants.kDriveJoystickId);
 
@@ -137,15 +100,6 @@ public class RobotContainer {
 
   // Replace with CommandPS4Controller or CommandJoystick if needed
 
-<<<<<<< HEAD
-=======
-  
-
-  // Replace with CommandPS4Controller or CommandJoystick if needed
->>>>>>> cf483b6 (Made all the commands/subsystems for the elevator pivot)
-=======
->>>>>>> 3d2e4b4 (Got pivot working with arcade)
-
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {    
     // m_swerve.setDefaultCommand(m_drive);
@@ -169,31 +123,16 @@ public class RobotContainer {
   private void configureBindings() {
     // m_snapButton.onTrue(m_snap);
     // m_straightenButton.whileTrue(m_straighten);
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
+
     // Schedule `ExampleCommand` when `exampleCondition` changes to `true`
 
 
     // Schedule `exampleMethodCommand` when the Xbox controller's B button is pressed,
     // cancelling on release.
->>>>>>> cf483b6 (Made all the commands/subsystems for the elevator pivot)
-=======
->>>>>>> 3d2e4b4 (Got pivot working with arcade)
-=======
-    m_elevatorUpButton.whileTrue(m_elevatorUp);
-    m_elevatorDownButton.whileTrue(m_elevatorDown);
-=======
-    m_elevatorUpButton.onTrue(m_elevatorUp);
-    m_elevatorDownButton.onTrue(m_elevatorDown);
+    // m_elevatorUpButton.onTrue(m_elevatorUp);
+    // m_elevatorDownButton.onTrue(m_elevatorDown);
     m_pivotFowardButton.onTrue(m_pivotForward);
     m_pivotBackwardButton.onTrue(m_pivotBackward);
->>>>>>> cf33461 (Cleaned up code a little, prepared PIDs for elevator and pivot)
-
->>>>>>> bbc24cf (Tested elevator, pivot, wrist, added elevator up PID)
-=======
     // m_elevatorUpButton.onTrue(m_elevatorUp);
     // m_elevatorDownButton.onTrue(m_elevatorDown);
     m_pivotFowardButton.whileTrue(m_pivotForward);
@@ -201,12 +140,8 @@ public class RobotContainer {
 
     m_wristForwardButton.whileTrue(m_wristForward);
     m_wristBackwardButton.whileTrue(m_wristBackward);
-<<<<<<< HEAD
->>>>>>> fd0313e (Tuned pivot PID somewhat, need to debug wrist PID)
-=======
     m_elevatorUpButton.onTrue(m_forwardIntake);
     m_elevatorDownButton.onTrue(m_backwardIntake);
->>>>>>> 4e3b679 (Created command groups for pivot and wrist)
   }
 
   /**
@@ -217,40 +152,15 @@ public class RobotContainer {
   public Command getAutonomousCommand() {
     // An example command will be run in autonomous
     return null;
-<<<<<<< HEAD
->>>>>>> cf483b6 (Made all the commands/subsystems for the elevator pivot)
-=======
   }
 
   public Command getTeleopCommand(){
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-    // m_arcadePivot.schedule();
-<<<<<<< HEAD
-    return m_arcadePivot;
->>>>>>> 3d2e4b4 (Got pivot working with arcade)
-=======
-    // m_elevator.setDefaultCommand(m_arcadeElevator);
-<<<<<<< HEAD
-    return m_arcadeElevator;
->>>>>>> 86a8a89 (Tested pivot, can test elevator)
-=======
-    return m_arcadeWrist;
->>>>>>> bbc24cf (Tested elevator, pivot, wrist, added elevator up PID)
-=======
     m_pivot.setDefaultCommand(m_arcadePivot);
     m_elevator.setDefaultCommand(m_arcadeElevator);
-=======
-    // m_pivot.setDefaultCommand(m_arcadePivot);
-  //   m_elevator.setDefaultCommand(m_arcadeElevator);
->>>>>>> fd0313e (Tuned pivot PID somewhat, need to debug wrist PID)
-=======
->>>>>>> 4e3b679 (Created command groups for pivot and wrist)
+
     m_wrist.setDefaultCommand(m_arcadeWrist);
     m_pivot.setDefaultCommand(m_arcadePivot);
   //   m_elevator.setDefaultCommand(m_arcadeElevator);
     return null;
->>>>>>> 1449110 (Cleaned up code a little, prepared PIDs for elevator and pivot)
   }
 }

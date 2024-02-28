@@ -17,11 +17,6 @@ import edu.wpi.first.math.util.Units;
  * constants are needed, to reduce verbosity.
  */
 public final class Constants {
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> 3d2e4b4 (Got pivot working with arcade)
   
   public static final double kNeoTicksPerRevolution = 42;
   public static final double kFalconTicksPerRevolution = 2048;
@@ -131,28 +126,9 @@ public final class Constants {
     public static final int kMotorID1 = 3;
     public static final int kMotorID2= 1;
     public static final double RotationsPerInch = 0.00000001;
-<<<<<<< HEAD
     public static final double kP = 0.5;
     public static final double kI = 0;
     public static final double kD = 0;
-=======
-  public static class ElevatorPivot {
-    public static final int kDriverControllerPort = 0;
-=======
-  public static final double kNeoTicksPerRevolution = 42;
-  public static final double kFalconTicksPerRevolution = 2048;
-  public final static class ElevatorPivot {
->>>>>>> ff3eb30 (Added wrist subsystem and command)
-    public static final int kMotorID1 = 1;
-    public static final int kMotorID2 = 2;
-    public static final int kMotorID3 = 3;
-    public static final int kMotorID4 = 4;
-    public static final int kGearRatio = 200;
-    public static final double kP = 0.5;
-    public static final double kI = 0;
-    public static final double kD = 0;
-    public static final double kDeadBand = 0.05;
-  }
   public final static class Wrist {
     public static final int kMotorID = 5;
     public static final double kGearRatio = 51.9273;
@@ -160,16 +136,14 @@ public final class Constants {
     public static final double kI = 0;
     public static final double kD = 0;
     public static final double kDeadBand = 0.05;
->>>>>>> cf483b6 (Made all the commands/subsystems for the elevator pivot)
   }
   public static final class Elevator{
     public static final int kMotorID1 = 6;
     public static final int kMotorID2= 7;
     public static final double RotationsPerInch = 0.000000001;
-=======
->>>>>>> 3d2e4b4 (Got pivot working with arcade)
     public static final double kP = 0.5;
     public static final double kI = 0;
     public static final double kD = 0;
   }
+}
 }
