@@ -94,7 +94,8 @@ def gen():
 				
 				#distance from tag
 				#fov = math.atan(6.5/12)*(1/2) 
-				fov = 118 #fov for innomakerov9281
+				#fov = 118 
+				fov = 2.05949 #radians
 				# apriltag_width=6.5 #inches
 				# focal_length= (0.25)/(2*math.tan(fov/2))
 				# per_width= math.sqrt((int(ptB[1])- int(ptA[1]))**2 + (int(ptB[0])- int(ptA[0]))**2)
@@ -119,10 +120,13 @@ def gen():
 				print("Tag_ID: {}".format(r.tag_id)) 				
 				#arcsinpercievedheight/actual height
 				#v_angle = math.asin(int(ptD[0])/48.03)
-				v_fov = 89.331
+				#v_fov = 89.331
+				v_fov = 1.559 #in radians
 				v_angle = v_fov*cY/400
+				v_angle = v_angle - (1/2)*v_fov
 				print(frame.shape)
 				#v_angle = v_angle-(1/2)*v_fov
+				
 				# opp=2 #random 
 				# hyp=2 #random 
 				# camera_angle =2*math.atan(opp/hyp)
