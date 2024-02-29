@@ -28,6 +28,7 @@ public class Pivot extends SubsystemBase {
   private LimitSwitch m_backward = new LimitSwitch(7);
 
   private StatusSignal<Double> m_velocity; // using motor 1 as the reference.
+  private StatusSignal<Double> m_position; // using motor 1 as the reference.
 
   /** Creates a new ElevatorPivot. */
   public Pivot() {
@@ -49,6 +50,7 @@ public class Pivot extends SubsystemBase {
     m_falcon4.getConfigurator().apply(configLeft);
 
     m_velocity = m_falcon1.getVelocity();
+    m_position = m_falcon1.getPosition();
   }
 
   public Boolean ifForwardOpen(){
@@ -61,6 +63,12 @@ public class Pivot extends SubsystemBase {
 
   public double getEncoderPosition(){
     return m_encoder.get();
+  }
+
+  // This should be equal to the value returned by getEncoderPosition,
+  // within an uncertainty.
+  public double getMotorSensorPosition() {
+    return m_position.refresh().getValueAsDouble();
   }
 
   public void resetEncoderPosition(){

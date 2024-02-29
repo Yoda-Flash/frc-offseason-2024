@@ -41,6 +41,12 @@ public class Elevator extends SubsystemBase {
     return m_encoder.get();
   }
 
+  // This should be equal to the value returned by getEncoderPosition,
+  // within an uncertainty.
+  public double getMotorSensorPosition() {
+    return m_neo1.getEncoder().getPosition();
+  }
+
   public Boolean ifTopOpen(){
     return m_top.ifTriggered();
   }
@@ -58,7 +64,6 @@ public class Elevator extends SubsystemBase {
     System.out.println(speed);
     m_neo1.set(speed);
     m_neo2.set(speed);
-
   }
   
   public double getLeftSpeed(){
@@ -72,6 +77,10 @@ public class Elevator extends SubsystemBase {
   // Using left motor as the reference.
   public double getVelocity() {
     return getLeftSpeed();
+  }
+
+  public double getRotations() {
+    return m_neo1.getEncoder().getPosition();
   }
 
   @Override
