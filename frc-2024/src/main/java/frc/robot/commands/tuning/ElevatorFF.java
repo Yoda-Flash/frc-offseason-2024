@@ -31,7 +31,7 @@ public class ElevatorFF extends Command {
 
     SmartDashboard.putNumber("FFTest/CalculatedKV", s / m_elevator.getVelocity());
     SmartDashboard.putNumber("FFTest/RPM", m_elevator.getVelocity());
-    SmartDashboard.putNumber("FFTest/Rots", m_elevator.getRotations());
+    SmartDashboard.putNumber("FFTest/Rots", m_elevator.getEncoderPosition());
     SmartDashboard.putNumber("FFTest/MotorRots", m_elevator.getMotorSensorPosition());
   }
 

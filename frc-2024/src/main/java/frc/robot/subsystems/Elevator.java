@@ -79,10 +79,6 @@ public class Elevator extends SubsystemBase {
     return getLeftSpeed();
   }
 
-  public double getRotations() {
-    return m_neo1.getEncoder().getPosition();
-  }
-
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
