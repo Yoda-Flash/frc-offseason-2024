@@ -54,7 +54,7 @@ public class TrapezoidalElevator extends Command {
   @Override
   public void execute() {
     double currTime = Timer.getFPGATimestamp(); // used to calculate dt
-    m_sample = m_profile.calculate((currTime - m_prevTime), m_sample, m_goal); // sample the profile
+    m_sample = m_profile.calculate((currTime - m_prevTime) / 60.0, m_sample, m_goal); // sample the profile
     m_prevTime = currTime;
 
     // apply controllers
