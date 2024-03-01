@@ -21,10 +21,10 @@ public class Pivot extends SubsystemBase {
   private TalonFX m_falcon2 = new TalonFX(PivotConstants.kMotorID2);
   private TalonFX m_falcon3 = new TalonFX(PivotConstants.kMotorID3);
   private TalonFX m_falcon4 = new TalonFX(PivotConstants.kMotorID4);
-  private DutyCycleEncoder m_encoder = new DutyCycleEncoder(2);
+  private DutyCycleEncoder m_encoder = new DutyCycleEncoder(3);
 
-  private LimitSwitch m_forward = new LimitSwitch(9);
-  private LimitSwitch m_backward = new LimitSwitch(7);
+  private LimitSwitch m_forward = new LimitSwitch(4);
+  private LimitSwitch m_backward = new LimitSwitch(1);
 
 
   /** Creates a new ElevatorPivot. */

@@ -18,10 +18,12 @@ public class Elevator extends SubsystemBase {
   private CANSparkMax m_neo1 = new CANSparkMax(ElevatorConstants.kMotorID1, MotorType.kBrushless);
   private CANSparkMax m_neo2 = new CANSparkMax(ElevatorConstants.kMotorID2, MotorType.kBrushless);
 
-  private DutyCycleEncoder m_encoder = new DutyCycleEncoder(0);
+  private DutyCycleEncoder m_encoder = new DutyCycleEncoder(2);
 
-  private LimitSwitch m_top = new LimitSwitch(1);
-  private LimitSwitch m_bottom = new LimitSwitch(8);
+  private LimitSwitch m_top = new LimitSwitch(13);
+  // private LimitSwitch m_bottom = new LimitSwitch(15);
+  private LimitSwitch m_bottom = new LimitSwitch(18);
+
 
   /** Creates a new Elevator. */
   public Elevator() {

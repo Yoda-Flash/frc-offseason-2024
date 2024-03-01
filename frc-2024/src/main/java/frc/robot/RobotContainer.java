@@ -4,24 +4,19 @@
 
 package frc.robot;
 
-import frc.robot.subsystems.LimitSwitch;
 import edu.wpi.first.wpilibj.Joystick;
-import com.pathplanner.lib.commands.PathPlannerAuto;
-
-import edu.wpi.first.wpilibj.Joystick;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import edu.wpi.first.wpilibj.Joystick;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants.DriveConstants;
-import frc.robot.commands.JoystickDrive;
-import frc.robot.subsystems.LimitSwitch;
+import frc.robot.commands.AmpScore;
 import frc.robot.commands.BackwardIntake;
+import frc.robot.commands.Climb;
 import frc.robot.commands.ForwardIntake;
+import frc.robot.commands.GroundIntake;
+import frc.robot.commands.SpeakerScore;
+import frc.robot.commands.Stowed;
 import frc.robot.commands.elevator.ArcadeElevator;
 import frc.robot.commands.elevator.PIDDown;
 import frc.robot.commands.elevator.PIDUp;
@@ -31,11 +26,11 @@ import frc.robot.commands.pivot.PIDFront;
 import frc.robot.commands.wrist.ArcadeWrist;
 import frc.robot.commands.wrist.PIDDrop;
 import frc.robot.commands.wrist.PIDRaise;
-import frc.robot.subsystems.SwerveDrive;
-import frc.robot.subsystems.Wrist;
 import frc.robot.subsystems.Elevator;
 import frc.robot.subsystems.LimitSwitch;
 import frc.robot.subsystems.Pivot;
+import frc.robot.subsystems.SwerveDrive;
+import frc.robot.subsystems.Wrist;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -56,7 +51,6 @@ public class RobotContainer {
     public static final int kWristBackwardButtonID = 6;
   }
   
-  private LimitSwitch m_limitSwitch = new LimitSwitch(12);
   private final SwerveDrive m_swerve = new SwerveDrive();
 
   private final Joystick m_driverJoystick = new Joystick(DriveConstants.kDriveJoystickId);
@@ -97,6 +91,11 @@ public class RobotContainer {
 
   private ForwardIntake m_forwardIntake = new ForwardIntake(m_pivot, m_wrist);
   private BackwardIntake m_backwardIntake = new BackwardIntake(m_pivot, m_wrist);
+  private AmpScore m_ampScore = new AmpScore(m_pivot, m_wrist, m_elevator);
+  private Climb m_climb = new Climb(m_pivot, m_wrist, m_elevator);
+  private GroundIntake m_groundIntake = new GroundIntake(m_pivot, m_wrist, m_elevator);
+  private SpeakerScore m_speakerScore = new SpeakerScore(m_pivot, m_wrist, m_elevator);
+  private Stowed m_stowed = new Stowed(m_pivot, m_wrist, m_elevator);
 
   // Replace with CommandPS4Controller or CommandJoystick if needed
 
@@ -131,17 +130,15 @@ public class RobotContainer {
     // cancelling on release.
     // m_elevatorUpButton.onTrue(m_elevatorUp);
     // m_elevatorDownButton.onTrue(m_elevatorDown);
-    m_pivotFowardButton.onTrue(m_pivotForward);
-    m_pivotBackwardButton.onTrue(m_pivotBackward);
-    // m_elevatorUpButton.onTrue(m_elevatorUp);
-    // m_elevatorDownButton.onTrue(m_elevatorDown);
+    m_elevatorUpButton.whileTrue(m_elevatorUp);
+    m_elevatorDownButton.whileTrue(m_elevatorDown);
     m_pivotFowardButton.whileTrue(m_pivotForward);
     m_pivotBackwardButton.whileTrue(m_pivotBackward);
 
     m_wristForwardButton.whileTrue(m_wristForward);
     m_wristBackwardButton.whileTrue(m_wristBackward);
-    m_elevatorUpButton.onTrue(m_forwardIntake);
-    m_elevatorDownButton.onTrue(m_backwardIntake);
+    // m_elevatorUpButton.onTrue(m_forwardIntake);
+    // m_elevatorDownButton.onTrue(m_backwardIntake);
   }
 
   /**
@@ -157,9 +154,7 @@ public class RobotContainer {
   public Command getTeleopCommand(){
     m_pivot.setDefaultCommand(m_arcadePivot);
     m_elevator.setDefaultCommand(m_arcadeElevator);
-
     m_wrist.setDefaultCommand(m_arcadeWrist);
-    m_pivot.setDefaultCommand(m_arcadePivot);
   //   m_elevator.setDefaultCommand(m_arcadeElevator);
     return null;
   }

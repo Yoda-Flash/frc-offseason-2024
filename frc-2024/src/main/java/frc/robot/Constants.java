@@ -47,25 +47,25 @@ public final class Constants {
     // TODO: gather all of these constants.
     public static int kFrontLeftDriveId = 2;
     public static int kFrontLeftTurnId = 1;
-    public static int kFrontLeftAbsoluteEncoderPort = 0;
+    public static int kFrontLeftAbsoluteEncoderPort = 9;
     public static double kFrontLeftAbsoluteEncoderOffset = -0.529990463821544 - (Math.PI / 2.0);
     public static boolean kFrontLeftDriveReversed = false;
 
     public static int kFrontRightDriveId = 4;
     public static int kFrontRightTurnId = 3;
-    public static int kFrontRightAbsoluteEncoderPort = 1;
+    public static int kFrontRightAbsoluteEncoderPort = 7;
     public static double kFrontRightAbsoluteEncoderOffset = 1.415447275814819 + (Math.PI / 2.0);
     public static boolean kFrontRightDriveReversed = true;
 
     public static int kBackLeftDriveId = 8;
     public static int kBackLeftTurnId = 7;
-    public static int kBackLeftAbsoluteEncoderPort = 3;
+    public static int kBackLeftAbsoluteEncoderPort = 8;
     public static double kBackLeftAbsoluteEncoderOffset = 1.253910661599266 + (Math.PI / 2.0);
     public static boolean kBackLeftDriveReversed = false;
 
     public static int kBackRightDriveId = 6;
     public static int kBackRightTurnId = 5;
-    public static int kBackRightAbsoluteEncoderPort = 2;
+    public static int kBackRightAbsoluteEncoderPort = 6;
     public static double kBackRightAbsoluteEncoderOffset = -0.456511594330128 - (Math.PI / 2.0);
     public static boolean kBackRightDriveReversed = true;
 
@@ -123,11 +123,20 @@ public final class Constants {
   }
 
   public static final class ElevatorConstants{
-    public static final int kMotorID1 = 3;
-    public static final int kMotorID2= 1;
+    public static final int kMotorID1 = 12;
+    public static final int kMotorID2= 13;
     public static final double RotationsPerInch = 0.00000001;
     public static final double kP = 0.5;
     public static final double kI = 0;
     public static final double kD = 0;
-}
+  }
+
+  public static final class IntakeConstants {
+    public static final int kIntakeMotorID = 9;
+  }
+
+  public static final class ShooterConstants {
+    public static final int kShooterMotorID1 = 10;
+    public static final int kShooterMotorID2 = 11;
+  }
 }
