@@ -7,24 +7,25 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
-import frc.robot.commands.pivot.PIDBack;
-import frc.robot.commands.pivot.PIDFront;
-import frc.robot.commands.wrist.PIDDrop;
+import frc.robot.commands.elevator.PIDDown;
+import frc.robot.commands.pivot.PIDUpright;
 import frc.robot.commands.wrist.PIDRaise;
+import frc.robot.subsystems.Elevator;
 import frc.robot.subsystems.Pivot;
 import frc.robot.subsystems.Wrist;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
-public class BackwardIntake extends ParallelCommandGroup {
-  /** Creates a new BackwardIntake. */
-  public BackwardIntake(Pivot pivot, Wrist wrist) {
+public class SpeakerScore extends ParallelCommandGroup {
+  /** Creates a new SpeakerScore. */
+  public SpeakerScore(Pivot pivot, Wrist wrist, Elevator elevator) {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
-      new PIDBack(pivot),
-      new SequentialCommandGroup(new WaitCommand(10), new PIDDrop(wrist))
-      );
+      new PIDRaise(wrist),
+      new SequentialCommandGroup(new WaitCommand(3), new PIDUpright(pivot)),
+      new SequentialCommandGroup(new WaitCommand(6), new PIDDown(elevator)) 
+    );
   }
 }

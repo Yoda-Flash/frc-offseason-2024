@@ -3,29 +3,13 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 1.3922990808944582,
-        "y": 7.019194285302151
+        "x": 1.4572730380028662,
+        "y": 5.988892965440251
       },
       "prevControl": null,
       "nextControl": {
-        "x": 2.5103330696443535,
-        "y": 7.019194285302151
-      },
-      "isLocked": false,
-      "linkedName": null
-    },
-    {
-      "anchor": {
-        "x": 1.8842447561438336,
-        "y": 6.174532842892846
-      },
-      "prevControl": {
-        "x": 1.5802027458094254,
-        "y": 5.968013741533626
-      },
-      "nextControl": {
-        "x": 2.3761904313932085,
-        "y": 6.508684622307516
+        "x": 2.5753070267527622,
+        "y": 5.988892965440251
       },
       "isLocked": false,
       "linkedName": null
@@ -94,22 +78,22 @@
   ],
   "rotationTargets": [
     {
+      "waypointRelativePos": 1.0,
+      "rotationDegrees": 0,
+      "rotateFast": false
+    },
+    {
+      "waypointRelativePos": 2.0,
+      "rotationDegrees": 0,
+      "rotateFast": false
+    },
+    {
       "waypointRelativePos": 2.0,
       "rotationDegrees": 0,
       "rotateFast": false
     },
     {
       "waypointRelativePos": 3.0,
-      "rotationDegrees": 0,
-      "rotateFast": false
-    },
-    {
-      "waypointRelativePos": 3.0,
-      "rotationDegrees": 0,
-      "rotateFast": false
-    },
-    {
-      "waypointRelativePos": 4.0,
       "rotationDegrees": 0,
       "rotateFast": false
     }
@@ -118,7 +102,7 @@
   "eventMarkers": [
     {
       "name": "Pick 1st Piece",
-      "waypointRelativePos": 2.0,
+      "waypointRelativePos": 1.0,
       "command": {
         "type": "parallel",
         "data": {
@@ -128,7 +112,7 @@
     },
     {
       "name": "Shoot, Pick, Shoot",
-      "waypointRelativePos": 3.0,
+      "waypointRelativePos": 2.0,
       "command": {
         "type": "sequential",
         "data": {
@@ -138,7 +122,7 @@
     },
     {
       "name": "Pick 3rd Piece",
-      "waypointRelativePos": 4.0,
+      "waypointRelativePos": 3.0,
       "command": {
         "type": "parallel",
         "data": {
@@ -148,7 +132,7 @@
     },
     {
       "name": "Shoot 3rd Piece",
-      "waypointRelativePos": 5.0,
+      "waypointRelativePos": 4.0,
       "command": {
         "type": "parallel",
         "data": {
@@ -169,7 +153,7 @@
     "rotateFast": false
   },
   "reversed": false,
-  "folder": null,
+  "folder": "1+3",
   "previewStartingState": null,
   "useDefaultConstraints": false
 }

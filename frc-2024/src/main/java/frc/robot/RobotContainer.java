@@ -29,8 +29,8 @@ import frc.robot.commands.pivot.ArcadePivot;
 import frc.robot.commands.pivot.PIDBack;
 import frc.robot.commands.pivot.PIDFront;
 import frc.robot.commands.wrist.ArcadeWrist;
-import frc.robot.commands.wrist.PIDBackward;
-import frc.robot.commands.wrist.PIDForward;
+import frc.robot.commands.wrist.PIDDrop;
+import frc.robot.commands.wrist.PIDRaise;
 import frc.robot.subsystems.SwerveDrive;
 import frc.robot.subsystems.Wrist;
 import frc.robot.subsystems.Elevator;
@@ -90,9 +90,9 @@ public class RobotContainer {
 
   private Wrist m_wrist = new Wrist();
   private ArcadeWrist m_arcadeWrist = new ArcadeWrist(m_wrist, m_driverJoystick);
-  private PIDForward m_wristForward = new PIDForward(m_wrist);
+  private PIDRaise m_wristForward = new PIDRaise(m_wrist);
   private JoystickButton m_wristForwardButton = new JoystickButton(m_driverJoystick, Config.kWristForwardButtonID);
-  private PIDBackward m_wristBackward = new PIDBackward(m_wrist);
+  private PIDDrop m_wristBackward = new PIDDrop(m_wrist);
   private JoystickButton m_wristBackwardButton = new JoystickButton(m_driverJoystick, Config.kWristBackwardButtonID);
 
   private ForwardIntake m_forwardIntake = new ForwardIntake(m_pivot, m_wrist);

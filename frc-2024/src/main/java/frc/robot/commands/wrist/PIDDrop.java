@@ -9,14 +9,14 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.Wrist;
 
-public class PIDForward extends Command {
+public class PIDDrop extends Command {
 
-  private static final class Config{
-    public static final double kSetpoint = -0.22;
+    private static final class Config{
+    public static final double kSetpoint = -0.010;
     public static final double kDeadband = 0.005;
-    public static final double kP = 2.0;
-    public static final double kI = 0.1;
-    public static final double kD = 0.1;
+    public static final double kP = 2.2;
+    public static final double kI = 0;
+    public static final double kD = 0;
   }
 
   private Wrist m_wrist;
@@ -24,29 +24,26 @@ public class PIDForward extends Command {
   private double m_speed;
 
   /** Creates a new PIDForward. */
-  public PIDForward(Wrist wrist) {
+  public PIDDrop(Wrist wrist) {
     m_wrist = wrist;
-    // Use addRequirements() here to declare subsystem dependencies.
+    // Use addRequirements() here to declare subsystem dependenxcies.
     addRequirements(m_wrist);
   }
 
+  // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    System.out.println("Command called");
     m_wrist.setSpeed(0);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    System.out.println("I'm not executing");
-    System.out.println(m_speed);
     m_speed = m_pid.calculate(m_wrist.getEncoderPosition(), Config.kSetpoint);
     //  if (!(Math.abs(m_wrist.getEncoderPosition() - Config.kSetpoint)<= Config.kDeadband)){
       System.out.println("I'm running in if-else loop");
       System.out.println(m_speed);
       SmartDashboard.putNumber("PID value", m_speed);
-      SmartDashboard.putNumber("PID Error", m_wrist.getEncoderPosition() - Config.kSetpoint);
       m_wrist.setSpeed(m_speed);
     // }
   }
@@ -55,17 +52,11 @@ public class PIDForward extends Command {
   @Override
   public void end(boolean interrupted) {
     m_wrist.setSpeed(0);
-    if (interrupted) {
-      System.out.println("Interrupted.");
-    }
-    System.out.println("Ended wrist PID command");
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    System.out.println("Is finished is running");
-    SmartDashboard.putBoolean("Wrist is finished", Math.abs(m_wrist.getEncoderPosition() - Config.kSetpoint)<= Config.kDeadband);
     // return Math.abs(m_wrist.getEncoderPosition() - Config.kSetpoint)<= Config.kDeadband;
     return false;
   }

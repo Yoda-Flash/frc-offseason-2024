@@ -9,8 +9,8 @@ import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.commands.pivot.PIDBack;
 import frc.robot.commands.pivot.PIDFront;
-import frc.robot.commands.wrist.PIDBackward;
-import frc.robot.commands.wrist.PIDForward;
+import frc.robot.commands.wrist.PIDDrop;
+import frc.robot.commands.wrist.PIDRaise;
 import frc.robot.subsystems.Pivot;
 import frc.robot.subsystems.Wrist;
 
@@ -23,7 +23,7 @@ public class ForwardIntake extends ParallelCommandGroup {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
-      new PIDForward(wrist),
+      new PIDRaise(wrist),
       new SequentialCommandGroup(new WaitCommand(10), new PIDFront(pivot))
       // new SequentialCommandGroup(new WaitCommand(20), new PIDBack(pivot)),
       // new SequentialCommandGroup(new WaitCommand(30), new PIDBackward(wrist))
