@@ -12,7 +12,7 @@ import frc.robot.subsystems.Wrist;
 public class PIDRaise extends Command {
 
   private static final class Config{
-    public static final double kSetpoint = -0.25;
+    public static final double kSetpoint = -0.255;
     public static final double kDeadband = 0.005;
     public static final double kP = 2.0;
     public static final double kI = 0.1;
