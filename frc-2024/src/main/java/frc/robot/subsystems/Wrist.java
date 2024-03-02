@@ -12,6 +12,7 @@ import frc.robot.Constants.WristConstants;
 
 import com.ctre.phoenix6.hardware.TalonFX;
 import com.ctre.phoenix6.signals.NeutralModeValue;
+import org.littletonrobotics.junction.Logger;
 
 
 public class Wrist extends SubsystemBase {
@@ -50,9 +51,9 @@ public class Wrist extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
-    SmartDashboard.putBoolean("Wrist forward", ifForwardTriggered());
-    SmartDashboard.putBoolean("Wrist backward", ifBackwardTriggered());
-    SmartDashboard.putNumber("Wrist encoder", getEncoderPosition());
+    Logger.recordOutput("Wrist forward", ifForwardTriggered());
+    Logger.recordOutput("Wrist backward", ifBackwardTriggered());
+    Logger.recordOutput("Wrist encoder", getEncoderPosition());
   }
 }
 
