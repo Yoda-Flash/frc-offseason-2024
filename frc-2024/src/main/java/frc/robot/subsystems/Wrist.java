@@ -17,8 +17,8 @@ import com.ctre.phoenix6.signals.NeutralModeValue;
 public class Wrist extends SubsystemBase {
 
   private TalonFX m_falcon = new TalonFX(WristConstants.kMotorID);
-  private LimitSwitch m_forward = new LimitSwitch(19);
-  private LimitSwitch m_backward = new LimitSwitch(12);
+  private LimitSwitch m_forward = new LimitSwitch(12);
+  private LimitSwitch m_backward = new LimitSwitch(19);
   private DutyCycleEncoder m_encoder = new DutyCycleEncoder(0);
   public Wrist() {
     m_falcon.setPosition(0);
@@ -50,9 +50,9 @@ public class Wrist extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
+    SmartDashboard.putNumber("Wrist encoder", getEncoderPosition());
     SmartDashboard.putBoolean("Limits/Wrist forward", ifForwardTriggered());
     SmartDashboard.putBoolean("Limits/Wrist backward", ifBackwardTriggered());
-    SmartDashboard.putNumber("Wrist encoder", getEncoderPosition());
   }
 }
 

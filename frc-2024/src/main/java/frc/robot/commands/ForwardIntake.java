@@ -24,7 +24,7 @@ public class ForwardIntake extends ParallelCommandGroup {
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
       new PIDRaise(wrist),
-      new SequentialCommandGroup(new WaitCommand(10), new PIDFront(pivot))
+      new SequentialCommandGroup(new WaitCommand(3), new PIDFront(pivot))
       // new SequentialCommandGroup(new WaitCommand(20), new PIDBack(pivot)),
       // new SequentialCommandGroup(new WaitCommand(30), new PIDBackward(wrist))
       );

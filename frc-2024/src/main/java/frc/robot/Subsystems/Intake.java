@@ -18,13 +18,8 @@ public class Intake extends SubsystemBase {
 
   /** Creates a new Intake. */
   public Intake() {
-
     //setInverted depending on which way the motor spins?
-
-    m_intakeMotor.setSmartCurrentLimit(15, 15); //do later
-
-    m_intakeMotor.burnFlash(); //does something to preven burnouts?
-    
+    // m_intakeMotor.burnFlash(); //does something to preven burnouts?
   }
 
   public void setSpeed(double speed){

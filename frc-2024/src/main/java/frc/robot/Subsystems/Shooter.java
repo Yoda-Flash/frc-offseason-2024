@@ -17,13 +17,10 @@ public class Shooter extends SubsystemBase {
 
   /** Creates a new Intake. */
   public Shooter() {
-
-    //setInverted depending on which way the motor spins?
-
-    m_neo1.setSmartCurrentLimit(15, 15); //do later
-
-    m_neo1.burnFlash(); //does something to preven burnouts?
-    
+    m_neo1.setInverted(true);
+    m_neo1.burnFlash();
+    m_neo2.burnFlash();
+    //setInverted depending on which way the motor spins?    
   }
 
   public void setSpeed(double speed){

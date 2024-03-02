@@ -22,7 +22,7 @@ public class Elevator extends SubsystemBase {
 
   private LimitSwitch m_top = new LimitSwitch(13);
   // private LimitSwitch m_bottom = new LimitSwitch(15);
-  private LimitSwitch m_bottom = new LimitSwitch(18);
+  private LimitSwitch m_bottom = new LimitSwitch(10);
 
 
   /** Creates a new Elevator. */
@@ -65,14 +65,21 @@ public class Elevator extends SubsystemBase {
     return m_neo2.getEncoder().getVelocity();
   }
 
+  public void resetEncoderPosition(){
+    m_encoder.reset();
+  }
 
 
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
-    SmartDashboard.putNumber("Elevator encoder", getEncoderPosition());
+    SmartDashboard.putNumber("Elevator/Encoder", getEncoderPosition());
 
-    SmartDashboard.putBoolean("Top switch", m_top.ifTriggered());
-    SmartDashboard.putBoolean("Bottom switch", m_bottom.ifTriggered());
+    SmartDashboard.putBoolean("Elevator/Top switch", m_top.ifTriggered());
+    SmartDashboard.putBoolean("Elevator/Bottom switch", m_bottom.ifTriggered());
+
+    if (!ifBottomTriggered()){
+      resetEncoderPosition();;
+    }
   }
 }

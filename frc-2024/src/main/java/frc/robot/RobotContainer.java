@@ -15,6 +15,10 @@ import frc.robot.commands.BackwardIntake;
 import frc.robot.commands.Climb;
 import frc.robot.commands.ForwardIntake;
 import frc.robot.commands.GroundIntake;
+import frc.robot.commands.Outtake;
+import frc.robot.commands.ReverseShooter;
+import frc.robot.commands.ArcadeIntake;
+import frc.robot.commands.ArcadeShoot;
 import frc.robot.commands.SpeakerScore;
 import frc.robot.commands.Stowed;
 import frc.robot.commands.elevator.ArcadeElevator;
@@ -27,8 +31,10 @@ import frc.robot.commands.wrist.ArcadeWrist;
 import frc.robot.commands.wrist.PIDDrop;
 import frc.robot.commands.wrist.PIDRaise;
 import frc.robot.subsystems.Elevator;
+import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.LimitSwitch;
 import frc.robot.subsystems.Pivot;
+import frc.robot.subsystems.Shooter;
 import frc.robot.subsystems.SwerveDrive;
 import frc.robot.subsystems.Wrist;
 
@@ -49,9 +55,11 @@ public class RobotContainer {
     public static final int kPivotBackwardButtonID = 4;
     public static final int kWristForwardButtonID = 5;
     public static final int kWristBackwardButtonID = 6;
+    public static final int kIntakeButtonID = 7;
+    public static final int kShooterButtonID = 8;
   }
   
-  private final SwerveDrive m_swerve = new SwerveDrive();
+  // private final SwerveDrive m_swerve = new SwerveDrive();
 
   private final Joystick m_driverJoystick = new Joystick(DriveConstants.kDriveJoystickId);
 
@@ -88,6 +96,16 @@ public class RobotContainer {
   private JoystickButton m_wristForwardButton = new JoystickButton(m_driverJoystick, Config.kWristForwardButtonID);
   private PIDDrop m_wristBackward = new PIDDrop(m_wrist);
   private JoystickButton m_wristBackwardButton = new JoystickButton(m_driverJoystick, Config.kWristBackwardButtonID);
+
+  private Intake m_intake = new Intake();
+  private ArcadeIntake m_runIntake = new ArcadeIntake(m_intake, m_driverJoystick);
+  private Outtake m_outtake = new Outtake(m_intake, -0.6);
+  private JoystickButton m_intakeButton = new JoystickButton(m_driverJoystick, Config.kIntakeButtonID);
+
+  private Shooter m_shooter = new Shooter();
+  private ArcadeShoot m_shoot = new ArcadeShoot(m_shooter, m_driverJoystick);
+  private ReverseShooter m_reverseShooter = new ReverseShooter(m_shooter, -0.5);
+  private JoystickButton m_shooterButton = new JoystickButton(m_driverJoystick, Config.kShooterButtonID);
 
   private ForwardIntake m_forwardIntake = new ForwardIntake(m_pivot, m_wrist);
   private BackwardIntake m_backwardIntake = new BackwardIntake(m_pivot, m_wrist);
@@ -129,16 +147,18 @@ public class RobotContainer {
     // Schedule `exampleMethodCommand` when the Xbox controller's B button is pressed,
     // cancelling on release.
     // m_elevatorUpButton.onTrue(m_elevatorUp);
-    // m_elevatorDownButton.onTrue(m_elevatorDown);
-    m_elevatorUpButton.whileTrue(m_elevatorUp);
-    m_elevatorDownButton.whileTrue(m_elevatorDown);
+    // m_elevatorDownButton.whileTrue(m_elevatorDown);
+    // m_elevatorUpButton.whileTrue(m_elevatorUp);
+    // m_elevatorDownButton.whileTrue(m_elevatorDown);
     m_pivotFowardButton.whileTrue(m_pivotForward);
     m_pivotBackwardButton.whileTrue(m_pivotBackward);
 
     m_wristForwardButton.whileTrue(m_wristForward);
     m_wristBackwardButton.whileTrue(m_wristBackward);
-    // m_elevatorUpButton.onTrue(m_forwardIntake);
-    // m_elevatorDownButton.onTrue(m_backwardIntake);
+    m_elevatorUpButton.whileTrue(m_forwardIntake);
+    m_elevatorDownButton.whileTrue(m_backwardIntake);
+    m_intakeButton.whileTrue(m_outtake);
+    m_shooterButton.whileTrue(m_reverseShooter);
   }
 
   /**
@@ -155,6 +175,8 @@ public class RobotContainer {
     m_pivot.setDefaultCommand(m_arcadePivot);
     m_elevator.setDefaultCommand(m_arcadeElevator);
     m_wrist.setDefaultCommand(m_arcadeWrist);
+    m_intake.setDefaultCommand(m_runIntake);
+    m_shooter.setDefaultCommand(m_shoot);
   //   m_elevator.setDefaultCommand(m_arcadeElevator);
     return null;
   }

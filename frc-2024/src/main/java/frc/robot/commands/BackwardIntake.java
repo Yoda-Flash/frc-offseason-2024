@@ -24,7 +24,7 @@ public class BackwardIntake extends ParallelCommandGroup {
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
       new PIDBack(pivot),
-      new SequentialCommandGroup(new WaitCommand(10), new PIDDrop(wrist))
+      new SequentialCommandGroup(new WaitCommand(3), new PIDDrop(wrist))
       );
   }
 }

@@ -12,9 +12,9 @@ import frc.robot.subsystems.Elevator;
 public class PIDUp extends Command {
 
   private static final class Config{
-    public static final double kSetpoint = -1.40;
-    public static final double kDeadband = 0.05;
-    public static final double kP = 0.15;
+    public static final double kSetpoint = -2.0;
+    public static final double kDeadband = 0.005;
+    public static final double kP = 0.6;
     public static final double kI = 0;
     public static final double kD = 0;
   }
@@ -45,7 +45,8 @@ public class PIDUp extends Command {
     if (!(Math.abs(m_elevator.getEncoderPosition() - Config.kSetpoint)<= Config.kDeadband)){
       System.out.println("I'm running in if-else loop");
       System.out.println(m_speed);
-      SmartDashboard.putNumber("PID value", m_speed);
+      SmartDashboard.putNumber("Elevator/PID value", m_speed);
+      SmartDashboard.putNumber("Elevator/PID Error", m_elevator.getEncoderPosition() - Config.kSetpoint);
       m_elevator.setSpeed(m_speed);
     }
   }
