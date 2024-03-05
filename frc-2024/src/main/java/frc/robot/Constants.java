@@ -84,7 +84,7 @@ public final class Constants {
     public static boolean kFrontLeftTurningReversed = true;
     public static boolean kFrontRightTurningReversed = true;
     public static boolean kBackLeftTurningReversed = true;
-    public static boolean kBackRightTurningReversed = true;
+    public static boolean kBackRightTurningReversed = false;
 
     public static double kP_X = 0.75;
     public static double kI_X = 0;
