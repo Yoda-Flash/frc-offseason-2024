@@ -50,9 +50,9 @@ public class Wrist extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
-    SmartDashboard.putNumber("Wrist encoder", getEncoderPosition());
-    SmartDashboard.putBoolean("Limits/Wrist forward", ifForwardTriggered());
-    SmartDashboard.putBoolean("Limits/Wrist backward", ifBackwardTriggered());
+    SmartDashboard.putNumber("Mech/Wrist encoder", getEncoderPosition());
+    SmartDashboard.putBoolean("Mech/Limits/Wrist forward", ifForwardTriggered());
+    SmartDashboard.putBoolean("Mech/Limits/Wrist backward", ifBackwardTriggered());
   }
 }
 

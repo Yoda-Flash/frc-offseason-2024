@@ -73,10 +73,10 @@ public class Pivot extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
-    SmartDashboard.putNumber("Pivot", getEncoderPosition());
+    SmartDashboard.putNumber("Mech/Pivot", getEncoderPosition());
     
-    SmartDashboard.putBoolean("Forward switch: ", ifForwardTriggered());
-    SmartDashboard.putBoolean("Backward switch: ", ifBackwardTriggered());
+    SmartDashboard.putBoolean("Mech/Forward switch: ", ifForwardTriggered());
+    SmartDashboard.putBoolean("Mech/Backward switch: ", ifBackwardTriggered());
 
     if (!ifBackwardTriggered()){
       resetEncoderPosition();;

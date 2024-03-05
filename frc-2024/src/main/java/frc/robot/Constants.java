@@ -20,6 +20,7 @@ public final class Constants {
   
   public static final double kNeoTicksPerRevolution = 42;
   public static final double kFalconTicksPerRevolution = 2048;
+  public static final int kJoystick2ID = 1;
 
   public static class DriveConstants {
     // public static final double kDriveEncoderPositionToMeters = (1.0 / 6.75) * Units.inchesToMeters(4.0 * Math.PI); 
