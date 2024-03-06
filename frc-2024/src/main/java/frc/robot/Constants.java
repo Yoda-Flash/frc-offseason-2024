@@ -113,7 +113,7 @@ public final class Constants {
   }
 
   public final static class WristConstants {
-    public static final int kMotorID = 5;
+    public static final int kMotorID = 4;
     public static final double kGearRatio = 51.9273;
     public static final double kP = 0.5;
     public static final double kI = 0;
