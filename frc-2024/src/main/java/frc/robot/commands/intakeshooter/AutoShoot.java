@@ -2,53 +2,54 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
-package frc.robot.commands.wrist;
+package frc.robot.commands.intakeshooter;
 
-import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.subsystems.Wrist;
+import frc.robot.subsystems.Intake;
+import frc.robot.subsystems.Shooter;
 
-public class ArcadeWrist extends Command {
+public class AutoShoot extends Command {
 
-  private static final class Config{
-    public static final int kAxis = 4;
-    public static final double kMultiplier = 0.5;
-  }
+  private Shooter m_shooter;
+  private Intake m_intake;
+  private Timer m_timer = new Timer();
 
-  private Wrist m_wrist;
-  private Joystick m_joystick;
-  private double m_joystickInput;
-
-  /** Creates a new ArcadeWrist. */
-  public ArcadeWrist(Wrist wrist, Joystick joystick) {
-    m_wrist = wrist;
-    m_joystick = joystick;
+  /** Creates a new AutoShoot. */
+  public AutoShoot(Intake intake, Shooter shooter) {
+    m_intake = intake;
+    m_shooter = shooter;
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(m_wrist);
+    addRequirements(m_intake, m_shooter);
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    m_wrist.setSpeed(0);
+    m_intake.setSpeed(0);
+    m_shooter.setSpeed(0);
+    m_timer.restart();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_joystickInput = m_joystick.getRawAxis(Config.kAxis)*Config.kMultiplier;
-    m_wrist.setSpeed(m_joystickInput);
+    m_shooter.setSpeed(0.5);
+    if (m_timer.hasElapsed(0.5)){
+      m_intake.setSpeed(0.5);
+    }
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    m_wrist.setSpeed(0);
+    m_shooter.setSpeed(0);
+    m_intake.setSpeed(0);
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    return m_timer.hasElapsed(1.0);
   }
 }

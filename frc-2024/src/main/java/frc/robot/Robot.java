@@ -59,7 +59,6 @@ public class Robot extends TimedRobot {
   public void autonomousInit() {
     // m_robotContainer.getInitCommand().schedule();
     m_autonomousCommand = m_robotContainer.getAutonomousCommand();
-    System.out.println("Command:" + m_autonomousCommand);
     // schedule the autonomous command (example)
     if (m_autonomousCommand != null) {
       m_autonomousCommand.schedule();

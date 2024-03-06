@@ -6,6 +6,7 @@ package frc.robot.subsystems;
 
 import com.kauailabs.navx.frc.AHRS;
 import com.pathplanner.lib.auto.AutoBuilder;
+import com.pathplanner.lib.auto.NamedCommands;
 import com.pathplanner.lib.util.HolonomicPathFollowerConfig;
 import com.pathplanner.lib.util.PIDConstants;
 import com.pathplanner.lib.util.ReplanningConfig;
@@ -22,7 +23,9 @@ import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.smartdashboard.Field2d;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
+import edu.wpi.first.wpilibj2.command.PrintCommand;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.DriveConstants;
 
@@ -92,6 +95,7 @@ public class SwerveDrive extends SubsystemBase {
   public void resetHeading() {
     // m_imu.reset();
     // DEBUG: CHANGE THIS
+    System.out.println("DEBUG: called resetHeading.");
     m_imu.reset();
     // m_imu.setAngleAdjustment(90);
   }
@@ -185,7 +189,8 @@ public class SwerveDrive extends SubsystemBase {
       }, new Pose2d(m_xStartPose, m_yStartPose, getAngle()));
   }
 
-  public SwerveDrive(){
+  public SwerveDrive(Command stowCommand, Command autoShoot) {
+    NamedCommands.registerCommand("Print", new PrintCommand("Print command is running!!!"));
      AutoBuilder.configureHolonomic(
                 this::getPoseMeters, // Robot pose supplier
                 this::resetOdo, // Method to reset odometry (will be called if your auto has a starting pose)
@@ -214,6 +219,15 @@ public class SwerveDrive extends SubsystemBase {
      );
 
      SmartDashboard.putData("Swerve/Distance/reset", new InstantCommand(this::resetAllDistances));
+
+     new Thread(() -> {
+      try {
+        Thread.sleep(1000);
+        resetHeading();
+      } catch (Exception e) {
+        System.out.println("ERROR in sleep thread: " + e);
+      }
+     }).start();
   }
 
   public void stop() {

@@ -15,7 +15,7 @@ import frc.robot.Constants.IntakeConstants;
 public class Intake extends SubsystemBase {
   
   private CANSparkMax m_intakeMotor = new CANSparkMax(IntakeConstants.kIntakeMotorID, MotorType.kBrushless);
-  private DigitalInput m_sensor = new DigitalInput(0);
+  // private DigitalInput m_sensor = new DigitalInput(0);
 
 
   /** Creates a new Intake. */
@@ -27,10 +27,10 @@ public class Intake extends SubsystemBase {
   public void setSpeed(double speed){
     m_intakeMotor.set(speed);
   }
-
-  public Boolean ifSensorTriggered(){
-    return m_sensor.get();
-  }
+// 
+  // public Boolean ifSensorTriggered(){
+  //   return m_sensor.get();
+  // }
 
   @Override
   public void periodic() {

@@ -29,6 +29,7 @@ public class Elevator extends SubsystemBase {
     m_neo1.getEncoder().setPosition(0);
     m_neo1.setIdleMode(IdleMode.kBrake);
     m_neo2.setIdleMode(IdleMode.kBrake);
+    resetEncoderPosition(); // BOT STARTS AT BOTTOM POS.
   }
 
   public double getEncoderPosition(){
@@ -50,7 +51,6 @@ public class Elevator extends SubsystemBase {
     } else if (!ifBottomTriggered() && speed>0){
       speed = 0;
     }
-    System.out.println(-speed);
     m_neo1.set(-speed);
     m_neo2.set(-speed);
 

@@ -40,11 +40,8 @@ public class PIDElevatorZero extends Command {
   @Override
   public void execute() {
     m_speed = m_pid.calculate(m_elevator.getEncoderPosition(), Config.kSetpoint);
-    System.out.println("I'm running");
 
     if (!(Math.abs(m_elevator.getEncoderPosition() - Config.kSetpoint)<= Config.kDeadband)){
-      System.out.println("I'm running in if-else loop");
-      System.out.println(m_speed);
       SmartDashboard.putNumber("Elevator/PID value", m_speed);
       SmartDashboard.putNumber("Elevator/PID Error", m_elevator.getEncoderPosition() - Config.kSetpoint);
       m_elevator.setSpeed(m_speed);

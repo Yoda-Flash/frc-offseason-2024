@@ -9,6 +9,8 @@ import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.commands.elevator.PIDElevatorZero;
 import frc.robot.commands.elevator.PIDUp;
+import frc.robot.commands.pivot.PIDPivotStow;
+import frc.robot.commands.pivot.PIDPivotSubwoofer;
 import frc.robot.commands.pivot.PIDPivotZero;
 import frc.robot.commands.pivot.PIDUpright;
 import frc.robot.commands.wrist.PIDDrop;
@@ -27,9 +29,9 @@ public class Stowed extends ParallelCommandGroup {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
-      new PIDPivotZero(pivot),
+      new PIDPivotStow(pivot),
       new SequentialCommandGroup(new WaitCommand(3), new PIDElevatorZero(elevator)),
-      new SequentialCommandGroup(new WaitCommand(6), new PIDWristStow(wrist))
+      new SequentialCommandGroup(new WaitCommand(1), new PIDWristStow(wrist))
     );
   }
 }

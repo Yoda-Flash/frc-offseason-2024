@@ -109,11 +109,12 @@ public final class Constants {
     public static final int kEncoderID = 3;
     public static final int kForwardSwitchID = 4;
     public static final int kBackwardSwitchID = 1;
-    public static final int kGearRatio = 200;
+    public static final double kGearRatio = 182.0444;
     public static final double kP = 0.5;
     public static final double kI = 0;
     public static final double kD = 0;
     public static final double kDeadBand = 0.05;
+    public static final double kAbsEncoderOffset = 0.8624; // subtractive.
   }
 
   public final static class WristConstants {

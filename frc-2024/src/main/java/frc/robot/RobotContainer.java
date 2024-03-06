@@ -4,7 +4,11 @@
 
 package frc.robot;
 
+import com.pathplanner.lib.auto.AutoBuilder;
+import com.pathplanner.lib.commands.PathPlannerAuto;
+
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
@@ -21,10 +25,12 @@ import frc.robot.commands.groups.BackwardIntake;
 import frc.robot.commands.groups.Climb;
 import frc.robot.commands.groups.ForwardIntake;
 import frc.robot.commands.groups.GroundIntake;
-import frc.robot.commands.groups.SpeakerScore;
+import frc.robot.commands.groups.Podium;
+import frc.robot.commands.groups.Subwoofer;
 import frc.robot.commands.groups.Stowed;
 import frc.robot.commands.intakeshooter.ArcadeIntake;
 import frc.robot.commands.intakeshooter.ArcadeShoot;
+import frc.robot.commands.intakeshooter.AutoShoot;
 import frc.robot.commands.intakeshooter.Outtake;
 import frc.robot.commands.intakeshooter.ReverseShooter;
 import frc.robot.commands.pivot.ArcadePivot;
@@ -56,30 +62,20 @@ public class RobotContainer {
   private static final class Config{
     public static final int kSnapButtonID = 1;
     public static final int kStraightenButtonID = 2;
-    public static final int kElevatorUpButtonID = 1;
-    public static final int kElevatorDownButtonID = 2;
-    public static final int kPivotForwardButtonID = 3;
-    public static final int kPivotBackwardButtonID = 4;
-    public static final int kWristForwardButtonID = 5;
-    public static final int kWristBackwardButtonID = 6;
-    public static final int kIntakeButtonID = 7;
+    public static final int kStowButtonID = 1;
+    public static final int kAmpButtonID = 2;
+    public static final int kIntakeButtonID = 3;
+    public static final int kSubwooferButtonID = 4;
+    // public static final int kWristForwardButtonID = 5;
+    // public static final int kWristBackwardButtonID = 6;
+    public static final int kOuttakeButtonID = 5;
+    public static final int kPodiumButtonID = 6;
     public static final int kShooterButtonID = 8;
   }
   
-  private final SwerveDrive m_swerve = new SwerveDrive();
 
   private final Joystick m_driverJoystick = new Joystick(DriveConstants.kDriveJoystickId);
   private final Joystick m_joystick2 = new Joystick(Constants.kJoystick2ID);
-
-  private final JoystickDrive m_drive = new JoystickDrive(m_swerve, 
-    () -> -m_driverJoystick.getRawAxis(DriveConstants.kJoystickXAxis),
-    () -> -m_driverJoystick.getRawAxis(DriveConstants.kJoystickYxis),
-    () -> -m_driverJoystick.getRawAxis(DriveConstants.kJoystickRotAxis)
-  );
-
-  private SnapToAngle m_snap = new SnapToAngle(m_swerve);
-  private AutoStraighten m_straighten = new AutoStraighten(m_swerve);
-  private VisionSnapToAngle m_visionSnap = new VisionSnapToAngle(m_swerve);
 
   private JoystickButton m_snapButton = new JoystickButton(m_driverJoystick, Config.kSnapButtonID); 
   private JoystickButton m_straightenButton = new JoystickButton(m_driverJoystick, Config.kStraightenButtonID);
@@ -88,48 +84,65 @@ public class RobotContainer {
   private Pivot m_pivot = new Pivot();
   private ArcadePivot m_arcadePivot = new ArcadePivot(m_pivot, m_joystick2);
   private PIDFront m_pivotForward = new PIDFront(m_pivot);
-  private JoystickButton m_pivotFowardButton = new JoystickButton(m_joystick2, Config.kPivotForwardButtonID);
   private PIDBack m_pivotBackward = new PIDBack(m_pivot);
-  private JoystickButton m_pivotBackwardButton = new JoystickButton(m_joystick2, Config.kPivotBackwardButtonID);
   private PivotRecalibrate m_pivotRecalibrate = new PivotRecalibrate(m_pivot);
 
   private Elevator m_elevator = new Elevator();
   private ArcadeElevator m_arcadeElevator = new ArcadeElevator(m_elevator, m_joystick2);
   private PIDUp m_elevatorUp = new PIDUp(m_elevator);
-  private JoystickButton m_elevatorUpButton = new JoystickButton(m_joystick2, Config.kElevatorUpButtonID);
   private PIDDown m_elevatorDown = new PIDDown(m_elevator);
-  private JoystickButton m_elevatorDownButton = new JoystickButton(m_joystick2, Config.kElevatorDownButtonID);
   private ElevatorRecalibrate m_elevatorRecalibrate = new ElevatorRecalibrate(m_elevator);
 
   private Wrist m_wrist = new Wrist();
   private ArcadeWrist m_arcadeWrist = new ArcadeWrist(m_wrist, m_joystick2);
   private PIDRaise m_wristForward = new PIDRaise(m_wrist);
-  private JoystickButton m_wristForwardButton = new JoystickButton(m_joystick2, Config.kWristForwardButtonID);
+  // private JoystickButton m_wristForwardButton = new JoystickButton(m_joystick2, Config.kWristForwardButtonID);
   private PIDDrop m_wristBackward = new PIDDrop(m_wrist);
-  private JoystickButton m_wristBackwardButton = new JoystickButton(m_joystick2, Config.kWristBackwardButtonID);
 
   private Intake m_intake = new Intake();
   private ArcadeIntake m_runIntake = new ArcadeIntake(m_intake, m_joystick2);
   private Outtake m_outtake = new Outtake(m_intake, -0.6);
-  private JoystickButton m_intakeButton = new JoystickButton(m_joystick2, Config.kIntakeButtonID);
 
   private Shooter m_shooter = new Shooter();
   private ArcadeShoot m_shoot = new ArcadeShoot(m_shooter, m_joystick2);
   private ReverseShooter m_reverseShooter = new ReverseShooter(m_shooter, -0.5);
-  private JoystickButton m_shooterButton = new JoystickButton(m_joystick2, Config.kShooterButtonID);
 
   private ForwardIntake m_forwardIntake = new ForwardIntake(m_pivot, m_wrist);
   private BackwardIntake m_backwardIntake = new BackwardIntake(m_pivot, m_wrist);
   private AmpScore m_ampScore = new AmpScore(m_pivot, m_wrist, m_elevator);
   private Climb m_climb = new Climb(m_pivot, m_wrist, m_elevator);
   private GroundIntake m_groundIntake = new GroundIntake(m_pivot, m_wrist, m_elevator);
-  private SpeakerScore m_speakerScore = new SpeakerScore(m_pivot, m_wrist, m_elevator);
+  private Subwoofer m_subwoofer = new Subwoofer(m_pivot, m_wrist, m_elevator);
   private Stowed m_stowed = new Stowed(m_pivot, m_wrist, m_elevator);
+  private Podium m_podium = new Podium(m_pivot, m_wrist, m_elevator);
+  private AutoShoot m_autoShoot = new AutoShoot(m_intake, m_shooter);
+  
+  private final SwerveDrive m_swerve = new SwerveDrive(m_stowed, m_autoShoot);
 
+  private final JoystickDrive m_drive = new JoystickDrive(m_swerve, 
+    () -> -m_driverJoystick.getRawAxis(DriveConstants.kJoystickXAxis),
+    () -> -m_driverJoystick.getRawAxis(DriveConstants.kJoystickYxis),
+    () -> -m_driverJoystick.getRawAxis(DriveConstants.kJoystickRotAxis)
+  );
+  
+  private SnapToAngle m_snap = new SnapToAngle(m_swerve);
+  private AutoStraighten m_straighten = new AutoStraighten(m_swerve);
+  private VisionSnapToAngle m_visionSnap = new VisionSnapToAngle(m_swerve);
+
+  private JoystickButton m_stowButton = new JoystickButton(m_joystick2, Config.kStowButtonID);
+  private JoystickButton m_ampButton = new JoystickButton(m_joystick2, Config.kAmpButtonID);
+  private JoystickButton m_subwooferButton = new JoystickButton(m_joystick2, Config.kSubwooferButtonID);
+  private JoystickButton m_podiumButton = new JoystickButton(m_joystick2, Config.kPodiumButtonID);
+  private JoystickButton m_intakeButton = new JoystickButton(m_joystick2, Config.kIntakeButtonID);
+  private JoystickButton m_outtakeButton = new JoystickButton(m_joystick2, Config.kOuttakeButtonID);
+
+  private SendableChooser<Command> m_autoChooser;
   // Replace with CommandPS4Controller or CommandJoystick if needed
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
-  public RobotContainer() {    
+  public RobotContainer() {  
+    m_autoChooser = AutoBuilder.buildAutoChooser();
+    SmartDashboard.putData("Auto Chooser", m_autoChooser);  
     // m_swerve.setDefaultCommand(m_drive);
 
     // Configure the trigger bindings
@@ -149,7 +162,7 @@ public class RobotContainer {
    * joysticks}.
    */
   private void configureBindings() {
-    m_snapButton.onTrue(m_visionSnap);
+    m_snapButton.whileTrue(m_visionSnap);
     m_straightenButton.whileTrue(m_straighten);
 
     // Schedule `ExampleCommand` when `exampleCondition` changes to `true`
@@ -157,18 +170,20 @@ public class RobotContainer {
 
     // Schedule `exampleMethodCommand` when the Xbox controller's B button is pressed,
     // cancelling on release.
-    m_elevatorUpButton.onTrue(m_stowed);
-    m_elevatorDownButton.whileTrue(m_ampScore);
+    m_stowButton.whileTrue(m_stowed);
+    m_ampButton.whileTrue(m_ampScore);
+    m_intakeButton.whileTrue(m_groundIntake);
+    m_subwooferButton.whileTrue(m_subwoofer);
+    m_outtakeButton.whileTrue(m_outtake);
+    // m_podiumButton.whileTrue(m_podium);
     // m_elevatorUpButton.whileTrue(m_elevatorUp);
     // m_elevatorDownButton.whileTrue(m_elevatorDown);
-    m_pivotFowardButton.whileTrue(m_groundIntake);
     // m_pivotBackwardButton.whileTrue(m_pivotRecalibrate);
 
     // m_wristForwardButton.whileTrue(m_wristForward);
     // m_wristBackwardButton.whileTrue(m_wristBackward);
     // m_elevatorUpButton.whileTrue(m_forwardIntake);
     // m_elevatorDownButton.whileTrue(m_backwardIntake);
-    m_intakeButton.whileTrue(m_outtake);
     // m_intakeButton.whileTrue(m_stowed);
     // m_shooterButton.whileTrue(m_ampScore); 
   }
@@ -180,7 +195,7 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     // An example command will be run in autonomous
-    return null;
+    return m_autoChooser.getSelected();
   }
 
   public Command getTeleopCommand(){

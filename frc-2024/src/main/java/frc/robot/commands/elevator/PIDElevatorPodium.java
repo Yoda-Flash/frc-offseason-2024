@@ -9,13 +9,13 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.Elevator;
 
-public class PIDElevatorAmp extends Command {
+public class PIDElevatorPodium extends Command {
 
   private static final class Config{
-    public static final double kSetpoint = -2.0;
+    public static final double kSetpoint = -0.40;
     public static final double kDeadband = 0.005;
     public static final double kP = 0.6;
-    public static final double kI = 0;
+    public static final double kI = 0.0;
     public static final double kD = 0;
   }
 
@@ -24,7 +24,7 @@ public class PIDElevatorAmp extends Command {
   private double m_speed;
 
   /** Creates a new PIDElevatorTest. */
-  public PIDElevatorAmp(Elevator elevator) {
+  public PIDElevatorPodium(Elevator elevator) {
     m_elevator = elevator;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(m_elevator);
@@ -42,9 +42,9 @@ public class PIDElevatorAmp extends Command {
     m_speed = m_pid.calculate(m_elevator.getEncoderPosition(), Config.kSetpoint);
 
     if (!(Math.abs(m_elevator.getEncoderPosition() - Config.kSetpoint)<= Config.kDeadband)){
-      SmartDashboard.putNumber("Elevator/PID value", m_speed);
-      SmartDashboard.putNumber("Elevator/PID Error", m_elevator.getEncoderPosition() - Config.kSetpoint);
-      m_elevator.setSpeed(m_speed);
+    SmartDashboard.putNumber("Elevator/PID value", m_speed);
+    m_elevator.setSpeed(m_speed);
+  
     }
   }
 

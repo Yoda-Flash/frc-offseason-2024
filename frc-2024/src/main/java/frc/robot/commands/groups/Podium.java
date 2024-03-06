@@ -7,9 +7,12 @@ package frc.robot.commands.groups;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
-import frc.robot.commands.elevator.PIDElevatorZero;
-import frc.robot.commands.pivot.PIDPivotIntake;
-import frc.robot.commands.wrist.PIDWristIntake;
+import frc.robot.commands.elevator.PIDElevatorPodium;
+import frc.robot.commands.elevator.PIDElevatorSubwoofer;
+import frc.robot.commands.pivot.PIDPivotPodium;
+import frc.robot.commands.pivot.PIDPivotSubwoofer;
+import frc.robot.commands.wrist.PIDWristPodium;
+import frc.robot.commands.wrist.PIDWristSubwoofer;
 import frc.robot.subsystems.Elevator;
 import frc.robot.subsystems.Pivot;
 import frc.robot.subsystems.Wrist;
@@ -17,15 +20,15 @@ import frc.robot.subsystems.Wrist;
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
-public class SpeakerScore extends ParallelCommandGroup {
-  /** Creates a new SpeakerScore. */
-  public SpeakerScore(Pivot pivot, Wrist wrist, Elevator elevator) {
+public class Podium extends ParallelCommandGroup {
+  /** Creates a new Podium. */
+  public Podium(Pivot pivot, Wrist wrist, Elevator elevator) {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
-      new PIDWristIntake(wrist),
-      new SequentialCommandGroup(new WaitCommand(3), new PIDPivotIntake(pivot)),
-      new SequentialCommandGroup(new WaitCommand(6), new PIDElevatorZero(elevator)) 
+      new PIDWristPodium(wrist),
+      new SequentialCommandGroup(new WaitCommand(3), new PIDPivotPodium(pivot)),
+      new SequentialCommandGroup(new WaitCommand(6), new PIDElevatorPodium(elevator)) 
     );
   }
 }
