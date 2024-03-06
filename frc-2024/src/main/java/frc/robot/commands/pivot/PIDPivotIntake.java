@@ -13,8 +13,8 @@ public class PIDPivotIntake extends Command {
 
   private static final class Config{
     public static final double kSetpoint = -0.315;
-    public static final double kDeadband = 0.005;
-    public static final double kP = 2.5;
+    public static final double kDeadband = 0.0;
+    public static final double kP = 3.5;
     public static final double kI = 0.20;
     public static final double kD = 0.15;
   }

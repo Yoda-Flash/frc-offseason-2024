@@ -4,8 +4,8 @@
 
 package frc.robot.subsystems;
 
-import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkLowLevel.MotorType;
+import com.revrobotics.CANSparkMax;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -30,8 +30,8 @@ public class Shooter extends SubsystemBase {
 
   @Override
   public void periodic() {
-    SmartDashboard.putNumber("Motor Temperature", m_neo1.getMotorTemperature());
-    SmartDashboard.putNumber("Motor Current", m_neo1.getOutputCurrent());
+    SmartDashboard.putNumber("Mech/Shooter/Motor Temperature", m_neo1.getMotorTemperature());
+    SmartDashboard.putNumber("Mech/Shooter/Motor Current", m_neo1.getOutputCurrent());
     // This method will be called once per scheduler run
   }
 }

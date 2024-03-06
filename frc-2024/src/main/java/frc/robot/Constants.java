@@ -106,6 +106,9 @@ public final class Constants {
     public static final int kMotorID2 = 2;
     public static final int kMotorID3 = 3;
     public static final int kMotorID4 = 4;
+    public static final int kEncoderID = 3;
+    public static final int kForwardSwitchID = 4;
+    public static final int kBackwardSwitchID = 1;
     public static final int kGearRatio = 200;
     public static final double kP = 0.5;
     public static final double kI = 0;
@@ -115,6 +118,9 @@ public final class Constants {
 
   public final static class WristConstants {
     public static final int kMotorID = 5;
+    public static final int kEncoderID = 0;
+    public static final int kForwardSwitchID = 12;
+    public static final int kBackwardSwitchID = 19;
     public static final double kGearRatio = 51.9273;
     public static final double kP = 0.5;
     public static final double kI = 0;
@@ -123,9 +129,12 @@ public final class Constants {
     public static final double kEncoderOffset = 0.886434;
   }
 
-  public static final class ElevatorConstants{
+  public static final class ElevatorConstants {
     public static final int kMotorID1 = 12;
     public static final int kMotorID2= 13;
+    public static final int kEncoderID = 2;
+    public static final int kTopSwitchID = 13;
+    public static final int kBottomSwitchID = 10;
     public static final double RotationsPerInch = 0.00000001;
     public static final double kP = 0.5;
     public static final double kI = 0;

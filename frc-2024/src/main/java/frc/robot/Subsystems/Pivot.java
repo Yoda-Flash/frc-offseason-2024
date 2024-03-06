@@ -7,8 +7,6 @@ package frc.robot.subsystems;
 // import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 import com.ctre.phoenix6.hardware.TalonFX;
 import com.ctre.phoenix6.signals.NeutralModeValue;
-import com.revrobotics.CANSparkMax;
-import com.revrobotics.CANSparkLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj.DutyCycleEncoder;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -21,10 +19,10 @@ public class Pivot extends SubsystemBase {
   private TalonFX m_falcon2 = new TalonFX(PivotConstants.kMotorID2);
   private TalonFX m_falcon3 = new TalonFX(PivotConstants.kMotorID3);
   private TalonFX m_falcon4 = new TalonFX(PivotConstants.kMotorID4);
-  private DutyCycleEncoder m_encoder = new DutyCycleEncoder(3);
+  private DutyCycleEncoder m_encoder = new DutyCycleEncoder(PivotConstants.kEncoderID);
 
-  private LimitSwitch m_forward = new LimitSwitch(4);
-  private LimitSwitch m_backward = new LimitSwitch(1);
+  private LimitSwitch m_forward = new LimitSwitch(PivotConstants.kForwardSwitchID);
+  private LimitSwitch m_backward = new LimitSwitch(PivotConstants.kBackwardSwitchID);
 
 
   /** Creates a new ElevatorPivot. */
@@ -73,10 +71,10 @@ public class Pivot extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
-    SmartDashboard.putNumber("Mech/Pivot", getEncoderPosition());
+    SmartDashboard.putNumber("Mech/Pivot/Encoder", getEncoderPosition());
     
-    SmartDashboard.putBoolean("Mech/Forward switch: ", ifForwardTriggered());
-    SmartDashboard.putBoolean("Mech/Backward switch: ", ifBackwardTriggered());
+    SmartDashboard.putBoolean("Mech/Pivot/Forward switch: ", ifForwardTriggered());
+    SmartDashboard.putBoolean("Mech/Pivot/Backward switch: ", ifBackwardTriggered());
 
     if (!ifBackwardTriggered()){
       resetEncoderPosition();;

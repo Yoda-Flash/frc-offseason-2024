@@ -2,40 +2,41 @@
 // Open Source Software; you can modify and/or share it under the terms of
 // the WPILib BSD license file in the root directory of this project.
 
-package frc.robot.commands;
+package frc.robot.commands.intakeshooter;
 
+import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.subsystems.Shooter;
+import frc.robot.subsystems.Intake;
 
-public class ReverseShooter extends Command {
+public class ArcadeIntake extends Command {
 
-  private Shooter m_shooter;
-  private double m_speed;
+  private Intake m_intake;
+  private Joystick m_joystick;
 
-  /** Creates a new ReverseShooter. */
-  public ReverseShooter(Shooter shooter, double speed) {
-    m_shooter = shooter;
-    m_speed = speed;
+  /** Creates a new RunIntake. */
+  public ArcadeIntake(Intake intake, Joystick joystick) {
+    m_intake = intake;
+    m_joystick = joystick;
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(m_shooter);
+    addRequirements(m_intake);
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    m_shooter.setSpeed(0);
+    m_intake.setSpeed(0);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_shooter.setSpeed(m_speed);
+    m_intake.setSpeed(m_joystick.getRawAxis(2));
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    m_shooter.setSpeed(0);
+    m_intake.setSpeed(0);
   }
 
   // Returns true when the command should end.

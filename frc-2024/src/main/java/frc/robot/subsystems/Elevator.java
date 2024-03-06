@@ -4,9 +4,9 @@
 
 package frc.robot.subsystems;
 
-import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkBase.IdleMode;
 import com.revrobotics.CANSparkLowLevel.MotorType;
+import com.revrobotics.CANSparkMax;
 
 import edu.wpi.first.wpilibj.DutyCycleEncoder;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -18,11 +18,10 @@ public class Elevator extends SubsystemBase {
   private CANSparkMax m_neo1 = new CANSparkMax(ElevatorConstants.kMotorID1, MotorType.kBrushless);
   private CANSparkMax m_neo2 = new CANSparkMax(ElevatorConstants.kMotorID2, MotorType.kBrushless);
 
-  private DutyCycleEncoder m_encoder = new DutyCycleEncoder(2);
+  private DutyCycleEncoder m_encoder = new DutyCycleEncoder(ElevatorConstants.kEncoderID);
 
-  private LimitSwitch m_top = new LimitSwitch(13);
-  // private LimitSwitch m_bottom = new LimitSwitch(15);
-  private LimitSwitch m_bottom = new LimitSwitch(10);
+  private LimitSwitch m_top = new LimitSwitch(ElevatorConstants.kTopSwitchID);
+  private LimitSwitch m_bottom = new LimitSwitch(ElevatorConstants.kBottomSwitchID);
 
 
   /** Creates a new Elevator. */
@@ -73,10 +72,10 @@ public class Elevator extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
-    SmartDashboard.putNumber("Elevator/Encoder", getEncoderPosition());
+    SmartDashboard.putNumber("Mech/Elevator/Encoder", getEncoderPosition());
 
-    SmartDashboard.putBoolean("Elevator/Top switch", m_top.ifTriggered());
-    SmartDashboard.putBoolean("Elevator/Bottom switch", m_bottom.ifTriggered());
+    SmartDashboard.putBoolean("Mech/Elevator/Top switch", m_top.ifTriggered());
+    SmartDashboard.putBoolean("Mech/Elevator/Bottom switch", m_bottom.ifTriggered());
 
     if (!ifBottomTriggered()){
       resetEncoderPosition();;
