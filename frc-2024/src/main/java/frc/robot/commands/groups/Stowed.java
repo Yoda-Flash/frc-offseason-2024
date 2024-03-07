@@ -29,9 +29,9 @@ public class Stowed extends ParallelCommandGroup {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
+      new PIDElevatorZero(elevator),
       new PIDPivotStow(pivot),
-      new SequentialCommandGroup(new WaitCommand(3), new PIDElevatorZero(elevator)),
-      new SequentialCommandGroup(new WaitCommand(1), new PIDWristStow(wrist))
+      new SequentialCommandGroup(new WaitCommand(0.3), new PIDWristStow(wrist))
     );
   }
 }

@@ -13,7 +13,7 @@ public class PIDElevatorAmp extends Command {
 
   private static final class Config{
     public static final double kSetpoint = -2.0;
-    public static final double kDeadband = 0.005;
+    public static final double kDeadband = 0.000;
     public static final double kP = 0.6;
     public static final double kI = 0;
     public static final double kD = 0;

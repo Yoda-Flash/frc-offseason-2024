@@ -12,7 +12,7 @@ import frc.robot.subsystems.Pivot;
 public class PIDPivotSubwoofer extends Command {
 
   private static final class Config{
-    public static final double kSetpoint = 0;
+    public static final double kSetpoint = -0.102186730994668;
     public static final double kDeadband = 0.000;
     public static final double kP = 2.5;
     public static final double kI = 0.20;
@@ -40,11 +40,11 @@ public class PIDPivotSubwoofer extends Command {
   @Override
   public void execute() {
     m_speed = m_pid.calculate(m_pivot.getEncoderPosition(), Config.kSetpoint);
-    System.out.println("I'm running");
+    // System.out.println("I'm running");
 
     if (!(Math.abs(m_pivot.getEncoderPosition() - Config.kSetpoint)<= Config.kDeadband)){
-      System.out.println("I'm running in if-else loop");
-      System.out.println(m_speed);
+      // // System.out.println("I'm running in if-else loop");
+      // System.out.println(m_speed);
       SmartDashboard.putNumber("PID value", m_speed);
       SmartDashboard.putNumber("PID Error", m_pivot.getEncoderPosition() - Config.kSetpoint);
       m_pivot.setSpeed(m_speed);
@@ -55,7 +55,7 @@ public class PIDPivotSubwoofer extends Command {
   @Override
   public void end(boolean interrupted) {
     m_pivot.setSpeed(0);
-    System.out.println("Ended");
+    // System.out.println("Ended");
   }
 
   // Returns true when the command should end.

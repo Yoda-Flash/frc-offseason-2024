@@ -45,13 +45,13 @@ public class AutoStraighten extends Command {
   @Override
   public void execute() {    
     m_currentAngle = m_swerve.getAngle().getDegrees();
-    // System.out.println("Current angle:" + m_currentAngle);
+    // // System.out.println("Current angle:" + m_currentAngle);
 
     if (Math.abs(m_currentAngle)>= 0.5){
       m_turningSpeed = m_pid.calculate(m_currentAngle, 0);
     
       SmartDashboard.putNumber("Turning speed", m_turningSpeed);
-      System.out.println("Turning speed:" + m_turningSpeed);
+      // System.out.println("Turning speed:" + m_turningSpeed);
 
       // Construct chassis speed objects.
       ChassisSpeeds chassisSpeeds = ChassisSpeeds.fromFieldRelativeSpeeds(0, 0, m_turningSpeed, m_swerve.getAngle());

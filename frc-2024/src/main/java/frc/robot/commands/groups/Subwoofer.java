@@ -7,11 +7,10 @@ package frc.robot.commands.groups;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
-import frc.robot.commands.elevator.PIDElevatorSubwoofer;
 import frc.robot.commands.elevator.PIDElevatorZero;
-import frc.robot.commands.pivot.PIDPivotIntake;
+import frc.robot.commands.pivot.PIDPivotStow;
 import frc.robot.commands.pivot.PIDPivotSubwoofer;
-import frc.robot.commands.wrist.PIDWristIntake;
+import frc.robot.commands.wrist.PIDWristStow;
 import frc.robot.commands.wrist.PIDWristSubwoofer;
 import frc.robot.subsystems.Elevator;
 import frc.robot.subsystems.Pivot;
@@ -26,9 +25,9 @@ public class Subwoofer extends ParallelCommandGroup {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
-      new PIDWristSubwoofer(wrist),
-      new SequentialCommandGroup(new WaitCommand(3), new PIDPivotSubwoofer(pivot)),
-      new SequentialCommandGroup(new WaitCommand(6), new PIDElevatorSubwoofer(elevator)) 
+      new PIDElevatorZero(elevator),
+      new PIDPivotStow(pivot),
+      new PIDWristSubwoofer(wrist)
     );
   }
 }

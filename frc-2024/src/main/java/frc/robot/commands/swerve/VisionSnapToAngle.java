@@ -40,9 +40,9 @@ public class VisionSnapToAngle extends Command {
   @Override
   public void initialize() {    
     m_pid.setIntegratorRange(Config.kMinI, Config.kMaxI);
-    System.out.println("Running vision snap");
+    // System.out.println("Running vision snap");
     m_initAngle = SmartDashboard.getNumber("angle", 0);
-    System.out.println("first angle: " + m_initAngle);
+    // System.out.println("first angle: " + m_initAngle);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -67,7 +67,7 @@ public class VisionSnapToAngle extends Command {
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    System.out.println("Stop");
+    // System.out.println("Stop");
     m_swerve.stop();
   }
 

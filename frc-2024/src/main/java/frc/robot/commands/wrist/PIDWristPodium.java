@@ -41,8 +41,8 @@ public class PIDWristPodium extends Command {
   public void execute() {
     m_speed = m_pid.calculate(m_wrist.getEncoderPosition(), Config.kSetpoint);
     //  if (!(Math.abs(m_wrist.getEncoderPosition() - Config.kSetpoint)<= Config.kDeadband)){
-      System.out.println("I'm running in if-else loop");
-      System.out.println(m_speed);
+      // // System.out.println("I'm running in if-else loop");
+      // System.out.println(m_speed);
       SmartDashboard.putNumber("PID value", m_speed);
       m_wrist.setSpeed(m_speed);
     // }

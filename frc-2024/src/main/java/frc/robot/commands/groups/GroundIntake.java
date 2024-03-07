@@ -24,7 +24,7 @@ public class GroundIntake extends ParallelCommandGroup {
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
       new PIDWristIntake(wrist),
-      new SequentialCommandGroup(new WaitCommand(0.5), new PIDPivotIntake(pivot)),
+      new SequentialCommandGroup(new WaitCommand(0.25), new PIDPivotIntake(pivot)),
       new SequentialCommandGroup(new WaitCommand(6), new PIDElevatorZero(elevator))
     );
   }

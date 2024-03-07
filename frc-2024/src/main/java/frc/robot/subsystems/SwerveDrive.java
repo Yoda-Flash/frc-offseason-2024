@@ -95,7 +95,7 @@ public class SwerveDrive extends SubsystemBase {
   public void resetHeading() {
     // m_imu.reset();
     // DEBUG: CHANGE THIS
-    System.out.println("DEBUG: called resetHeading.");
+    // System.out.println("DEBUG: called resetHeading.");
     m_imu.reset();
     // m_imu.setAngleAdjustment(90);
   }
@@ -225,7 +225,7 @@ public class SwerveDrive extends SubsystemBase {
         Thread.sleep(1000);
         resetHeading();
       } catch (Exception e) {
-        System.out.println("ERROR in sleep thread: " + e);
+        // System.out.println("ERROR in sleep thread: " + e);
       }
      }).start();
   }
@@ -261,7 +261,7 @@ public class SwerveDrive extends SubsystemBase {
     SmartDashboard.putNumber("Swerve/Odo/Y", m_yStartPose);
 
     
-    // System.out.println("Chassis speeds:" + this.getChassisSpeeds());
-    // System.out.println("X error: " + (3 - m_odo.getPoseMeters().getX()));
+    // // System.out.println("Chassis speeds:" + this.getChassisSpeeds());
+    // // System.out.println("X error: " + (3 - m_odo.getPoseMeters().getX()));
   }
 }
