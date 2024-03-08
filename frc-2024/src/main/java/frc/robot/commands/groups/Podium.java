@@ -9,7 +9,9 @@ import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.commands.elevator.PIDElevatorPodium;
 import frc.robot.commands.elevator.PIDElevatorSubwoofer;
+import frc.robot.commands.elevator.PIDElevatorZero;
 import frc.robot.commands.pivot.PIDPivotPodium;
+import frc.robot.commands.pivot.PIDPivotStow;
 import frc.robot.commands.pivot.PIDPivotSubwoofer;
 import frc.robot.commands.wrist.PIDWristPodium;
 import frc.robot.commands.wrist.PIDWristSubwoofer;
@@ -25,10 +27,11 @@ public class Podium extends ParallelCommandGroup {
   public Podium(Pivot pivot, Wrist wrist, Elevator elevator) {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
+
     addCommands(
-      new PIDWristPodium(wrist),
-      new SequentialCommandGroup(new WaitCommand(3), new PIDPivotPodium(pivot)),
-      new SequentialCommandGroup(new WaitCommand(6), new PIDElevatorPodium(elevator)) 
+      new PIDPivotStow(pivot),
+      new PIDElevatorZero(elevator),
+      new PIDWristPodium(wrist)
     );
   }
 }

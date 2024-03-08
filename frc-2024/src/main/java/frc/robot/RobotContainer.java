@@ -140,13 +140,15 @@ public class RobotContainer {
   private JoystickButton m_intakeButton = new JoystickButton(m_joystick2, Config.kIntakeButtonID);
   private JoystickButton m_outtakeButton = new JoystickButton(m_joystick2, Config.kOuttakeButtonID);
 
+  private JoystickButton m_resetHeadingButton = new JoystickButton(m_driverJoystick, 1);
+
   private SendableChooser<Command> m_autoChooser;
   // Replace with CommandPS4Controller or CommandJoystick if needed
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {  
     m_autoChooser = AutoBuilder.buildAutoChooser();
-    SmartDashboard.putData("Auto Chooser", m_autoChooser);  
+    SmartDashboard.putData("Driving/Auto Chooser", m_autoChooser);  
     // m_swerve.setDefaultCommand(m_drive);
 
     // Configure the trigger bindings
@@ -166,9 +168,9 @@ public class RobotContainer {
    * joysticks}.
    */
   private void configureBindings() {
-    m_snapButton.whileTrue(m_visionSnap);
-    m_straightenButton.whileTrue(m_straighten);
-
+    // m_snapButton.whileTrue(m_visionSnap);
+    // m_straightenButton.whileTrue(m_straighten);
+    m_resetHeadingButton.onTrue(new InstantCommand(() -> m_swerve.resetHeading()));
     // Schedule `ExampleCommand` when `exampleCondition` changes to `true`
 
 
@@ -179,7 +181,7 @@ public class RobotContainer {
     m_intakeButton.whileTrue(m_groundIntake);
     m_subwooferButton.whileTrue(m_subwoofer);
     m_outtakeButton.onTrue(m_outtake);
-    // m_podiumButton.whileTrue(m_podium);
+    m_podiumButton.whileTrue(m_podium);
     // m_elevatorUpButton.whileTrue(m_elevatorUp);
     // m_elevatorDownButton.whileTrue(m_elevatorDown);
     // m_pivotBackwardButton.whileTrue(m_pivotRecalibrate);
