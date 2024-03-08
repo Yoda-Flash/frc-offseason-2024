@@ -2,8 +2,8 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 1.34,
-      "y": 5.53
+      "x": 0.49,
+      "y": 7.01
     },
     "rotation": 0
   },
@@ -11,6 +11,12 @@
     "type": "sequential",
     "data": {
       "commands": [
+        {
+          "type": "path",
+          "data": {
+            "pathName": "1+1 Left Move 1"
+          }
+        },
         {
           "type": "named",
           "data": {
@@ -44,6 +50,6 @@
       ]
     }
   },
-  "folder": null,
+  "folder": "1+1 Left",
   "choreoAuto": false
 }

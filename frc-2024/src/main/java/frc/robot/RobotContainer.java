@@ -121,7 +121,7 @@ public class RobotContainer {
   private AutoShoot m_autoShoot = new AutoShoot(m_intake, m_shooter);
   private AutoIntake m_autoIntake = new AutoIntake(m_intake);
 
-  private final SwerveDrive m_swerve = new SwerveDrive(m_stowed, m_autoShoot, m_autoIntake, m_groundIntake);
+  private final SwerveDrive m_swerve = new SwerveDrive(m_stowed, m_autoShoot, m_autoIntake, m_groundIntake, m_subwoofer);
 
   private final JoystickDrive m_drive = new JoystickDrive(m_swerve, 
     () -> -m_driverJoystick.getRawAxis(DriveConstants.kJoystickXAxis),
@@ -146,7 +146,7 @@ public class RobotContainer {
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {  
     m_autoChooser = AutoBuilder.buildAutoChooser();
-    SmartDashboard.putData("Auto Chooser", m_autoChooser);  
+    SmartDashboard.putData("Driving/Auto Chooser", m_autoChooser);  
     // m_swerve.setDefaultCommand(m_drive);
 
     // Configure the trigger bindings
