@@ -12,7 +12,7 @@ import frc.robot.subsystems.Pivot;
 public class PIDPivotSubwoofer extends Command {
 
   private static final class Config{
-    public static final double kSetpoint = 0;
+    public static final double kSetpoint = -0.102186730994668;
     public static final double kDeadband = 0.000;
     public static final double kP = 2.5;
     public static final double kI = 0.20;
@@ -52,7 +52,7 @@ public class PIDPivotSubwoofer extends Command {
   @Override
   public void end(boolean interrupted) {
     m_pivot.setSpeed(0);
-    System.out.println("Ended");
+    // System.out.println("Ended");
   }
 
   // Returns true when the command should end.

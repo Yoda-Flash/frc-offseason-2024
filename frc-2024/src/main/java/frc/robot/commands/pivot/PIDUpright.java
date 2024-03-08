@@ -51,7 +51,7 @@ public class PIDUpright extends Command {
   @Override
   public void end(boolean interrupted) {
     m_pivot.setSpeed(0);
-    System.out.println("Ended");
+    // System.out.println("Ended");
   }
 
   // Returns true when the command should end.

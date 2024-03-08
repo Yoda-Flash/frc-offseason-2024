@@ -32,6 +32,7 @@ import frc.robot.commands.intakeshooter.ArcadeIntake;
 import frc.robot.commands.intakeshooter.ArcadeShoot;
 import frc.robot.commands.intakeshooter.AutoIntake;
 import frc.robot.commands.intakeshooter.AutoShoot;
+import frc.robot.commands.intakeshooter.OutakeToSwitch;
 import frc.robot.commands.intakeshooter.Outtake;
 import frc.robot.commands.intakeshooter.ReverseShooter;
 import frc.robot.commands.pivot.ArcadePivot;
@@ -102,7 +103,8 @@ public class RobotContainer {
 
   private Intake m_intake = new Intake();
   private ArcadeIntake m_runIntake = new ArcadeIntake(m_intake, m_joystick2);
-  private Outtake m_outtake = new Outtake(m_intake, -0.6);
+  // private Outtake m_outtake = new Outtake(m_intake, -0.6);
+  private OutakeToSwitch m_outtake = new OutakeToSwitch(m_intake);
 
   private Shooter m_shooter = new Shooter();
   private ArcadeShoot m_shoot = new ArcadeShoot(m_shooter, m_joystick2);
@@ -176,7 +178,7 @@ public class RobotContainer {
     m_ampButton.whileTrue(m_ampScore);
     m_intakeButton.whileTrue(m_groundIntake);
     m_subwooferButton.whileTrue(m_subwoofer);
-    m_outtakeButton.whileTrue(m_outtake);
+    m_outtakeButton.onTrue(m_outtake);
     // m_podiumButton.whileTrue(m_podium);
     // m_elevatorUpButton.whileTrue(m_elevatorUp);
     // m_elevatorDownButton.whileTrue(m_elevatorDown);

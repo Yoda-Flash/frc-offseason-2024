@@ -9,6 +9,7 @@ import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.commands.elevator.PIDElevatorAmp;
 import frc.robot.commands.pivot.PIDPivotAmp;
+import frc.robot.commands.pivot.PIDPivotSubwoofer;
 import frc.robot.commands.wrist.PIDWristAmp;
 import frc.robot.subsystems.Elevator;
 import frc.robot.subsystems.Pivot;
@@ -21,11 +22,16 @@ public class AmpScore extends ParallelCommandGroup {
   /** Creates a new AmpScore. */
   public AmpScore(Pivot pivot, Wrist wrist, Elevator elevator) {
     // Add your commands in the addCommands() call, e.g.
-    // addCommands(new FooCommand(), new BarCommand());
+    // // addCommands(new FooCommand(), new BarCommand());
+    // addCommands(
+    //   new PIDWristAmp(wrist),
+    //   new SequentialCommandGroup(new WaitCommand(3), new PIDPivotAmp(pivot)), //0.638
+    //   new SequentialCommandGroup(new WaitCommand(6), new PIDElevatorAmp(elevator))
+    // );
     addCommands(
-      new PIDWristAmp(wrist),
-      new SequentialCommandGroup(new WaitCommand(3), new PIDPivotAmp(pivot)), //0.638
-      new SequentialCommandGroup(new WaitCommand(6), new PIDElevatorAmp(elevator))
+      new PIDPivotAmp(pivot),
+      new SequentialCommandGroup(new WaitCommand(0.25), new PIDWristAmp(wrist)),
+      new SequentialCommandGroup(new WaitCommand(0.5), new PIDElevatorAmp(elevator))
     );
   }
 }

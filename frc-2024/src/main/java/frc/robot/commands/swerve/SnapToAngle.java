@@ -38,7 +38,7 @@ public class SnapToAngle extends Command {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    System.out.println("I'm running!");
+    // System.out.println("I'm running!");
     m_initAngle = m_swerve.getAngle().getDegrees();
   }
 
