@@ -4,6 +4,7 @@
 
 package frc.robot.subsystems;
 
+import com.fasterxml.jackson.databind.util.Named;
 import com.kauailabs.navx.frc.AHRS;
 import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.auto.NamedCommands;
@@ -189,9 +190,13 @@ public class SwerveDrive extends SubsystemBase {
       }, new Pose2d(m_xStartPose, m_yStartPose, getAngle()));
   }
 
-  public SwerveDrive(Command stowCommand, Command autoShoot) {
+  public SwerveDrive(Command stowCommand, Command autoShoot, Command autoIntake, Command groundIntake) {
     NamedCommands.registerCommand("Print", new PrintCommand("Print command is running!!!"));
-     AutoBuilder.configureHolonomic(
+    NamedCommands.registerCommand("Stow", stowCommand);
+    NamedCommands.registerCommand("AutoShoot", autoShoot);
+    NamedCommands.registerCommand("AutoIntake", autoIntake);
+    NamedCommands.registerCommand("GroundIntake", groundIntake);
+    AutoBuilder.configureHolonomic(
                 this::getPoseMeters, // Robot pose supplier
                 this::resetOdo, // Method to reset odometry (will be called if your auto has a starting pose)
                 this::getChassisSpeeds, // ChassisSpeeds supplier. MUST BE ROBOT RELATIVE

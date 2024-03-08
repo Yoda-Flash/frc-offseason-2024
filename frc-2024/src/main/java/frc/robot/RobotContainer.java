@@ -30,6 +30,7 @@ import frc.robot.commands.groups.Subwoofer;
 import frc.robot.commands.groups.Stowed;
 import frc.robot.commands.intakeshooter.ArcadeIntake;
 import frc.robot.commands.intakeshooter.ArcadeShoot;
+import frc.robot.commands.intakeshooter.AutoIntake;
 import frc.robot.commands.intakeshooter.AutoShoot;
 import frc.robot.commands.intakeshooter.Outtake;
 import frc.robot.commands.intakeshooter.ReverseShooter;
@@ -116,8 +117,9 @@ public class RobotContainer {
   private Stowed m_stowed = new Stowed(m_pivot, m_wrist, m_elevator);
   private Podium m_podium = new Podium(m_pivot, m_wrist, m_elevator);
   private AutoShoot m_autoShoot = new AutoShoot(m_intake, m_shooter);
-  
-  private final SwerveDrive m_swerve = new SwerveDrive(m_stowed, m_autoShoot);
+  private AutoIntake m_autoIntake = new AutoIntake(m_intake);
+
+  private final SwerveDrive m_swerve = new SwerveDrive(m_stowed, m_autoShoot, m_autoIntake, m_groundIntake);
 
   private final JoystickDrive m_drive = new JoystickDrive(m_swerve, 
     () -> -m_driverJoystick.getRawAxis(DriveConstants.kJoystickXAxis),

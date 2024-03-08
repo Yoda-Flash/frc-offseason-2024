@@ -36,20 +36,17 @@ public class PIDPivotSubwoofer extends Command {
     m_pivot.setSpeed(0);
   }
 
-  // Called every time the scheduler runs while the command is scheduled.
-  @Override
-  public void execute() {
-    m_speed = m_pid.calculate(m_pivot.getEncoderPosition(), Config.kSetpoint);
-    System.out.println("I'm running");
+ // Called every time the scheduler runs while the command is scheduled.
+ @Override
+ public void execute() {
+   m_speed = m_pid.calculate(m_pivot.getEncoderPosition(), Config.kSetpoint);
 
-    if (!(Math.abs(m_pivot.getEncoderPosition() - Config.kSetpoint)<= Config.kDeadband)){
-      System.out.println("I'm running in if-else loop");
-      System.out.println(m_speed);
-      SmartDashboard.putNumber("PID value", m_speed);
-      SmartDashboard.putNumber("PID Error", m_pivot.getEncoderPosition() - Config.kSetpoint);
-      m_pivot.setSpeed(m_speed);
-    }
-  }
+   if (!(Math.abs(m_pivot.getEncoderPosition() - Config.kSetpoint)<= Config.kDeadband)){
+     SmartDashboard.putNumber("PID value", m_speed);
+     SmartDashboard.putNumber("PID Error", m_pivot.getEncoderPosition() - Config.kSetpoint);
+     m_pivot.setSpeed(m_speed);
+   }
+ }
 
   // Called once the command ends or is interrupted.
   @Override
