@@ -3,25 +3,25 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 1.34,
-        "y": 5.53
+        "x": 0.49,
+        "y": 7.009912291429521
       },
       "prevControl": null,
       "nextControl": {
-        "x": 1.5500929767291636,
-        "y": 5.831099069605546
+        "x": 1.4900000000000013,
+        "y": 7.009912291429521
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 2.255524511049022,
-        "y": 6.9449383343211135
+        "x": 1.36,
+        "y": 5.55
       },
       "prevControl": {
-        "x": 1.9863466887427603,
-        "y": 6.573658579415924
+        "x": 1.332154018382111,
+        "y": 5.707793895834706
       },
       "nextControl": null,
       "isLocked": false,
@@ -29,11 +29,6 @@
     }
   ],
   "rotationTargets": [
-    {
-      "waypointRelativePos": 0,
-      "rotationDegrees": 0.0,
-      "rotateFast": false
-    },
     {
       "waypointRelativePos": 1,
       "rotationDegrees": 0,
@@ -43,8 +38,8 @@
   "constraintZones": [],
   "eventMarkers": [
     {
-      "name": "GroundIntakePosition",
-      "waypointRelativePos": 0.0,
+      "name": "New Event Marker",
+      "waypointRelativePos": 0,
       "command": {
         "type": "deadline",
         "data": {
@@ -58,7 +53,7 @@
             {
               "type": "named",
               "data": {
-                "name": "GroundIntake"
+                "name": "Subwoofer"
               }
             }
           ]
@@ -78,9 +73,9 @@
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "1+1 Left Subwoofer",
+  "folder": "1+1 Left",
   "previewStartingState": {
-    "rotation": 1.6948367430430238,
+    "rotation": -0.578725565607839,
     "velocity": 0
   },
   "useDefaultConstraints": true

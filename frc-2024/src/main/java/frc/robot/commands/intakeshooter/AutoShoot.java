@@ -34,9 +34,9 @@ public class AutoShoot extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_shooter.setSpeed(0.5);
+    m_shooter.setSpeed(1.0);
     if (m_timer.hasElapsed(0.5)){
-      m_intake.setSpeed(0.5);
+      m_intake.setSpeed(1);
     }
   }
 

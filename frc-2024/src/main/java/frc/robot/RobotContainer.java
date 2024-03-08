@@ -121,7 +121,7 @@ public class RobotContainer {
   private AutoShoot m_autoShoot = new AutoShoot(m_intake, m_shooter);
   private AutoIntake m_autoIntake = new AutoIntake(m_intake);
 
-  private final SwerveDrive m_swerve = new SwerveDrive(m_stowed, m_autoShoot, m_autoIntake, m_groundIntake);
+  private final SwerveDrive m_swerve = new SwerveDrive(m_stowed, m_autoShoot, m_autoIntake, m_groundIntake, m_subwoofer);
 
   private final JoystickDrive m_drive = new JoystickDrive(m_swerve, 
     () -> -m_driverJoystick.getRawAxis(DriveConstants.kJoystickXAxis),
