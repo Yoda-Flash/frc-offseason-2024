@@ -22,7 +22,8 @@ import frc.robot.commands.elevator.PIDDown;
 import frc.robot.commands.elevator.PIDUp;
 import frc.robot.commands.groups.AmpScore;
 import frc.robot.commands.groups.BackwardIntake;
-import frc.robot.commands.groups.Climb;
+import frc.robot.commands.groups.ClimbDown;
+import frc.robot.commands.groups.ClimbUp;
 import frc.robot.commands.groups.ForwardIntake;
 import frc.robot.commands.groups.GroundIntake;
 import frc.robot.commands.groups.Podium;
@@ -72,7 +73,8 @@ public class RobotContainer {
     // public static final int kWristBackwardButtonID = 6;
     public static final int kOuttakeButtonID = 5;
     public static final int kPodiumButtonID = 6;
-    public static final int kShooterButtonID = 8;
+    public static final int kClimbUpButtonID = 7;
+    public static final int kClimbDownButtonID = 8;
   }
   
 
@@ -113,13 +115,14 @@ public class RobotContainer {
   private ForwardIntake m_forwardIntake = new ForwardIntake(m_pivot, m_wrist);
   private BackwardIntake m_backwardIntake = new BackwardIntake(m_pivot, m_wrist);
   private AmpScore m_ampScore = new AmpScore(m_pivot, m_wrist, m_elevator);
-  private Climb m_climb = new Climb(m_pivot, m_wrist, m_elevator);
+  private ClimbUp m_climbUp = new ClimbUp(m_pivot, m_wrist, m_elevator);
   private GroundIntake m_groundIntake = new GroundIntake(m_pivot, m_wrist, m_elevator);
   private Subwoofer m_subwoofer = new Subwoofer(m_pivot, m_wrist, m_elevator);
   private Stowed m_stowed = new Stowed(m_pivot, m_wrist, m_elevator);
   private Podium m_podium = new Podium(m_pivot, m_wrist, m_elevator);
   private AutoShoot m_autoShoot = new AutoShoot(m_intake, m_shooter);
   private AutoIntake m_autoIntake = new AutoIntake(m_intake);
+  private ClimbDown m_climbDown = new ClimbDown(m_pivot, m_wrist, m_elevator);
 
   private final SwerveDrive m_swerve = new SwerveDrive(m_stowed, m_autoShoot, m_autoIntake, m_groundIntake, m_subwoofer);
 
@@ -139,6 +142,8 @@ public class RobotContainer {
   private JoystickButton m_podiumButton = new JoystickButton(m_joystick2, Config.kPodiumButtonID);
   private JoystickButton m_intakeButton = new JoystickButton(m_joystick2, Config.kIntakeButtonID);
   private JoystickButton m_outtakeButton = new JoystickButton(m_joystick2, Config.kOuttakeButtonID);
+  private JoystickButton m_climbUpButton = new JoystickButton(m_joystick2, Config.kClimbUpButtonID);
+  private JoystickButton m_climbDownButton = new JoystickButton(m_joystick2, Config.kClimbDownButtonID);
 
   private JoystickButton m_resetHeadingButton = new JoystickButton(m_driverJoystick, 1);
 
@@ -182,6 +187,9 @@ public class RobotContainer {
     m_subwooferButton.whileTrue(m_subwoofer);
     m_outtakeButton.onTrue(m_outtake);
     m_podiumButton.whileTrue(m_podium);
+    // m_climbUpButton.whileTrue(m_climbUp);
+    // m_climbDownButton.whileTrue(m_climbDown);
+    // m_podiumButton.whileTrue(m_podium);
     // m_elevatorUpButton.whileTrue(m_elevatorUp);
     // m_elevatorDownButton.whileTrue(m_elevatorDown);
     // m_pivotBackwardButton.whileTrue(m_pivotRecalibrate);
