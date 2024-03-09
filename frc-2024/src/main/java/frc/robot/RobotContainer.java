@@ -170,7 +170,7 @@ public class RobotContainer {
   private void configureBindings() {
     // m_snapButton.whileTrue(m_visionSnap);
     // m_straightenButton.whileTrue(m_straighten);
-    m_resetHeadingButton.onTrue(new InstantCommand(() -> m_swerve.resetHeading()));
+    // m_resetHeadingButton.onTrue(new InstantCommand(() -> m_swerve.resetHeading()));
     // Schedule `ExampleCommand` when `exampleCondition` changes to `true`
 
 
