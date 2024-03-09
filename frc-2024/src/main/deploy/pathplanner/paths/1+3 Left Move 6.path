@@ -3,25 +3,25 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 0.5105096629946347,
-        "y": 4.067520233805899
+        "x": 1.35,
+        "y": 5.56
       },
       "prevControl": null,
       "nextControl": {
-        "x": 0.9281993872622057,
-        "y": 3.98398228894725
+        "x": 1.4851190196207553,
+        "y": 5.431973333082468
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 0.9,
-        "y": 4.713285251007039
+        "x": 2.44,
+        "y": 4.123212197041678
       },
       "prevControl": {
-        "x": 0.863313506774856,
-        "y": 4.679313185793963
+        "x": 2.3750260428915917,
+        "y": 4.234596123513234
       },
       "nextControl": null,
       "isLocked": false,
@@ -30,13 +30,8 @@
   ],
   "rotationTargets": [
     {
-      "waypointRelativePos": 0,
-      "rotationDegrees": 0,
-      "rotateFast": false
-    },
-    {
       "waypointRelativePos": 1,
-      "rotationDegrees": -71.56505117707799,
+      "rotationDegrees": 0,
       "rotateFast": false
     }
   ],
@@ -52,7 +47,13 @@
             {
               "type": "named",
               "data": {
-                "name": "Subwoofer"
+                "name": "GroundIntake"
+              }
+            },
+            {
+              "type": "named",
+              "data": {
+                "name": "AutoIntake"
               }
             }
           ]
@@ -68,11 +69,11 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": -70.25316339457386,
+    "rotation": 0,
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "1+Exit Right",
+  "folder": "1+3 Left",
   "previewStartingState": {
     "rotation": 0,
     "velocity": 0
