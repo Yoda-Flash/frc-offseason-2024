@@ -14,7 +14,7 @@ public class PIDPivotStow extends Command {
   private static final class Config{
     public static final double kSetpoint = -0.102186730994668;
     public static final double kDeadband = 0.000;
-    public static final double kP = 2.5;
+    public static final double kP = 2.6;
     public static final double kI = 0.20;
     public static final double kD = 0.15;
   }

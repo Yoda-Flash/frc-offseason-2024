@@ -9,7 +9,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.Wrist;
 
-public class PIDWristIntake extends Command {
+public class PIDWristClimb extends Command {
 
   private static final class Config{
     public static final double kSetpoint = -0.268;
@@ -24,7 +24,7 @@ public class PIDWristIntake extends Command {
   private double m_speed;
 
   /** Creates a new PIDForward. */
-  public PIDWristIntake(Wrist wrist) {
+  public PIDWristClimb(Wrist wrist) {
     m_wrist = wrist;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(m_wrist);
