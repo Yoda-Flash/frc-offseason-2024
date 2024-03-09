@@ -30,7 +30,7 @@ public class AutoIntake extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_intake.setSpeed(1);
+    m_intake.setSpeed(0.7);
   }
 
   // Called once the command ends or is interrupted.
