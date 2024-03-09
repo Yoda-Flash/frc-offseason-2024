@@ -18,12 +18,6 @@
           }
         },
         {
-          "type": "named",
-          "data": {
-            "name": "AutoShoot"
-          }
-        },
-        {
           "type": "deadline",
           "data": {
             "commands": [
@@ -40,6 +34,18 @@
                 }
               }
             ]
+          }
+        },
+        {
+          "type": "named",
+          "data": {
+            "name": "AutoShoot"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "1+Exit Right Move 2"
           }
         }
       ]

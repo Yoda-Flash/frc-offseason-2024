@@ -46,19 +46,19 @@
       "name": "GroundIntakePosition",
       "waypointRelativePos": 0.0,
       "command": {
-        "type": "deadline",
+        "type": "parallel",
         "data": {
           "commands": [
             {
-              "type": "wait",
+              "type": "named",
               "data": {
-                "waitTime": 1.5
+                "name": "GroundIntake"
               }
             },
             {
               "type": "named",
               "data": {
-                "name": "GroundIntake"
+                "name": "AutoIntake"
               }
             }
           ]
