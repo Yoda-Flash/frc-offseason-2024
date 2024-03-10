@@ -124,7 +124,7 @@ public class RobotContainer {
   private AutoIntake m_autoIntake = new AutoIntake(m_intake);
   private ClimbDown m_climbDown = new ClimbDown(m_pivot, m_wrist, m_elevator);
 
-  private final SwerveDrive m_swerve = new SwerveDrive(m_stowed, m_autoShoot, m_autoIntake, m_groundIntake, m_subwoofer);
+  private final SwerveDrive m_swerve = new SwerveDrive(m_stowed, m_autoShoot, m_autoIntake, m_groundIntake, m_subwoofer, m_outtake);
 
   private final JoystickDrive m_drive = new JoystickDrive(m_swerve, 
     () -> -m_driverJoystick.getRawAxis(DriveConstants.kJoystickXAxis),
