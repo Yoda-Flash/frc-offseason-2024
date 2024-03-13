@@ -8,12 +8,10 @@ import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.LED;
 import frc.robot.subsystems.LED.LED_State;
 
-public class OperateLED extends Command {
-  private LED m_led;
-  /** Creates a new OperateLED. */
-  public OperateLED(LED led) {
-    m_led = led;
-    addRequirements(m_led);
+public class Suibian extends Command {
+  /** Creates a new Suibian. */
+  public Suibian() {
+    // Use addRequirements() here to declare subsystem dependencies.
   }
 
   // Called when the command is initially scheduled.
@@ -23,30 +21,18 @@ public class OperateLED extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    switch(LED.m_state) {
-      case TRYING_PICKUP:
-        m_led.setColor(1); //orange
-        System.out.println("picking up");
-        break;
-      case PIECE_STORED:
-        m_led.setColor(3); //red
-        break;
-      case SHOOTING:
-        m_led.setColor(4); //purple
-        break;
-      case NORMAL:
-        m_led.setColor(2); //blue
-        System.out.println("Back to normal!");
-        break;
-      case RAINBOW:
-        m_led.rainbow();
-        break;
-    }
+    LED.setState(LED_State.TRYING_PICKUP);
+    System.out.println("Suibian!");
   }
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {}
+  public void end(boolean interrupted) {
+    if(LED.m_state != LED_State.PIECE_STORED) {
+      LED.setState(LED_State.NORMAL);
+    }
+    System.out.println("hello");
+  }
 
   // Returns true when the command should end.
   @Override

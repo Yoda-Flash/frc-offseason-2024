@@ -21,12 +21,12 @@ public class LED extends SubsystemBase {
     TRYING_PICKUP,
     PIECE_STORED,
     SHOOTING,
-    ALIGN,
+    NORMAL,
     RAINBOW /*If I can figure it out */
   }
   public static LED_State m_state;
 
-  private int [][] m_colorList = {{0,0,0},{255,64,0},{0,255,0},{255,0,0},{173,8,191}};
+  private int [][] m_colorList = {{0,0,0},{255,64,0},{0,0,255},{255,0,0},{173,8,191}};
   private int m_rainbowFirstPixelHue;
 
   /** Creates a new LED. */
@@ -55,7 +55,7 @@ public class LED extends SubsystemBase {
     m_led.setData(m_buffer);
   }
 
-  public void setState(LED_State newState) {
+  public static void setState(LED_State newState) {
     m_state = newState;
   }
 
