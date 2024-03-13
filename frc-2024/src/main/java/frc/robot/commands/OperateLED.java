@@ -4,25 +4,16 @@
 
 package frc.robot.commands;
 
-import java.util.function.Supplier;
-
-import edu.wpi.first.math.filter.SlewRateLimiter;
 import edu.wpi.first.wpilibj2.command.Command;
-import frc.robot.Constants.DriveConstants;
-import frc.robot.subsystems.SwerveDrive;
+import frc.robot.subsystems.LED;
+import frc.robot.subsystems.LED.LED_State;
 
-public class JoystickTurn extends Command {
-  private final SwerveDrive m_swerve;
-  private final Supplier<Double> m_turningSpeed;
-  private final SlewRateLimiter m_turningLimiter;
-
-  /** Creates a new JoystickTurn. */
-  public JoystickTurn(SwerveDrive swerve, Supplier<Double> turningSpeed) {
-    m_swerve = swerve;
-    m_turningSpeed = turningSpeed;
-    m_turningLimiter = new SlewRateLimiter(DriveConstants.kTeleopMaxAngularAccelRadiansPerSecondSquared);
-
-    addRequirements(swerve);
+public class OperateLED extends Command {
+  private LED m_led;
+  /** Creates a new OperateLED. */
+  public OperateLED(LED led) {
+    m_led = led;
+    addRequirements(m_led);
   }
 
   // Called when the command is initially scheduled.
@@ -31,7 +22,26 @@ public class JoystickTurn extends Command {
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
-  public void execute() {}
+  public void execute() {
+    switch(LED.m_state) {
+      case TRYING_PICKUP:
+        m_led.setColor(1);
+        break;
+      case PIECE_STORED:
+        m_led.setColor(2);
+        break;
+      case SHOOTING:
+        break;
+      case ALIGN:
+        break;
+      case RAINBOW:
+        m_led.rainbow();
+        break;
+      default:
+        m_led.setColor(3);
+        break;
+    }
+  }
 
   // Called once the command ends or is interrupted.
   @Override
