@@ -8,6 +8,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.commands.OperateLED;
+import frc.robot.commands.Suibian;
 import frc.robot.subsystems.LED;
 
 
@@ -28,9 +29,10 @@ public class RobotContainer {
   private LED m_led = new LED();
 
   private Joystick m_joystick = new Joystick(Config.kJoystick);
-  private JoystickButton m_practiceJoystick = new JoystickButton(m_joystick, Config.kPracticeButtonID);
+  private JoystickButton m_practiceJoystickButton = new JoystickButton(m_joystick, Config.kPracticeButtonID);
 
   private OperateLED m_operateLED = new OperateLED(m_led);
+  private Suibian m_suibian = new Suibian();
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {    
@@ -47,7 +49,7 @@ public class RobotContainer {
    * joysticks}.
    */
   private void configureBindings() {
-    
+    m_practiceJoystickButton.whileTrue(m_suibian);
   }
 
   /**
