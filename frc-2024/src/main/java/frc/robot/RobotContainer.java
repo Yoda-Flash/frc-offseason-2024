@@ -51,10 +51,6 @@ import frc.robot.subsystems.Elevator;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Pivot;
 import frc.robot.subsystems.Shooter;
-import frc.robot.commands.AutoStraighten;
-import frc.robot.commands.JoystickDrive;
-import frc.robot.commands.SnapToAngle;
-import frc.robot.commands.VisionSnapToAngle;
 import frc.robot.subsystems.SwerveDrive;
 import frc.robot.subsystems.Wrist;
 
@@ -130,26 +126,6 @@ public class RobotContainer {
 
   private final SwerveDrive m_swerve = new SwerveDrive(m_stowed, m_autoShoot, m_autoIntake, m_groundIntake, m_subwoofer, m_outtake);
 
-  private SnapToAngle m_snap = new SnapToAngle(m_swerve);
-  private VisionSnapToAngle m_visionSnap = new VisionSnapToAngle(m_swerve);
-
-  // private JoystickButton m_snapButton = new JoystickButton(m_driverJoystick, Config.kSnapButtonID); 
-
-  private final JoystickDrive m_drive = new JoystickDrive(m_swerve, 
-    () -> -m_driverJoystick.getRawAxis(DriveConstants.kJoystickXAxis),
-    () -> -m_driverJoystick.getRawAxis(DriveConstants.kJoystickYxis),
-    () -> {
-      if (m_snapButton.getAsBoolean()){
-        return SmartDashboard.getNumber("Turning speed", 0);
-      } else {
-        return -m_driverJoystick.getRawAxis(DriveConstants.kJoystickRotAxis);
-      }
-    }
-  );
-
-  private AutoStraighten m_straighten = new AutoStraighten(m_swerve);
-  private VisionSnapToAngle m_visionSnap = new VisionSnapToAngle(m_swerve);
-
   private JoystickButton m_stowButton = new JoystickButton(m_joystick2, Config.kStowButtonID);
   private JoystickButton m_ampButton = new JoystickButton(m_joystick2, Config.kAmpButtonID);
   private JoystickButton m_subwooferButton = new JoystickButton(m_joystick2, Config.kSubwooferButtonID);
@@ -165,18 +141,6 @@ public class RobotContainer {
 
   private SendableChooser<Command> m_autoChooser;
   // Replace with CommandPS4Controller or CommandJoystick if needed
-
-  private final JoystickDrive m_drive = new JoystickDrive(m_swerve, 
-    () -> -m_driverJoystick.getRawAxis(DriveConstants.kJoystickXAxis),
-    () -> -m_driverJoystick.getRawAxis(DriveConstants.kJoystickYxis),
-    () -> {
-      if (m_snapButton.getAsBoolean()){
-        return SmartDashboard.getNumber("Turning speed", 0);
-      } else {
-        return -m_driverJoystick.getRawAxis(DriveConstants.kJoystickRotAxis);
-      }
-    }
-  );
 
   private SnapToAngle m_snap = new SnapToAngle(m_swerve);
   private AutoStraighten m_straighten = new AutoStraighten(m_swerve);

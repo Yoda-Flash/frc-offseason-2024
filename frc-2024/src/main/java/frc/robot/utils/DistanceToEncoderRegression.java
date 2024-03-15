@@ -1,13 +1,9 @@
-public class DistanceToEncoderRegression
-{
+package frc.robot.utils;
 
-    public double getWristPosition(double distance){
+public class DistanceToEncoderRegression {
+
+    public static double getWristPosition(double distance){
     //return m * distance + b;
         return distance;
     }
-
-
-
-
-
 }
