@@ -41,6 +41,7 @@ public class Intake extends SubsystemBase {
     SmartDashboard.putNumber("Mech/Intake/Motor Temperature", m_intakeMotor.getMotorTemperature());
     SmartDashboard.putNumber("Mech/Intake/Motor Current", m_intakeMotor.getOutputCurrent());
     SmartDashboard.putBoolean("Mech/Intake/switch", getSwitchTriggered());
+    SmartDashboard.putBoolean("Driving/IntakeSwitch", getSwitchTriggered());
     // This method will be called once per scheduler run
   }
 }

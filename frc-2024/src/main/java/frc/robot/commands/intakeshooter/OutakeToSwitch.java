@@ -10,7 +10,7 @@ import frc.robot.subsystems.Intake;
 
 public class OutakeToSwitch extends Command {
   private Intake m_intake;
-  private int m_state;
+  private int m_state; // 1 --> over-intaked, 2 --> inside intake, 3 --> perfect position
   private double m_initTime;
   /** Creates a new OutakeToSwitch. */
   public OutakeToSwitch(Intake intake) {

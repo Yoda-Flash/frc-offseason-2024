@@ -105,6 +105,10 @@ public class SwerveDrive extends SubsystemBase {
     return new InstantCommand(this::resetHeading, this);
   }
 
+  public void adjustAngle(double angle){
+    m_imu.setAngleAdjustment(angle);
+  }
+
   public void resetOdo(Pose2d pose) {
     m_odo.resetPosition(getAngle(), new SwerveModulePosition[] {
       m_frontLeft.getPosition(),
@@ -226,6 +230,9 @@ public class SwerveDrive extends SubsystemBase {
      );
 
      SmartDashboard.putData("Swerve/Distance/reset", new InstantCommand(this::resetAllDistances));
+     double m_angle = SmartDashboard.getNumber("Driving/Adjust angle", 0);
+     SmartDashboard.putNumber("Driving/Adjust angle", m_angle);
+     adjustAngle(m_angle);
 
      new Thread(() -> {
       try {

@@ -22,23 +22,16 @@ public class Pivot extends SubsystemBase {
   private TalonFX m_falcon2 = new TalonFX(PivotConstants.kMotorID2);
   private TalonFX m_falcon3 = new TalonFX(PivotConstants.kMotorID3);
   private TalonFX m_falcon4 = new TalonFX(PivotConstants.kMotorID4);
-  private DutyCycleEncoder m_encoder = new DutyCycleEncoder(PivotConstants.kEncoderID);
+  private DutyCycleEncoder m_encoder = new DutyCycleEncoder(2);
 
-  private LimitSwitch m_forward = new LimitSwitch(PivotConstants.kForwardSwitchID);
-  private LimitSwitch m_backward = new LimitSwitch(PivotConstants.kBackwardSwitchID);
+  private LimitSwitch m_forward = new LimitSwitch(9);
+  private LimitSwitch m_backward = new LimitSwitch(7);
 
-  private StatusSignal<Double> m_falconPosition;
+  private StatusSignal<Double> m_velocity; // using motor 1 as the reference.
+  private StatusSignal<Double> m_position; // using motor 1 as the reference.
 
   /** Creates a new ElevatorPivot. */
   public Pivot() {
-  //   m_falcon2.follow(m_falcon1);
-  //   m_falcon4.follow(m_falcon3);
-    // m_falcon1.setInverted(true);
-    // m_falcon2.setInverted(true);
-    // m_falcon1.setNeutralMode(NeutralModeValue.Brake);
-    // m_falcon2.setNeutralMode(NeutralModeValue.Brake);
-    // m_falcon3.setNeutralMode(NeutralModeValue.Brake);
-    // m_falcon4.setNeutralMode(NeutralModeValue.Brake);
     TalonFXConfiguration configRight = new TalonFXConfiguration();
     TalonFXConfiguration configLeft = new TalonFXConfiguration();
 
@@ -55,66 +48,59 @@ public class Pivot extends SubsystemBase {
     m_falcon2.getConfigurator().apply(configRight);
     m_falcon3.getConfigurator().apply(configLeft);
     m_falcon4.getConfigurator().apply(configLeft);
-    // m_falcon1.getEncoder().setPosition(0);
 
-    m_falconPosition = m_falcon1.getPosition();
+    m_velocity = m_falcon1.getVelocity();
+    m_position = m_falcon1.getPosition();
   }
 
-  public Boolean ifForwardTriggered(){
+  public Boolean ifForwardOpen(){
     return m_forward.ifTriggered();
   }
 
-  public Boolean ifBackwardTriggered(){
+  public Boolean ifBackwardOpen(){
     return m_backward.ifTriggered();
   }
 
   public double getEncoderPosition(){
-    return m_encoder.getAbsolutePosition() - PivotConstants.kAbsEncoderOffset;
+    return m_encoder.get();
+  }
+
+  // This should be equal to the value returned by getEncoderPosition,
+  // within an uncertainty.
+  public double getMotorSensorPosition() {
+    return m_position.refresh().getValueAsDouble();
   }
 
   public void resetEncoderPosition(){
     m_encoder.reset();
   }
 
-  public void resetFalconEncoderPosition() {
-    m_falcon1.setPosition(0.0);
-  }
-
-  public double getFalconEncoderPosition() {
-    return m_falconPosition.refresh().getValueAsDouble();
-  }
-
   public void setSpeed(double speed){
-    if (!ifForwardTriggered() && speed<0) {
+    if (!ifForwardOpen() && speed < 0) {
       speed = 0;
-    } else if (!ifBackwardTriggered() && speed>0){
+    } else if (!ifBackwardOpen() && speed > 0){
       speed = 0;
     }
-    m_falcon1.set(-speed);
-    m_falcon2.set(-speed);
-    m_falcon3.set(-speed);
-    m_falcon4.set(-speed);
+    m_falcon1.set(speed);
+    m_falcon2.set(speed);
+    m_falcon3.set(speed);
+    m_falcon4.set(speed);
   }
 
+  public double getVelocity() {
+    return m_velocity.refresh().getValueAsDouble();
+  }
 
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
-    SmartDashboard.putNumber("Mech/Pivot/Encoder", getEncoderPosition());
-
-    SmartDashboard.putBoolean("Mech/Pivot/Forward switch: ", ifForwardTriggered());
-    SmartDashboard.putBoolean("Mech/Pivot/Backward switch: ", ifBackwardTriggered());
-    SmartDashboard.putNumber("Encoder Testing/Relative", m_encoder.get());
-    SmartDashboard.putNumber("Encoder Testing/Absolute", getEncoderPosition());
-    SmartDashboard.putNumber("Encoder Testing/Falcon", getFalconEncoderPosition());
-
+    SmartDashboard.putNumber("Pivot", getEncoderPosition());
     
+    SmartDashboard.putBoolean("Forward switch: ", ifForwardOpen());
+    SmartDashboard.putBoolean("Backward switch: ", ifBackwardOpen());
 
-    // if (!ifBackwardTriggered()){
-    //   resetEncoderPosition();
-    // }
-    if (!ifBackwardTriggered()) {
-      resetFalconEncoderPosition();
+    if (!ifBackwardOpen()) {
+      resetEncoderPosition();
     }
   }
 }
