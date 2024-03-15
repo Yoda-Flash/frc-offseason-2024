@@ -70,11 +70,21 @@ def gen():
                         # print("[INFO] {} total AprilTags detected".format(len(results)))
 
                         # loop over the AprilTag detection results
+                        if len(results) == 0:
+                                sd = NetworkTables.getTable("SmartDashboard")
+                                sd.putNumber("TagDetected", 0)
+                                a_value = sd.getNumber('robotTime',0)
+                                print("False")     
+                        else:
+                                sd = NetworkTables.getTable("SmartDashboard")
+                                sd.putNumber("TagDetected", 1)
+                                a_value = sd.getNumber('robotTime',0)
+                                print("True")
                         for r in results:
                                 # extract the bounding box (x, y)-coordinates for the AprilTag
                                 # and convert each of the (x, y)-coordinate pairs to integers
                                 (ptA, ptB, ptC, ptD) = r.corners
-								(ptA, ptB, ptC, ptD) = r.corners
+							
                                 ptB = (int(ptB[0]), int(ptB[1]))
                                 ptC = (int(ptC[0]), int(ptC[1]))
                                 ptD = (int(ptD[0]), int(ptD[1]))
