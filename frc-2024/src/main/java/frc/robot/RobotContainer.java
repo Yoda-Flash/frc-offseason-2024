@@ -124,7 +124,7 @@ public class RobotContainer {
   private AutoIntake m_autoIntake = new AutoIntake(m_intake);
   private ClimbDown m_climbDown = new ClimbDown(m_pivot, m_wrist, m_elevator);
 
-  private final SwerveDrive m_swerve = new SwerveDrive(m_stowed, m_autoShoot, m_autoIntake, m_groundIntake, m_subwoofer);
+  private final SwerveDrive m_swerve = new SwerveDrive(m_stowed, m_autoShoot, m_autoIntake, m_groundIntake, m_subwoofer, m_outtake);
 
   private final JoystickDrive m_drive = new JoystickDrive(m_swerve, 
     () -> -m_driverJoystick.getRawAxis(DriveConstants.kJoystickXAxis),
@@ -214,7 +214,7 @@ public class RobotContainer {
 
   public Command getTeleopCommand(){
     m_pivot.setDefaultCommand(m_arcadePivot);
-    m_wrist.setDefaultCommand(m_arcadeWrist);
+    // m_wrist.setDefaultCommand(m_arcadeWrist);
     m_intake.setDefaultCommand(m_runIntake);
     m_shooter.setDefaultCommand(m_shoot);
     m_elevator.setDefaultCommand(m_arcadeElevator);
