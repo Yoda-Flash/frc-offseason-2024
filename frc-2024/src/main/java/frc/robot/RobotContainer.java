@@ -133,7 +133,7 @@ public class RobotContainer {
   private SnapToAngle m_snap = new SnapToAngle(m_swerve);
   private VisionSnapToAngle m_visionSnap = new VisionSnapToAngle(m_swerve);
 
-  private JoystickButton m_snapButton = new JoystickButton(m_driverJoystick, Config.kSnapButtonID); 
+  // private JoystickButton m_snapButton = new JoystickButton(m_driverJoystick, Config.kSnapButtonID); 
 
   private final JoystickDrive m_drive = new JoystickDrive(m_swerve, 
     () -> -m_driverJoystick.getRawAxis(DriveConstants.kJoystickXAxis),
@@ -163,9 +163,24 @@ public class RobotContainer {
 
   private SendableChooser<Command> m_autoChooser;
   // Replace with CommandPS4Controller or CommandJoystick if needed
-=======
 
->>>>>>> 53845d1 (Tested and created a working auto track april tag)
+  private final JoystickDrive m_drive = new JoystickDrive(m_swerve, 
+    () -> -m_driverJoystick.getRawAxis(DriveConstants.kJoystickXAxis),
+    () -> -m_driverJoystick.getRawAxis(DriveConstants.kJoystickYxis),
+    () -> {
+      if (m_snapButton.getAsBoolean()){
+        return SmartDashboard.getNumber("Turning speed", 0);
+      } else {
+        return -m_driverJoystick.getRawAxis(DriveConstants.kJoystickRotAxis);
+      }
+    }
+  );
+
+  private SnapToAngle m_snap = new SnapToAngle(m_swerve);
+  private AutoStraighten m_straighten = new AutoStraighten(m_swerve);
+  private VisionSnapToAngle m_visionSnap = new VisionSnapToAngle(m_swerve);
+
+
 
   private final JoystickDrive m_drive = new JoystickDrive(m_swerve, 
     () -> -m_driverJoystick.getRawAxis(DriveConstants.kJoystickXAxis),
