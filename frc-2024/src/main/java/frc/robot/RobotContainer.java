@@ -5,7 +5,6 @@
 package frc.robot;
 
 import com.pathplanner.lib.auto.AutoBuilder;
-import com.pathplanner.lib.commands.PathPlannerAuto;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
@@ -27,14 +26,13 @@ import frc.robot.commands.groups.ClimbUp;
 import frc.robot.commands.groups.ForwardIntake;
 import frc.robot.commands.groups.GroundIntake;
 import frc.robot.commands.groups.Podium;
-import frc.robot.commands.groups.Subwoofer;
 import frc.robot.commands.groups.Stowed;
+import frc.robot.commands.groups.Subwoofer;
 import frc.robot.commands.intakeshooter.ArcadeIntake;
 import frc.robot.commands.intakeshooter.ArcadeShoot;
 import frc.robot.commands.intakeshooter.AutoIntake;
 import frc.robot.commands.intakeshooter.AutoShoot;
 import frc.robot.commands.intakeshooter.OutakeToSwitch;
-import frc.robot.commands.intakeshooter.Outtake;
 import frc.robot.commands.intakeshooter.ReverseShooter;
 import frc.robot.commands.pivot.ArcadePivot;
 import frc.robot.commands.pivot.PIDBack;
@@ -44,6 +42,7 @@ import frc.robot.commands.swerve.AutoStraighten;
 import frc.robot.commands.swerve.JoystickDrive;
 import frc.robot.commands.swerve.SnapToAngle;
 import frc.robot.commands.swerve.VisionSnapToAngle;
+import frc.robot.commands.vision.VisionAim;
 import frc.robot.commands.wrist.ArcadeWrist;
 import frc.robot.commands.wrist.PIDDrop;
 import frc.robot.commands.wrist.PIDRaise;
@@ -145,8 +144,7 @@ public class RobotContainer {
   private SnapToAngle m_snap = new SnapToAngle(m_swerve);
   private AutoStraighten m_straighten = new AutoStraighten(m_swerve);
   private VisionSnapToAngle m_visionSnap = new VisionSnapToAngle(m_swerve);
-
-
+  private VisionAim m_visionAim = new VisionAim(m_swerve, m_wrist);
 
   private final JoystickDrive m_drive = new JoystickDrive(m_swerve, 
     () -> -m_driverJoystick.getRawAxis(DriveConstants.kJoystickXAxis),
