@@ -22,13 +22,13 @@ public class Pivot extends SubsystemBase {
   private TalonFX m_falcon2 = new TalonFX(PivotConstants.kMotorID2);
   private TalonFX m_falcon3 = new TalonFX(PivotConstants.kMotorID3);
   private TalonFX m_falcon4 = new TalonFX(PivotConstants.kMotorID4);
-  private DutyCycleEncoder m_encoder = new DutyCycleEncoder(2);
+  private DutyCycleEncoder m_encoder = new DutyCycleEncoder(PivotConstants.kEncoderID);
 
-  private LimitSwitch m_forward = new LimitSwitch(9);
-  private LimitSwitch m_backward = new LimitSwitch(7);
+  private LimitSwitch m_forward = new LimitSwitch(PivotConstants.kForwardSwitchID);
+  private LimitSwitch m_backward = new LimitSwitch(PivotConstants.kBackwardSwitchID);
 
-  private StatusSignal<Double> m_velocity; // using motor 1 as the reference.
-  private StatusSignal<Double> m_position; // using motor 1 as the reference.
+  private StatusSignal<Double> m_velocity; // using motor 3 as the reference.
+  private StatusSignal<Double> m_position; // using motor 3 as the reference.
 
   /** Creates a new ElevatorPivot. */
   public Pivot() {
@@ -49,8 +49,9 @@ public class Pivot extends SubsystemBase {
     m_falcon3.getConfigurator().apply(configLeft);
     m_falcon4.getConfigurator().apply(configLeft);
 
-    m_velocity = m_falcon1.getVelocity();
-    m_position = m_falcon1.getPosition();
+    m_velocity = m_falcon3.getVelocity();
+    m_position = m_falcon3.getPosition();
+
   }
 
   public Boolean ifForwardOpen(){
@@ -62,7 +63,8 @@ public class Pivot extends SubsystemBase {
   }
 
   public double getEncoderPosition(){
-    return m_encoder.get();
+    // negative one is added in order to match the velocity direction of the motors.
+    return -1.0 * (m_encoder.getAbsolutePosition() - PivotConstants.kAbsEncoderOffset);
   }
 
   // This should be equal to the value returned by getEncoderPosition,
@@ -76,9 +78,9 @@ public class Pivot extends SubsystemBase {
   }
 
   public void setSpeed(double speed){
-    if (!ifForwardOpen() && speed < 0) {
+    if (speed > 0 && !ifForwardOpen()) {
       speed = 0;
-    } else if (!ifBackwardOpen() && speed > 0){
+    } else if (speed < 0 && !ifBackwardOpen()){
       speed = 0;
     }
     m_falcon1.set(speed);
@@ -94,7 +96,7 @@ public class Pivot extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
-    SmartDashboard.putNumber("Pivot", getEncoderPosition());
+    SmartDashboard.putNumber("Mech/Pivot/Encoder", getEncoderPosition());
     
     SmartDashboard.putBoolean("Forward switch: ", ifForwardOpen());
     SmartDashboard.putBoolean("Backward switch: ", ifBackwardOpen());

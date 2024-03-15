@@ -118,8 +118,8 @@ public final class Constants {
     public static final double kDeadBand = 0.05;
     public static final double kAbsEncoderOffset = 0.8624; // subtractive.
 
-    public static final double kCruiseVelocity = 0.0;
-    public static final double kMaxAccel = 0.0;
+    public static final double kCruiseVelocity = 0.12; // Rot/Sec
+    public static final double kMaxAccel = 0.06; // Rot/Sec^2
 
     public static final TrapezoidProfile.Constraints kConstraints = new TrapezoidProfile.Constraints(kCruiseVelocity, kMaxAccel);
 
@@ -130,7 +130,7 @@ public final class Constants {
     public static final double kDTrap = 0;
 
     public static final double kS = 0;
-    public static final double kV = 0;
+    public static final double kV = 1.6516;
 
     public static final double kPositionDeadband = 0.01;
   }
@@ -147,8 +147,8 @@ public final class Constants {
     public static final double kDeadBand = 0.05;
     public static final double kEncoderOffset = 0.886434;
 
-    public static final double kCruiseVelocity = 0.0;
-    public static final double kMaxAccel = 0.0;
+    public static final double kCruiseVelocity = 0.2; // RPS
+    public static final double kMaxAccel = 0.2; // RPS^2 
 
     public static final TrapezoidProfile.Constraints kConstraints = new TrapezoidProfile.Constraints(kCruiseVelocity, kMaxAccel);
 
@@ -159,7 +159,7 @@ public final class Constants {
     public static final double kDTrap = 0;
 
     public static final double kS = 0;
-    public static final double kV = 0;
+    public static final double kV = 0.8393;
 
     public static final double kPositionDeadband = 0.01;
   }

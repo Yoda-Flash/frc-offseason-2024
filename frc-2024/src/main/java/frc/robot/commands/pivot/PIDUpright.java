@@ -11,7 +11,7 @@ import frc.robot.subsystems.Pivot;
 
 public class PIDUpright extends Command {
   private static final class Config{
-    public static final double kSetpoint = -0.25;
+    public static final double kSetpoint = 0.25;
     public static final double kDeadband = 0.005;
     public static final double kP = 2.5;
     public static final double kI = 0.20;

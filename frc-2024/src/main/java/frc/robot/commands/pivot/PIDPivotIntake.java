@@ -12,7 +12,7 @@ import frc.robot.subsystems.Pivot;
 public class PIDPivotIntake extends Command {
 
   private static final class Config{
-    public static final double kSetpoint = -0.260442234951056;
+    public static final double kSetpoint = 0.260442234951056;
     public static final double kDeadband = 0.0;
     public static final double kP = 3.6;
     public static final double kI = 0.20;

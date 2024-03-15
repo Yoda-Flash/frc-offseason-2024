@@ -33,6 +33,8 @@ public class WristFF extends Command {
     SmartDashboard.putNumber("FFTest/RPM", m_wrist.getVelocity());
     SmartDashboard.putNumber("FFTest/Rots", m_wrist.getEncoderPosition());
     SmartDashboard.putNumber("FFTest/MotorRots", m_wrist.getMotorSensorPosition());
+    SmartDashboard.putBoolean("FFTest/ForwardSwitch", m_wrist.ifForwardTriggered());
+    SmartDashboard.putBoolean("FFTest/BackwardSwitch", m_wrist.ifBackwardTriggered());
   }
 
   // Called once the command ends or is interrupted.

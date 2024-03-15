@@ -40,13 +40,17 @@ import frc.robot.commands.pivot.ArcadePivot;
 import frc.robot.commands.pivot.PIDBack;
 import frc.robot.commands.pivot.PIDFront;
 import frc.robot.commands.pivot.PivotRecalibrate;
+import frc.robot.commands.pivot.TrapezoidalPivot;
 import frc.robot.commands.swerve.AutoStraighten;
 import frc.robot.commands.swerve.JoystickDrive;
 import frc.robot.commands.swerve.SnapToAngle;
 import frc.robot.commands.swerve.VisionSnapToAngle;
+import frc.robot.commands.tuning.PivotFF;
+import frc.robot.commands.tuning.WristFF;
 import frc.robot.commands.wrist.ArcadeWrist;
 import frc.robot.commands.wrist.PIDDrop;
 import frc.robot.commands.wrist.PIDRaise;
+import frc.robot.commands.wrist.TrapezoidalWrist;
 import frc.robot.subsystems.Elevator;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Pivot;
@@ -210,11 +214,15 @@ public class RobotContainer {
   public Command getAutonomousCommand() {
     // An example command will be run in autonomous
     return m_autoChooser.getSelected();
+    // return new PivotFF(m_pivot);
+    // return new TrapezoidalPivot(m_pivot, 0.13);
+    // return new WristFF(m_wrist);
+    // return new TrapezoidalWrist(m_wrist, -0.24);
   }
 
   public Command getTeleopCommand(){
     m_pivot.setDefaultCommand(m_arcadePivot);
-    // m_wrist.setDefaultCommand(m_arcadeWrist);
+    m_wrist.setDefaultCommand(m_arcadeWrist);
     m_intake.setDefaultCommand(m_runIntake);
     m_shooter.setDefaultCommand(m_shoot);
     m_elevator.setDefaultCommand(m_arcadeElevator);

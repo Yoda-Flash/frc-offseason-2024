@@ -27,7 +27,7 @@ public class PivotRecalibrate extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if (m_pivot.getEncoderPosition() < 0 && m_pivot.ifBackwardTriggered()){
+    if (m_pivot.getEncoderPosition() < 0 && m_pivot.ifBackwardOpen()){
       m_pivot.setSpeed(-0.5);
     }
   }
@@ -41,6 +41,6 @@ public class PivotRecalibrate extends Command {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return !m_pivot.ifBackwardTriggered();
+    return !m_pivot.ifBackwardOpen();
   }
 }

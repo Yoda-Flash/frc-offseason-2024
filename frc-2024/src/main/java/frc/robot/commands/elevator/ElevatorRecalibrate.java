@@ -27,7 +27,7 @@ public class ElevatorRecalibrate extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if (m_elevator.getEncoderPosition()<0 && m_elevator.ifBottomTriggered()){
+    if (m_elevator.getEncoderPosition()<0 && m_elevator.ifBottomOpen()){
       m_elevator.setSpeed(-0.5);
     }
   }
@@ -41,6 +41,6 @@ public class ElevatorRecalibrate extends Command {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return !m_elevator.ifBottomTriggered();
+    return !m_elevator.ifBottomOpen();
   }
 }
