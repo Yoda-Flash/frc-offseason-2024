@@ -149,6 +149,11 @@ def gen():
 
                                 # next steps: camera distortion-- check if angle is accurate
                                 print("Distance: {}".format(distance))
+                                sdD = NetworkTables.getTable("SmartDashboard")
+                                sdD.putNumber("Distance", distance)
+                                b_value = sdD.getNumber('robotTime',0)
+
+
                                 distance = str(distance)
                                 cv2.putText(frame, "Distance: "+ distance, (300,300),
                                 cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 0), 2)

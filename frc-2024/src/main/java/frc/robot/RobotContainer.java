@@ -158,6 +158,8 @@ public class RobotContainer {
   private JoystickButton m_outtakeButton = new JoystickButton(m_joystick2, Config.kOuttakeButtonID);
   private JoystickButton m_climbUpButton = new JoystickButton(m_joystick2, Config.kClimbUpButtonID);
   private JoystickButton m_climbDownButton = new JoystickButton(m_joystick2, Config.kClimbDownButtonID);
+  
+  private JoystickButton m_turnButton = new JoystickButton(m_joystick2, 1);
 
   private JoystickButton m_resetHeadingButton = new JoystickButton(m_driverJoystick, 1);
 
@@ -246,7 +248,8 @@ public class RobotContainer {
     // m_intakeButton.whileTrue(m_stowed);
     // m_shooterButton.whileTrue(m_ampScore); 
     m_straightenButton.whileTrue(m_straighten);
-    m_snapButton.whileTrue(m_visionSnap);
+    m_snapButton.whileTrue(m_visionSnap);  
+    m_turnButton.whileTrue(m_visionSnap);
   }
 
   /**
