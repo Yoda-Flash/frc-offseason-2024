@@ -2,8 +2,8 @@
   "version": 1.0,
   "startingPose": {
     "position": {
-      "x": 0.52,
-      "y": 6.99
+      "x": 0.5,
+      "y": 7.0
     },
     "rotation": 0
   },
@@ -14,7 +14,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "1 Left Move 1"
+            "pathName": "Left Preload Shoot"
           }
         },
         {
