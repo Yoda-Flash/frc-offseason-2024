@@ -134,16 +134,16 @@ def gen():
                                 #v_fov = 1.256
                                 v_angle = v_fov*cY/400
                                 v_angle =(-1)*(v_angle - (1/2)*v_fov)
-                                camera_angle =0.3663
-                                camera_height = 4.5
-                                testing_height = 45
+                                camera_angle =0.471
+                                camera_height = 7.5
+                                #testing_height = 45
                                 distance = 0
-                                if r.tag_id==3 or r.tag_id==4 or r.tag_id==7 or r.tag_id==8 or r.tag_id==1 or r.tag_id==2 or r.tag_id==9 or r.tag_id==10:
-                                        #distance = (48.03-camera_height)/(math.tan(v_angle+camera_angle)*math.cos(angle))
-                                        distance = (testing_height-camera_height)/math.tan(v_angle+camera_angle)
+                                if r.tag_id==4 or r.tag_id==7:
+                                        distance = (51.875-camera_height)/math.tan(v_angle+camera_angle)
+                                        #distance = (testing_height-camera_height)/math.tan(v_angle+camera_angle)
                                         #distance = (testing_height-camera_height)/(math.tan(v_angle+camera_angle)*math.cos(angle))
-                                elif r.tag_id==5 or r.tag_id==6:
-                                        distance = 59.97-camera_height/math.tan(v_angle+camera_angle)
+                                elif r.tag_id==5 or r.tag_id==6 or r.tag_id==1 or r.tag_id==2 or r.tag_id==9 or r.tag_id==10:
+                                        distance = 48.03-camera_height/math.tan(v_angle+camera_angle)
                                 elif r.tag_id==11 or r.tag_id==12 or r.tag_id==13 or r.tag_id==14 or r.tag_id==15 or r.tag_id==16:
                                         distance = 47.63-camera_height/math.tan(v_angle+camera_angle)
 
