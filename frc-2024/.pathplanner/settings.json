@@ -6,17 +6,18 @@
     "1+1 Center Subwoofer",
     "1+1 Left Subwoofer",
     "1+1 Right Subwoofer",
-    "Right Midline",
     "1+3 Center Subwoofer",
     "1+3 Left",
     "1+Exit Left",
-    "1+Exit Right"
+    "1+Exit Right",
+    "Center Midline",
+    "Right Midline"
   ],
   "autoFolders": [
     "1+0 Subwoofer",
     "1+1 Subwoofer"
   ],
-  "defaultMaxVel": 3.0,
+  "defaultMaxVel": 4.5,
   "defaultMaxAccel": 3.0,
   "defaultMaxAngVel": 540.0,
   "defaultMaxAngAccel": 720.0,
