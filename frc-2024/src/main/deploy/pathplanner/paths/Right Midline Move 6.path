@@ -3,25 +3,25 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 2.6,
-        "y": 5.55
+        "x": 4.97,
+        "y": 4.58
       },
       "prevControl": null,
       "nextControl": {
-        "x": 2.4304615881959033,
-        "y": 5.550603828480384
+        "x": 6.02202877133027,
+        "y": 4.169949430807953
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 1.31,
-        "y": 5.55
+        "x": 7.85,
+        "y": 4.104648209296419
       },
       "prevControl": {
-        "x": 1.2458891115313098,
-        "y": 5.543357259554025
+        "x": 6.758999699817582,
+        "y": 4.0953194633662
       },
       "nextControl": null,
       "isLocked": false,
@@ -29,11 +29,6 @@
     }
   ],
   "rotationTargets": [
-    {
-      "waypointRelativePos": 0,
-      "rotationDegrees": 0,
-      "rotateFast": false
-    },
     {
       "waypointRelativePos": 1,
       "rotationDegrees": 0,
@@ -52,7 +47,13 @@
             {
               "type": "named",
               "data": {
-                "name": "Subwoofer"
+                "name": "GroundIntake"
+              }
+            },
+            {
+              "type": "named",
+              "data": {
+                "name": "AutoIntake"
               }
             }
           ]
@@ -72,7 +73,7 @@
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "1+1 Center Subwoofer",
+  "folder": "Right Midline",
   "previewStartingState": {
     "rotation": 0,
     "velocity": 0

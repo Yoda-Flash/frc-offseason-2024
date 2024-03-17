@@ -3,25 +3,25 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 2.6,
-        "y": 5.55
+        "x": 7.84,
+        "y": 0.77
       },
       "prevControl": null,
       "nextControl": {
-        "x": 2.4304615881959033,
-        "y": 5.550603828480384
+        "x": 7.505299374235111,
+        "y": 2.024337866857552
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 1.31,
-        "y": 5.55
+        "x": 4.97,
+        "y": 4.5804142517375945
       },
       "prevControl": {
-        "x": 1.2458891115313098,
-        "y": 5.543357259554025
+        "x": 6.525781051562102,
+        "y": 4.216593160459048
       },
       "nextControl": null,
       "isLocked": false,
@@ -30,13 +30,8 @@
   ],
   "rotationTargets": [
     {
-      "waypointRelativePos": 0,
-      "rotationDegrees": 0,
-      "rotateFast": false
-    },
-    {
       "waypointRelativePos": 1,
-      "rotationDegrees": 0,
+      "rotationDegrees": -17.430000000000007,
       "rotateFast": false
     }
   ],
@@ -52,7 +47,7 @@
             {
               "type": "named",
               "data": {
-                "name": "Subwoofer"
+                "name": "RightUnderStage"
               }
             }
           ]
@@ -68,11 +63,11 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": 0,
+    "rotation": -17.52556837372276,
     "rotateFast": false
   },
   "reversed": false,
-  "folder": "1+1 Center Subwoofer",
+  "folder": "Right Midline",
   "previewStartingState": {
     "rotation": 0,
     "velocity": 0
