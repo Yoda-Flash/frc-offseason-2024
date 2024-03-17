@@ -5,6 +5,7 @@
 package frc.robot;
 
 import com.pathplanner.lib.auto.AutoBuilder;
+import com.pathplanner.lib.auto.NamedCommands;
 import com.pathplanner.lib.commands.PathPlannerAuto;
 
 import edu.wpi.first.wpilibj.Joystick;
@@ -12,10 +13,12 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
+import edu.wpi.first.wpilibj2.command.PrintCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants.DriveConstants;
+import frc.robot.commands.auto.RightUnderStage;
 import frc.robot.commands.elevator.ArcadeElevator;
 import frc.robot.commands.elevator.ElevatorRecalibrate;
 import frc.robot.commands.elevator.PIDDown;
@@ -128,7 +131,9 @@ public class RobotContainer {
   private AutoIntake m_autoIntake = new AutoIntake(m_intake);
   private ClimbDown m_climbDown = new ClimbDown(m_pivot, m_wrist, m_elevator);
 
-  private final SwerveDrive m_swerve = new SwerveDrive(m_stowed, m_autoShoot, m_autoIntake, m_groundIntake, m_subwoofer, m_outtake);
+  private RightUnderStage m_rightUnderStage = new RightUnderStage(m_pivot, m_wrist, m_elevator);
+
+  private final SwerveDrive m_swerve = new SwerveDrive();
 
   private final JoystickDrive m_drive = new JoystickDrive(m_swerve, 
     () -> -m_driverJoystick.getRawAxis(DriveConstants.kJoystickXAxis),
@@ -159,7 +164,14 @@ public class RobotContainer {
     m_autoChooser = AutoBuilder.buildAutoChooser();
     SmartDashboard.putData("Driving/Auto Chooser", m_autoChooser);  
     // m_swerve.setDefaultCommand(m_drive);
-
+    NamedCommands.registerCommand("Print", new PrintCommand("Print command is running!!!"));
+    NamedCommands.registerCommand("Stow", m_stowed);
+    NamedCommands.registerCommand("AutoShoot", m_autoShoot);
+    NamedCommands.registerCommand("AutoIntake", m_autoIntake);
+    NamedCommands.registerCommand("GroundIntake", m_groundIntake);
+    NamedCommands.registerCommand("Outtake", m_outtake);
+    NamedCommands.registerCommand("Subwoofer", m_subwoofer);
+    NamedCommands.registerCommand("RightUnderStage", m_rightUnderStage);
     // Configure the trigger bindings
 
     configureBindings();

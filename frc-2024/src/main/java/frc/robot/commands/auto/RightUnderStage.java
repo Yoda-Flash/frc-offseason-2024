@@ -8,8 +8,10 @@ import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.commands.elevator.PIDElevatorZero;
+import frc.robot.commands.pivot.PIDPivotSetpoint;
 import frc.robot.commands.pivot.PIDPivotStow;
 import frc.robot.commands.pivot.PIDPivotSubwoofer;
+import frc.robot.commands.wrist.PIDWristSetpoint;
 import frc.robot.commands.wrist.PIDWristStow;
 import frc.robot.commands.wrist.PIDWristSubwoofer;
 import frc.robot.subsystems.Elevator;
@@ -19,15 +21,15 @@ import frc.robot.subsystems.Wrist;
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
-public class MidlinePodium extends ParallelCommandGroup {
+public class RightUnderStage extends ParallelCommandGroup {
   /** Creates a new SpeakerScore. */
-  public MidlinePodium(Pivot pivot, Wrist wrist, Elevator elevator) {
+  public RightUnderStage(Pivot pivot, Wrist wrist, Elevator elevator) {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
       new PIDElevatorZero(elevator),
-      new PIDPivotStow(pivot),
-      new PIDWristSubwoofer(wrist)
+      new PIDPivotSetpoint(pivot, 0),
+      new PIDWristSetpoint(wrist, 0)
     );
   }
 }
