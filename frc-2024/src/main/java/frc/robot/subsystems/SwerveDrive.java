@@ -194,7 +194,15 @@ public class SwerveDrive extends SubsystemBase {
       }, new Pose2d(m_xStartPose, m_yStartPose, getAngle()));
   }
 
-  public SwerveDrive() {
+  public SwerveDrive(Command stowed, Command autoShoot, Command autoIntake, Command groundIntake, Command outtake, Command subwoofer, Command rightUnderStage) {
+    NamedCommands.registerCommand("Print", new PrintCommand("Print command is running!!!"));
+    NamedCommands.registerCommand("Stow", stowed);
+    NamedCommands.registerCommand("AutoShoot", autoShoot);
+    NamedCommands.registerCommand("AutoIntake", autoIntake);
+    NamedCommands.registerCommand("GroundIntake", groundIntake);
+    NamedCommands.registerCommand("Outtake", outtake);
+    NamedCommands.registerCommand("Subwoofer", subwoofer);
+    NamedCommands.registerCommand("RightUnderStage", rightUnderStage);
 
     AutoBuilder.configureHolonomic(
                 this::getPoseMeters, // Robot pose supplier

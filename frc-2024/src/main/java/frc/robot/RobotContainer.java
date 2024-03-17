@@ -133,7 +133,7 @@ public class RobotContainer {
 
   private RightUnderStage m_rightUnderStage = new RightUnderStage(m_pivot, m_wrist, m_elevator);
 
-  private final SwerveDrive m_swerve = new SwerveDrive();
+  private final SwerveDrive m_swerve = new SwerveDrive(m_stowed, m_autoShoot, m_autoIntake, m_groundIntake, m_outtake, m_subwoofer, m_rightUnderStage);
 
   private final JoystickDrive m_drive = new JoystickDrive(m_swerve, 
     () -> -m_driverJoystick.getRawAxis(DriveConstants.kJoystickXAxis),
@@ -164,14 +164,7 @@ public class RobotContainer {
     m_autoChooser = AutoBuilder.buildAutoChooser();
     SmartDashboard.putData("Driving/Auto Chooser", m_autoChooser);  
     // m_swerve.setDefaultCommand(m_drive);
-    NamedCommands.registerCommand("Print", new PrintCommand("Print command is running!!!"));
-    NamedCommands.registerCommand("Stow", m_stowed);
-    NamedCommands.registerCommand("AutoShoot", m_autoShoot);
-    NamedCommands.registerCommand("AutoIntake", m_autoIntake);
-    NamedCommands.registerCommand("GroundIntake", m_groundIntake);
-    NamedCommands.registerCommand("Outtake", m_outtake);
-    NamedCommands.registerCommand("Subwoofer", m_subwoofer);
-    NamedCommands.registerCommand("RightUnderStage", m_rightUnderStage);
+    
     // Configure the trigger bindings
 
     configureBindings();

@@ -42,6 +42,6 @@ public class AutoIntake extends Command {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return m_timer.hasElapsed(2);
+    return m_timer.hasElapsed(3);
   }
 }

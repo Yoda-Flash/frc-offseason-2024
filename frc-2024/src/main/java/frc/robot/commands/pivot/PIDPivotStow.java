@@ -12,7 +12,7 @@ import frc.robot.subsystems.Pivot;
 public class PIDPivotStow extends Command {
 
   private static final class Config{
-    public static final double kSetpoint = 0.0565239798531;
+    public static final double kSetpoint = 0.15;
     public static final double kDeadband = 0.000;
     public static final double kP = 2.6;
     public static final double kI = 0.20;

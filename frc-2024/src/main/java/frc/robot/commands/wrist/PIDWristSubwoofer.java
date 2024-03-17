@@ -12,10 +12,10 @@ import frc.robot.subsystems.Wrist;
 public class PIDWristSubwoofer extends Command {
 
     private static final class Config{
-    public static final double kSetpoint = -0.134368731198368;
+    public static final double kSetpoint = -0.12; //Wrist -50 degrees;
     public static final double kDeadband = 0.000;
     public static final double kP = 2.5;
-    public static final double kI = 0.1;
+    public static final double kI = 0.15;
     public static final double kD = 0.1;
   }
 
