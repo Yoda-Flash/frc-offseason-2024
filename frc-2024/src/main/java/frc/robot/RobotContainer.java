@@ -43,6 +43,7 @@ import frc.robot.commands.swerve.JoystickDrive;
 import frc.robot.commands.swerve.SnapToAngle;
 import frc.robot.commands.swerve.VisionSnapToAngle;
 import frc.robot.commands.vision.VisionAim;
+import frc.robot.commands.vision.VisionTest;
 import frc.robot.commands.wrist.ArcadeWrist;
 import frc.robot.commands.wrist.PIDDrop;
 import frc.robot.commands.wrist.PIDRaise;
@@ -158,6 +159,8 @@ public class RobotContainer {
     }
   );
 
+  private VisionTest m_visionTest = new VisionTest(m_wrist);
+
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {  
@@ -226,7 +229,7 @@ public class RobotContainer {
 
   public Command getTeleopCommand(){
     m_pivot.setDefaultCommand(m_arcadePivot);
-    // m_wrist.setDefaultCommand(m_arcadeWrist);
+    m_wrist.setDefaultCommand(m_arcadeWrist);
     m_intake.setDefaultCommand(m_runIntake);
     m_shooter.setDefaultCommand(m_shoot);
     m_elevator.setDefaultCommand(m_arcadeElevator);

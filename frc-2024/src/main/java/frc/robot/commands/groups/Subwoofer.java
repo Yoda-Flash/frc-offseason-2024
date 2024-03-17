@@ -10,6 +10,8 @@ import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.commands.elevator.PIDElevatorZero;
 import frc.robot.commands.pivot.PIDPivotStow;
 import frc.robot.commands.pivot.PIDPivotSubwoofer;
+import frc.robot.commands.vision.VisionTest;
+import frc.robot.commands.vision.VisionWristToAngle;
 import frc.robot.commands.wrist.PIDWristStow;
 import frc.robot.commands.wrist.PIDWristSubwoofer;
 import frc.robot.subsystems.Elevator;
@@ -28,6 +30,7 @@ public class Subwoofer extends ParallelCommandGroup {
       new PIDElevatorZero(elevator),
       new PIDPivotStow(pivot),
       new PIDWristSubwoofer(wrist)
+      // new VisionTest(wrist)
     );
   }
 }
