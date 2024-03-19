@@ -7,9 +7,10 @@ package frc.robot.commands.groups;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
+import frc.robot.Constants.PositionConstants;
 import frc.robot.commands.elevator.PIDElevatorZero;
-import frc.robot.commands.pivot.PIDPivotIntake;
-import frc.robot.commands.wrist.PIDWristIntake;
+import frc.robot.commands.pivot.TrapezoidalPivot;
+import frc.robot.commands.wrist.TrapezoidalWrist;
 import frc.robot.subsystems.Elevator;
 import frc.robot.subsystems.Pivot;
 import frc.robot.subsystems.Wrist;
@@ -22,10 +23,15 @@ public class GroundIntake extends ParallelCommandGroup {
   public GroundIntake(Pivot pivot, Wrist wrist, Elevator elevator) {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
+    // addCommands(
+    //   new PIDWristIntake(wrist),
+    //   new SequentialCommandGroup(new WaitCommand(0.25), new PIDPivotIntake(pivot)),
+    //   new SequentialCommandGroup(new WaitCommand(6), new PIDElevatorZero(elevator))
+    // );
     addCommands(
-      new PIDWristIntake(wrist),
-      new SequentialCommandGroup(new WaitCommand(0.25), new PIDPivotIntake(pivot)),
-      new SequentialCommandGroup(new WaitCommand(6), new PIDElevatorZero(elevator))
+      new TrapezoidalWrist(wrist, PositionConstants.kIntakeWrist),
+      new SequentialCommandGroup(new WaitCommand(0.25), new TrapezoidalPivot(pivot, PositionConstants.kIntakePivot)),
+      new PIDElevatorZero(elevator)
     );
   }
 }

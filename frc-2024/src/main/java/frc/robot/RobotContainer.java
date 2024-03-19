@@ -218,11 +218,11 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     // An example command will be run in autonomous
-    return m_autoChooser.getSelected();
+    // return m_autoChooser.getSelected();
     // return new PivotFF(m_pivot);
-    // return new TrapezoidalPivot(m_pivot, 0.13);
+    // return new TrapezoidalPivot(m_pivot, 0.16);
     // return new WristFF(m_wrist);
-    // return new TrapezoidalWrist(m_wrist, -0.24);
+    return new TrapezoidalWrist(m_wrist, -0.24);
   }
 
   public Command getTeleopCommand(){

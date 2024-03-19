@@ -7,12 +7,13 @@ package frc.robot.commands.elevator;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
+import frc.robot.Constants.PositionConstants;
 import frc.robot.subsystems.Elevator;
 
 public class PIDElevatorAmp extends Command {
 
   private static final class Config{
-    public static final double kSetpoint = -2.0;
+    public static final double kSetpoint = PositionConstants.kAmpElevator;
     public static final double kDeadband = 0.000;
     public static final double kP = 0.6;
     public static final double kI = 0;

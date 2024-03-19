@@ -7,10 +7,13 @@ package frc.robot.commands.groups;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
+import frc.robot.Constants.PositionConstants;
 import frc.robot.commands.elevator.PIDElevatorAmp;
 import frc.robot.commands.pivot.PIDPivotAmp;
 import frc.robot.commands.pivot.PIDPivotSubwoofer;
+import frc.robot.commands.pivot.TrapezoidalPivot;
 import frc.robot.commands.wrist.PIDWristAmp;
+import frc.robot.commands.wrist.TrapezoidalWrist;
 import frc.robot.subsystems.Elevator;
 import frc.robot.subsystems.Pivot;
 import frc.robot.subsystems.Wrist;
@@ -28,9 +31,14 @@ public class AmpScore extends ParallelCommandGroup {
     //   new SequentialCommandGroup(new WaitCommand(3), new PIDPivotAmp(pivot)), //0.638
     //   new SequentialCommandGroup(new WaitCommand(6), new PIDElevatorAmp(elevator))
     // );
+    // addCommands(
+    //   new PIDPivotAmp(pivot),
+    //   new SequentialCommandGroup(new WaitCommand(0.25), new PIDWristAmp(wrist)),
+    //   new SequentialCommandGroup(new WaitCommand(0.5), new PIDElevatorAmp(elevator))
+    // );
     addCommands(
-      new PIDPivotAmp(pivot),
-      new SequentialCommandGroup(new WaitCommand(0.25), new PIDWristAmp(wrist)),
+      new TrapezoidalPivot(pivot, PositionConstants.kAmpPivot),
+      new SequentialCommandGroup(new WaitCommand(0.25), new TrapezoidalWrist(wrist, PositionConstants.kAmpWrist)),
       new SequentialCommandGroup(new WaitCommand(0.5), new PIDElevatorAmp(elevator))
     );
   }

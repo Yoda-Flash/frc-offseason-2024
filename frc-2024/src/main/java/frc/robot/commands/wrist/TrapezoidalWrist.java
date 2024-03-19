@@ -38,6 +38,7 @@ public class TrapezoidalWrist extends Command {
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(wrist);
     m_pid.setTolerance(0.0); // we want the PID always correcting; isFinished will use position to close the command.
+    // m_pid.setIntegratorRange(goal, goal);
   }
 
   // Called when the command is initially scheduled.
@@ -82,6 +83,7 @@ public class TrapezoidalWrist extends Command {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return Math.abs(m_wrist.getEncoderPosition() - m_goal.position) <= WristConstants.kPositionDeadband;
+    // return Math.abs(m_wrist.getEncoderPosition() - m_goal.position) <= WristConstants.kPositionDeadband;
+    return false;
   }
 }

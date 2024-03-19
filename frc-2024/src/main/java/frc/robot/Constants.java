@@ -118,16 +118,16 @@ public final class Constants {
     public static final double kDeadBand = 0.05;
     public static final double kAbsEncoderOffset = 0.8624; // subtractive.
 
-    public static final double kCruiseVelocity = 0.12; // Rot/Sec
-    public static final double kMaxAccel = 0.06; // Rot/Sec^2
+    public static final double kCruiseVelocity = 0.2; // Rot/Sec
+    public static final double kMaxAccel = 0.4; // Rot/Sec^2
 
     public static final TrapezoidProfile.Constraints kConstraints = new TrapezoidProfile.Constraints(kCruiseVelocity, kMaxAccel);
 
     // These will very likely be different than the ones used above,
     // since are not applied atop of feedforward.
-    public static final double kPTrap = 0;
-    public static final double kITrap = 0;
-    public static final double kDTrap = 0;
+    public static final double kPTrap = 4.0;
+    public static final double kITrap = 0.0; //1.55;
+    public static final double kDTrap = 0.3; //0.3;
 
     public static final double kS = 0;
     public static final double kV = 1.6516;
@@ -147,15 +147,15 @@ public final class Constants {
     public static final double kDeadBand = 0.05;
     public static final double kEncoderOffset = 0.886434;
 
-    public static final double kCruiseVelocity = 0.2; // RPS
-    public static final double kMaxAccel = 0.2; // RPS^2 
+    public static final double kCruiseVelocity = 0.4; // RPS
+    public static final double kMaxAccel = 0.8; // RPS^2 
 
     public static final TrapezoidProfile.Constraints kConstraints = new TrapezoidProfile.Constraints(kCruiseVelocity, kMaxAccel);
 
     // These will very likely be different than the ones used above,
     // since are not applied atop of feedforward.
-    public static final double kPTrap = 0;
-    public static final double kITrap = 0;
+    public static final double kPTrap = 2.8;
+    public static final double kITrap = 0.24;
     public static final double kDTrap = 0;
 
     public static final double kS = 0;
@@ -200,5 +200,25 @@ public final class Constants {
   public static final class ShooterConstants {
     public static final int kShooterMotorID1 = 10;
     public static final int kShooterMotorID2 = 11;
+  }
+
+  public static final class PositionConstants {
+    public static final double kCallibrationOffset = 0.0;
+
+    public static final double kIntakePivot = 0.354;
+    public static final double kIntakeElevator = 0.0;
+    public static final double kIntakeWrist = -0.261;
+
+    public static final double kStowPivot = 0.16;
+    public static final double kStowElevator = 0.0;
+    public static final double kStowWrist = -0.02;
+
+    public static final double kSubwooferPivot = kStowPivot;
+    public static final double kSubwooferElevator = 0.0;
+    public static final double kSubwooferWrist = -0.12;
+
+    public static final double kAmpPivot = 0.0154;
+    public static final double kAmpElevator = -2.0;
+    public static final double kAmpWrist = -0.255;
   }
 }

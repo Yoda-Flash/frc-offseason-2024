@@ -7,11 +7,14 @@ package frc.robot.commands.groups;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
+import frc.robot.Constants.PositionConstants;
 import frc.robot.commands.elevator.PIDElevatorZero;
 import frc.robot.commands.pivot.PIDPivotStow;
 import frc.robot.commands.pivot.PIDPivotSubwoofer;
+import frc.robot.commands.pivot.TrapezoidalPivot;
 import frc.robot.commands.wrist.PIDWristStow;
 import frc.robot.commands.wrist.PIDWristSubwoofer;
+import frc.robot.commands.wrist.TrapezoidalWrist;
 import frc.robot.subsystems.Elevator;
 import frc.robot.subsystems.Pivot;
 import frc.robot.subsystems.Wrist;
@@ -24,10 +27,15 @@ public class Subwoofer extends ParallelCommandGroup {
   public Subwoofer(Pivot pivot, Wrist wrist, Elevator elevator) {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
+    // addCommands(
+    //   new PIDElevatorZero(elevator),
+    //   new PIDPivotStow(pivot),
+    //   new PIDWristSubwoofer(wrist)
+    // );
     addCommands(
       new PIDElevatorZero(elevator),
-      new PIDPivotStow(pivot),
-      new PIDWristSubwoofer(wrist)
+      new TrapezoidalPivot(pivot, PositionConstants.kSubwooferPivot),
+      new TrapezoidalWrist(wrist, PositionConstants.kSubwooferWrist)
     );
   }
 }
