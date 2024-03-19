@@ -8,6 +8,7 @@ import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.subsystems.Wrist;
+import frc.robot.utils.DistanceToEncoderInterpolator;
 import frc.robot.utils.DistanceToEncoderRegression;
 
 public class VisionTest extends Command {
@@ -21,6 +22,7 @@ public class VisionTest extends Command {
   private Wrist m_wrist;
   private PIDController m_pid = new PIDController(Config.kP, Config.kI, Config.kD);
   private double m_speed;
+  private DistanceToEncoderInterpolator m_interpolator = new DistanceToEncoderInterpolator();
 
   /** Creates a new VisionTest. */
   public VisionTest(Wrist wrist) {
@@ -38,7 +40,7 @@ public class VisionTest extends Command {
   public void execute() {
     double m_distance = SmartDashboard.getNumber("Vision/Distance", 0);
     SmartDashboard.putNumber("Vision/Distance", m_distance);
-    double m_encoder = DistanceToEncoderRegression.getWristPosition(m_distance);
+    double m_encoder = m_interpolator.getWristPosition(m_distance);
     SmartDashboard.putNumber("Vision/Wrist encoder", m_encoder);
     m_speed = m_pid.calculate(m_wrist.getEncoderPosition(), m_encoder);
     // Set module states.

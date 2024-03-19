@@ -1,5 +1,7 @@
 package frc.robot.utils;
 
+import edu.wpi.first.math.interpolation.InterpolatingTreeMap;
+
 public class DistanceToEncoderRegression {
 
     public static double getWristPosition(double distance){
