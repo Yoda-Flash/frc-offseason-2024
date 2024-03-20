@@ -19,11 +19,11 @@ public class LED extends SubsystemBase {
   private AddressableLEDBuffer m_buffer = new AddressableLEDBuffer(Config.kLength);
 
   public enum LED_State {
-    TRYING_PICKUP,
+    TRYING_PICKUP, //not used
     PIECE_STORED,
-    SHOOTING,
+    SHOOTING, //not used
     NORMAL,
-    RAINBOW
+    RAINBOW //auto
   }
   public static LED_State m_state;
 

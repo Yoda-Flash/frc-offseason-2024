@@ -25,14 +25,14 @@ public class OperateLED extends Command {
   public void execute() {
     switch(LED.m_state) {
       case TRYING_PICKUP:
-        m_led.setColor(1); //orange
+        m_led.setColor(1); //orange - not used
         System.out.println("picking up");
         break;
       case PIECE_STORED:
         m_led.setColor(3); //red
         break;
       case SHOOTING:
-        m_led.setColor(4); //purple
+        m_led.setColor(4); //purple - not used
         break;
       case NORMAL:
         m_led.setColor(2); //blue

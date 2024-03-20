@@ -62,6 +62,7 @@ import frc.robot.subsystems.Pivot;
 import frc.robot.subsystems.Shooter;
 import frc.robot.subsystems.SwerveDrive;
 import frc.robot.subsystems.Wrist;
+import frc.robot.subsystems.LED.LED_State;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -234,6 +235,7 @@ public class RobotContainer {
   }
 
   public Command getTeleopCommand(){
+    new InstantCommand(() -> LED.setState(LED_State.NORMAL));
     m_pivot.setDefaultCommand(m_arcadePivot);
     m_wrist.setDefaultCommand(m_arcadeWrist);
     m_intake.setDefaultCommand(m_runIntake);
