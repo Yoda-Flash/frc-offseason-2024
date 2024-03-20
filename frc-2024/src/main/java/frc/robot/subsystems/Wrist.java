@@ -14,6 +14,7 @@ import edu.wpi.first.wpilibj.DutyCycleEncoder;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.WristConstants;
+import frc.robot.utils.DistanceToEncoderInterpolator;
 
 
 public class Wrist extends SubsystemBase {
@@ -25,6 +26,8 @@ public class Wrist extends SubsystemBase {
 
   private StatusSignal<Double> m_velocity;
   private StatusSignal<Double> m_position;
+
+  private DistanceToEncoderInterpolator m_interpolator = new DistanceToEncoderInterpolator();
 
   public Wrist() {
     TalonFXConfiguration config = new TalonFXConfiguration();
@@ -61,6 +64,11 @@ public class Wrist extends SubsystemBase {
     }
     SmartDashboard.putNumber("Wrist speed", speed);
     m_falcon.set(speed);
+  }
+
+  public double getAutoAimSetpoint(){
+    double m_distance = SmartDashboard.getNumber("Distance", 0);
+    return m_interpolator.getWristPosition(m_distance);
   }
 
   public double getVelocity() {

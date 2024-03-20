@@ -50,6 +50,7 @@ import frc.robot.commands.swerve.SnapToAngle;
 import frc.robot.commands.swerve.VisionSnapToAngle;
 import frc.robot.commands.tuning.PivotFF;
 import frc.robot.commands.tuning.WristFF;
+import frc.robot.commands.vision.VisionAim;
 import frc.robot.commands.wrist.ArcadeWrist;
 import frc.robot.commands.wrist.PIDDrop;
 import frc.robot.commands.wrist.PIDRaise;
@@ -79,7 +80,7 @@ public class RobotContainer {
     // public static final int kWristForwardButtonID = 5;
     // public static final int kWristBackwardButtonID = 6;
     public static final int kOuttakeButtonID = 5;
-    public static final int kPodiumButtonID = 6;
+    public static final int kVisionAimButtonID = 6;
     public static final int kClimbUpButtonID = 7;
     public static final int kClimbDownButtonID = 8;
   }
@@ -144,15 +145,18 @@ public class RobotContainer {
   private SnapToAngle m_snap = new SnapToAngle(m_swerve);
   private AutoStraighten m_straighten = new AutoStraighten(m_swerve);
   private VisionSnapToAngle m_visionSnap = new VisionSnapToAngle(m_swerve);
+  
+  private VisionAim m_visionAim = new VisionAim(m_swerve, m_wrist, m_pivot);
 
   private JoystickButton m_stowButton = new JoystickButton(m_joystick2, Config.kStowButtonID);
   private JoystickButton m_ampButton = new JoystickButton(m_joystick2, Config.kAmpButtonID);
   private JoystickButton m_subwooferButton = new JoystickButton(m_joystick2, Config.kSubwooferButtonID);
-  private JoystickButton m_podiumButton = new JoystickButton(m_joystick2, Config.kPodiumButtonID);
+  // private JoystickButton m_podiumButton = new JoystickButton(m_joystick2, Config.kPodiumButtonID);
   private JoystickButton m_intakeButton = new JoystickButton(m_joystick2, Config.kIntakeButtonID);
   private JoystickButton m_outtakeButton = new JoystickButton(m_joystick2, Config.kOuttakeButtonID);
   private JoystickButton m_climbUpButton = new JoystickButton(m_joystick2, Config.kClimbUpButtonID);
   private JoystickButton m_climbDownButton = new JoystickButton(m_joystick2, Config.kClimbDownButtonID);
+  private JoystickButton m_visionAimButton = new JoystickButton(m_joystick2, Config.kVisionAimButtonID);
 
   private JoystickButton m_resetHeadingButton = new JoystickButton(m_driverJoystick, 1);
 
@@ -195,7 +199,8 @@ public class RobotContainer {
     m_intakeButton.whileTrue(m_groundIntake);
     m_subwooferButton.whileTrue(m_subwoofer);
     m_outtakeButton.onTrue(m_outtake);
-    m_podiumButton.whileTrue(m_podium);
+    // m_podiumButton.whileTrue(m_podium);
+    m_visionAimButton.whileTrue(m_visionAim);
     // m_climbUpButton.whileTrue(m_climbUp);
     // m_climbDownButton.whileTrue(m_climbDown);
     // m_podiumButton.whileTrue(m_podium);
