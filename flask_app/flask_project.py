@@ -134,7 +134,7 @@ def gen():
                                 #v_fov = 1.256
                                 v_angle = v_fov*cY/400
                                 v_angle =(-1)*(v_angle - (1/2)*v_fov)
-                                camera_angle =0.471
+                                camera_angle =0.628
                                 camera_height = 7.5
                                 #testing_height = 45
                                 distance = 0
