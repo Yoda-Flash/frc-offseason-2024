@@ -39,6 +39,7 @@ import frc.robot.commands.intakeshooter.AutoShoot;
 import frc.robot.commands.intakeshooter.OutakeToSwitch;
 import frc.robot.commands.intakeshooter.Outtake;
 import frc.robot.commands.intakeshooter.ReverseShooter;
+import frc.robot.commands.led.OperateLED;
 import frc.robot.commands.pivot.ArcadePivot;
 import frc.robot.commands.pivot.PIDBack;
 import frc.robot.commands.pivot.PIDFront;
@@ -56,6 +57,7 @@ import frc.robot.commands.wrist.PIDRaise;
 import frc.robot.commands.wrist.TrapezoidalWrist;
 import frc.robot.subsystems.Elevator;
 import frc.robot.subsystems.Intake;
+import frc.robot.subsystems.LED;
 import frc.robot.subsystems.Pivot;
 import frc.robot.subsystems.Shooter;
 import frc.robot.subsystems.SwerveDrive;
@@ -67,6 +69,7 @@ import frc.robot.subsystems.Wrist;
  * periodic methods (other than the scheduler calls). Instead, the structure of the robot (including
  * subsystems, commands, and trigger mappings) should be declared here.
  */
+
 public class RobotContainer {
 
   private static final class Config{
@@ -157,6 +160,10 @@ public class RobotContainer {
   private JoystickButton m_resetHeadingButton = new JoystickButton(m_driverJoystick, 1);
 
   private SendableChooser<Command> m_autoChooser;
+
+  //led stuff!!!
+  private LED m_led = new LED();
+  private OperateLED m_operateLED = new OperateLED(m_led);
   // Replace with CommandPS4Controller or CommandJoystick if needed
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
@@ -182,6 +189,7 @@ public class RobotContainer {
    * joysticks}.
    */
   private void configureBindings() {
+    m_led.setDefaultCommand(m_operateLED);
     // m_snapButton.whileTrue(m_visionSnap);
     // m_straightenButton.whileTrue(m_straighten);
     // m_resetHeadingButton.onTrue(new InstantCommand(() -> m_swerve.resetHeading()));
