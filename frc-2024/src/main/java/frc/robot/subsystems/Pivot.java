@@ -97,7 +97,12 @@ public class Pivot extends SubsystemBase {
   public void periodic() {
     // This method will be called once per scheduler run
     SmartDashboard.putNumber("Mech/Pivot/Encoder", getEncoderPosition());
-    
+    SmartDashboard.putNumber("Mech/Pivot/Motor1Current", m_falcon1.getSupplyCurrent().refresh().getValueAsDouble());
+    SmartDashboard.putNumber("Mech/Pivot/Motor2Current", m_falcon2.getSupplyCurrent().refresh().getValueAsDouble());
+    SmartDashboard.putNumber("Mech/Pivot/Motor3Current", m_falcon3.getSupplyCurrent().refresh().getValueAsDouble());
+    SmartDashboard.putNumber("Mech/Pivot/Motor4Current", m_falcon4.getSupplyCurrent().refresh().getValueAsDouble());
+
+
     SmartDashboard.putBoolean("Forward switch: ", ifForwardOpen());
     SmartDashboard.putBoolean("Backward switch: ", ifBackwardOpen());
 

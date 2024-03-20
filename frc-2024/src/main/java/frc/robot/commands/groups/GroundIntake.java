@@ -30,7 +30,7 @@ public class GroundIntake extends ParallelCommandGroup {
     // );
     addCommands(
       new TrapezoidalWrist(wrist, PositionConstants.kIntakeWrist),
-      new SequentialCommandGroup(new WaitCommand(0.25), new TrapezoidalPivot(pivot, PositionConstants.kIntakePivot)),
+      new SequentialCommandGroup(new WaitCommand(0.2), new TrapezoidalPivot(pivot, PositionConstants.kIntakePivot)),
       new PIDElevatorZero(elevator)
     );
   }

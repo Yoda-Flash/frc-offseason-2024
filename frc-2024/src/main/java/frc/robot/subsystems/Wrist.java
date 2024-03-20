@@ -80,6 +80,8 @@ public class Wrist extends SubsystemBase {
     SmartDashboard.putNumber("Mech/Wrist/Encoder", getEncoderPosition());
     SmartDashboard.putBoolean("Mech/Wrist/Forward switch", ifForwardTriggered());
     SmartDashboard.putBoolean("Mech/Wrist/Backward switch", ifBackwardTriggered());
+    SmartDashboard.putNumber("Mech/Wrist/Motor1Current", m_falcon.getSupplyCurrent().refresh().getValueAsDouble()); 
+    SmartDashboard.putNumber("PIDTuning/wrist_encoder", getEncoderPosition());
   }
 }
 

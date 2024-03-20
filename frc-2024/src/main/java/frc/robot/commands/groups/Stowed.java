@@ -39,7 +39,7 @@ public class Stowed extends ParallelCommandGroup {
     addCommands(
       new PIDElevatorZero(elevator),
       new TrapezoidalPivot(pivot, PositionConstants.kStowPivot),
-      new SequentialCommandGroup(new WaitCommand(0.3), new TrapezoidalWrist(wrist, PositionConstants.kStowWrist))
+      new SequentialCommandGroup(new WaitCommand(0.2), new TrapezoidalWrist(wrist, PositionConstants.kStowWrist))
     );
   }
 }
