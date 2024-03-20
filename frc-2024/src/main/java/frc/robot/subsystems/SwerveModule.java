@@ -65,6 +65,8 @@ public class SwerveModule extends SubsystemBase {
     m_driveMotor.setInverted(driveReversed);
     m_turnMotor.setInverted(turningReversed);
 
+    m_driveMotor.setSmartCurrentLimit(50);
+
     m_turnMotor.burnFlash();
     m_driveMotor.burnFlash();
 
