@@ -59,13 +59,16 @@ public class Elevator extends SubsystemBase {
   }
 
   public void setSpeed(double speed){
-    if (!ifTopOpen() && speed>0) {
+    /*
+     * NOTE: when converting to trapezoidal; these polarities NEED TO BE CHANGED.
+     */
+    if (!ifTopOpen() && speed < 0) {
       speed = 0;
-    } else if (!ifBottomOpen() && speed<0){
+    } else if (!ifBottomOpen() && speed > 0){
       speed = 0;
     }
-    m_neo1.set(speed);
-    m_neo2.set(speed);
+    m_neo1.set(-speed);
+    m_neo2.set(-speed);
   }
   
   public double getLeftSpeed(){

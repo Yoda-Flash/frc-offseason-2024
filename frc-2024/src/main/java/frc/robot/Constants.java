@@ -217,8 +217,8 @@ public final class Constants {
     public static final double kSubwooferElevator = 0.0;
     public static final double kSubwooferWrist = -0.12;
 
-    public static final double kAmpPivot = 0.16 - kCalibrationOffset;
-    public static final double kAmpElevator = -2.0;
-    public static final double kAmpWrist = -0.255;
+    public static final double kAmpPivot = 0.0532 - kCalibrationOffset;
+    public static final double kAmpElevator = -3.618;
+    public static final double kAmpWrist = -0.2666;
   }
 }
