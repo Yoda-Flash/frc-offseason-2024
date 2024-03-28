@@ -205,9 +205,9 @@ public final class Constants {
   public static final class PositionConstants {
     public static final double kCalibrationOffset = 0.16 - 0.129;
 
-    public static final double kIntakePivot = 0.354 - kCalibrationOffset;
+    public static final double kIntakePivot = 0.335;
     public static final double kIntakeElevator = 0.0;
-    public static final double kIntakeWrist = -0.261;
+    public static final double kIntakeWrist = -0.260;
 
     public static final double kStowPivot = 0.16 - kCalibrationOffset;
     public static final double kStowElevator = 0.0;
@@ -217,8 +217,8 @@ public final class Constants {
     public static final double kSubwooferElevator = 0.0;
     public static final double kSubwooferWrist = -0.12;
 
-    public static final double kAmpPivot = 0.0532 - kCalibrationOffset;
-    public static final double kAmpElevator = -3.618;
-    public static final double kAmpWrist = -0.2666;
+    public static final double kAmpPivot = 0.054292979797325;
+    public static final double kAmpElevator = -2.077077501926937;
+    public static final double kAmpWrist = -0.272981734663693 ;
   }
 }

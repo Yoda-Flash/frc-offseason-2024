@@ -5,15 +5,12 @@
 package frc.robot;
 
 import com.pathplanner.lib.auto.AutoBuilder;
-import com.pathplanner.lib.auto.NamedCommands;
-import com.pathplanner.lib.commands.PathPlannerAuto;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
-import edu.wpi.first.wpilibj2.command.PrintCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
@@ -30,31 +27,26 @@ import frc.robot.commands.groups.ClimbUp;
 import frc.robot.commands.groups.ForwardIntake;
 import frc.robot.commands.groups.GroundIntake;
 import frc.robot.commands.groups.Podium;
-import frc.robot.commands.groups.Subwoofer;
 import frc.robot.commands.groups.Stowed;
+import frc.robot.commands.groups.Subwoofer;
 import frc.robot.commands.intakeshooter.ArcadeIntake;
 import frc.robot.commands.intakeshooter.ArcadeShoot;
 import frc.robot.commands.intakeshooter.AutoIntake;
 import frc.robot.commands.intakeshooter.AutoShoot;
 import frc.robot.commands.intakeshooter.OutakeToSwitch;
-import frc.robot.commands.intakeshooter.Outtake;
 import frc.robot.commands.intakeshooter.ReverseShooter;
 import frc.robot.commands.pivot.ArcadePivot;
 import frc.robot.commands.pivot.PIDBack;
 import frc.robot.commands.pivot.PIDFront;
 import frc.robot.commands.pivot.PivotRecalibrate;
-import frc.robot.commands.pivot.TrapezoidalPivot;
 import frc.robot.commands.swerve.AutoStraighten;
 import frc.robot.commands.swerve.JoystickDrive;
 import frc.robot.commands.swerve.SnapToAngle;
 import frc.robot.commands.swerve.VisionSnapToAngle;
-import frc.robot.commands.tuning.PivotFF;
-import frc.robot.commands.tuning.WristFF;
 import frc.robot.commands.vision.VisionAim;
 import frc.robot.commands.wrist.ArcadeWrist;
 import frc.robot.commands.wrist.PIDDrop;
 import frc.robot.commands.wrist.PIDRaise;
-import frc.robot.commands.wrist.TrapezoidalWrist;
 import frc.robot.subsystems.Elevator;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Pivot;
@@ -168,12 +160,12 @@ public class RobotContainer {
     m_autoChooser = AutoBuilder.buildAutoChooser();
     SmartDashboard.putData("Driving/Auto Chooser", m_autoChooser);  
     // m_swerve.setDefaultCommand(m_drive);
-    
     // Configure the trigger bindings
 
     configureBindings();
     SmartDashboard.putData("Swerve/Odo/Reset_Odo", new InstantCommand(() -> m_swerve.resetOdoToPose()));
     SmartDashboard.putData("Swerve/Odo/Reset_Heading", new InstantCommand(() -> m_swerve.resetHeading()));
+    SmartDashboard.putData("Driving/ResetHeading", new InstantCommand(() -> m_swerve.resetHeading()));
   }
 
   /**
@@ -223,11 +215,11 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     // An example command will be run in autonomous
-    // return m_autoChooser.getSelected();
+    return m_autoChooser.getSelected();
     // return new PivotFF(m_pivot);
     // return new TrapezoidalPivot(m_pivot, 0.16);
     // return new WristFF(m_wrist);
-    return new TrapezoidalWrist(m_wrist, -0.24);
+    // return new TrapezoidalWrist(m_wrist, -0.24);
   }
 
   public Command getTeleopCommand(){
