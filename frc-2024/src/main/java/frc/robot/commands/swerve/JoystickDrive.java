@@ -45,25 +45,23 @@ public class JoystickDrive extends Command {
     // Get joystick inputs.
     double xSpeed = m_xSpeed.get();
     double ySpeed = m_ySpeed.get();
+    xSpeed *= Math.signum(xSpeed) * xSpeed;
+    ySpeed *= Math.signum(ySpeed) * ySpeed;
     double turningSpeed = m_turningSpeed.get();
 
     // Apply deadband.
     xSpeed = Math.abs(xSpeed) > DriveConstants.kDeadband ? xSpeed : 0.0;
     ySpeed = Math.abs(ySpeed) > DriveConstants.kDeadband ? ySpeed : 0.0;
     turningSpeed = Math.abs(turningSpeed) > DriveConstants.kDeadband ? turningSpeed : 0.0;
-    // turningSpeed = 0.0;
 
-    // Limit velocity and acceleration.
-    xSpeed = m_xLimiter.calculate(xSpeed) * DriveConstants.kTeleopMaxSpeedMetersPerSecond;
-    ySpeed = m_yLimiter.calculate(ySpeed) * DriveConstants.kTeleopMaxSpeedMetersPerSecond;
+    xSpeed *= DriveConstants.kTeleopMaxSpeedMetersPerSecond;
+    ySpeed *= DriveConstants.kTeleopMaxSpeedMetersPerSecond;
+
     turningSpeed = m_turningLimiter.calculate(turningSpeed) * DriveConstants.kTeleopMaxTurningRadiansPerSecond;
     SmartDashboard.putNumber("Swerve/turningSpeedCommanded", turningSpeed);
 
     // Construct chassis speed objects.
     ChassisSpeeds chassisSpeeds = ChassisSpeeds.fromFieldRelativeSpeeds(xSpeed, ySpeed, turningSpeed, m_swerve.getAngle());
-    // ChassisSpeeds chassisSpeeds = new ChassisSpeeds(xSpeed, ySpeed, turningSpeed);
-    // ChassisSpeeds chassisSpeeds = new ChassisSpeeds(0, ySpeed, turningSpeed);
-
 
     // Calculate module states.
     SwerveModuleState[] moduleStates = DriveConstants.kDriveKinematics.toSwerveModuleStates(chassisSpeeds);
