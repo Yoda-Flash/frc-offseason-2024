@@ -9,6 +9,7 @@ import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import frc.robot.Constants.PositionConstants;
 import frc.robot.commands.pivot.TrapezoidalPivot;
 import frc.robot.commands.wrist.TrapezoidalWrist;
+import frc.robot.commands.wrist.TrapezoidalWristProvider;
 import frc.robot.subsystems.Pivot;
 import frc.robot.subsystems.SwerveDrive;
 import frc.robot.subsystems.Wrist;
@@ -22,8 +23,8 @@ public class VisionAim extends ParallelCommandGroup {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
-     new VisionDistanceToAngle(swerve),
-     new TrapezoidalWrist(wrist, wrist.getAutoAimSetpoint()),
+    //  new VisionDistanceToAngle(swerve),
+     new TrapezoidalWristProvider(wrist, () -> wrist.getAutoAimSetpoint()),
      new TrapezoidalPivot(pivot, PositionConstants.kSubwooferPivot)
     );
   }

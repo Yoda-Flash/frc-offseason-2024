@@ -15,8 +15,8 @@ import frc.robot.subsystems.SwerveDrive;
 public class VisionDistanceToAngle extends Command {
 
   private static final class Config{
-    public static final double kP = 0.007;
-    public static final double kI = 0;
+    public static final double kP = 2.0;
+    public static final double kI = 0.1;
     public static final double kD = 0;    
     public static final double kMinI = -0.25;
     public static final double kMaxI = 0.25;
@@ -43,7 +43,7 @@ public class VisionDistanceToAngle extends Command {
   public void initialize() {    
     m_pid.setIntegratorRange(Config.kMinI, Config.kMaxI);
     System.out.println("Running vision snap");
-    m_initAngle = SmartDashboard.getNumber("angle", 0);
+    m_initAngle = SmartDashboard.getNumber("Vision/Angle", 0);
     System.out.println("first angle: " + m_initAngle);
 
   }
@@ -51,10 +51,11 @@ public class VisionDistanceToAngle extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_currentAngle = SmartDashboard.getNumber("angle", 0);
+    m_currentAngle = SmartDashboard.getNumber("Vision/Angle", 0);
     // m_turningSpeed = m_pid.calculate(m_currentAngle, m_currentAngle + m_targetAngle);
     m_turningSpeed = m_pid.calculate(m_currentAngle, 0);
 
+    System.out.println(m_turningSpeed + "turning speed");
     SmartDashboard.putNumber("Turning speed", m_turningSpeed);
     // Construct chassis speed objects.
     ChassisSpeeds chassisSpeeds = ChassisSpeeds.fromFieldRelativeSpeeds(0, 0, m_turningSpeed, m_swerve.getAngle());

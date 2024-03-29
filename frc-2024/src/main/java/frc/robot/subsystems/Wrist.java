@@ -67,7 +67,7 @@ public class Wrist extends SubsystemBase {
   }
 
   public double getAutoAimSetpoint(){
-    double m_distance = SmartDashboard.getNumber("Distance", 0);
+    double m_distance = SmartDashboard.getNumber("Vision/Distance", 0);
     return m_interpolator.getWristPosition(m_distance);
   }
 

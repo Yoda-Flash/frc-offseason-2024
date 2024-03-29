@@ -128,12 +128,6 @@ public class RobotContainer {
 
   private final SwerveDrive m_swerve = new SwerveDrive(m_stowed, m_autoShoot, m_autoIntake, m_groundIntake, m_outtake, m_subwoofer, m_rightUnderStage);
 
-  private final JoystickDrive m_drive = new JoystickDrive(m_swerve, 
-    () -> -m_driverJoystick.getRawAxis(DriveConstants.kJoystickXAxis),
-    () -> -m_driverJoystick.getRawAxis(DriveConstants.kJoystickYxis),
-    () -> -m_driverJoystick.getRawAxis(DriveConstants.kJoystickRotAxis)
-  );
-  
   private SnapToAngle m_snap = new SnapToAngle(m_swerve);
   private AutoStraighten m_straighten = new AutoStraighten(m_swerve);
   private VisionSnapToAngle m_visionSnap = new VisionSnapToAngle(m_swerve);
@@ -151,6 +145,19 @@ public class RobotContainer {
   private JoystickButton m_visionAimButton = new JoystickButton(m_joystick2, Config.kVisionAimButtonID);
 
   private JoystickButton m_resetHeadingButton = new JoystickButton(m_driverJoystick, 1);
+
+  private final JoystickDrive m_drive = new JoystickDrive(m_swerve, 
+    () -> -m_driverJoystick.getRawAxis(DriveConstants.kJoystickXAxis),
+    () -> -m_driverJoystick.getRawAxis(DriveConstants.kJoystickYxis),
+    () -> {
+      if (m_visionAimButton.getAsBoolean()){
+        return SmartDashboard.getNumber("Turning speed", 0);
+      } else {
+        return -m_driverJoystick.getRawAxis(DriveConstants.kJoystickRotAxis);
+      }
+    }
+  );
+  
 
   private SendableChooser<Command> m_autoChooser;
   // Replace with CommandPS4Controller or CommandJoystick if needed
