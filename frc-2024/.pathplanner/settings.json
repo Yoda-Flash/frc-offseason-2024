@@ -19,8 +19,8 @@
     "1+1 Subwoofer"
   ],
   "defaultMaxVel": 4.5,
-  "defaultMaxAccel": 3.0,
+  "defaultMaxAccel": 2.5,
   "defaultMaxAngVel": 540.0,
   "defaultMaxAngAccel": 720.0,
-  "maxModuleSpeed": 4.5
+  "maxModuleSpeed": 5.75
 }

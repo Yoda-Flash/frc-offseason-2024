@@ -24,12 +24,11 @@ public final class Constants {
   public static final int kJoystick2ID = 1;
 
   public static class DriveConstants {
-    // public static final double kDriveEncoderPositionToMeters = (1.0 / 6.75) * Units.inchesToMeters(4.0 * Math.PI); 
-    public static final double kDriveEncoderPositionToMeters = Units.inchesToMeters(4.0 * Math.PI) / 6.75;
-    public static final double kDriveEncoderVelocityToMetersPerSec = kDriveEncoderPositionToMeters / 60.0;
+    public static final double kDriveGearRatio = 5.9028;
+    public static final double kDriveSensorToMechanismRatio = kDriveGearRatio / Units.inchesToMeters(4 * Math.PI);
     public static final double kTurnEncoderPositionToRadians = 2.0 * Math.PI;
     public static final double kTranslationalDeadbandMetersPerSecond = 0.001;
-    public static final double  kMaxTranslationalMetersPerSecond = Units.feetToMeters(15.1);
+    public static final double kMaxTranslationalMetersPerSecond = Units.feetToMeters(18.9);
     // public static final double kMaxTranslationalMetersPerSecond = Units.feetToMeters(4.5);
 
     
@@ -47,25 +46,25 @@ public final class Constants {
       new Translation2d(0.3556 - 0.644, -0.3556 + 0.063)
     );
     // TODO: gather all of these constants.
-    public static int kFrontLeftDriveId = 2;
+    public static int kFrontLeftDriveId = 51;
     public static int kFrontLeftTurnId = 1;
     public static int kFrontLeftAbsoluteEncoderPort = 9;
     public static double kFrontLeftAbsoluteEncoderOffset = -0.529990463821544 - (Math.PI / 2.0);
     public static boolean kFrontLeftDriveReversed = false;
 
-    public static int kFrontRightDriveId = 4;
+    public static int kFrontRightDriveId = 52;
     public static int kFrontRightTurnId = 3;
     public static int kFrontRightAbsoluteEncoderPort = 7;
     public static double kFrontRightAbsoluteEncoderOffset = 1.415447275814819 + (Math.PI / 2.0);
     public static boolean kFrontRightDriveReversed = true;
 
-    public static int kBackLeftDriveId = 8;
+    public static int kBackLeftDriveId = 53;
     public static int kBackLeftTurnId = 7;
     public static int kBackLeftAbsoluteEncoderPort = 8;
     public static double kBackLeftAbsoluteEncoderOffset = 1.253910661599266 + (Math.PI / 2.0);
     public static boolean kBackLeftDriveReversed = false;
 
-    public static int kBackRightDriveId = 6;
+    public static int kBackRightDriveId = 54;
     public static int kBackRightTurnId = 5;
     public static int kBackRightAbsoluteEncoderPort = 6;
     public static double kBackRightAbsoluteEncoderOffset = -0.456511594330128 - (Math.PI / 2.0);
@@ -74,7 +73,7 @@ public final class Constants {
     public static double kDeadband = 0.05;
     public static double kTeleopMaxAccelMetersPerSecondSquared = 2.5;
     // public static double kTeleopMaxAccelMetersPerSecondSquared = 0.5;
-    public static double kTeleopMaxAngularAccelRadiansPerSecondSquared = 3;
+    public static double kTeleopMaxAngularAccelBotRotsPerSecondSquared = 3;
     // public static double kTeleopMaxAngularAccelRadiansPerSecondSquared = 0.5;
     // public static double kTeleopMaxSpeedMetersPerSecond = kMaxTranslationalMetersPerSecond * 0.8;
     public static double kTeleopMaxSpeedMetersPerSecond = kMaxTranslationalMetersPerSecond;

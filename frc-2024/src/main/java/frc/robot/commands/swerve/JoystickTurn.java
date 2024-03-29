@@ -20,7 +20,7 @@ public class JoystickTurn extends Command {
   public JoystickTurn(SwerveDrive swerve, Supplier<Double> turningSpeed) {
     m_swerve = swerve;
     m_turningSpeed = turningSpeed;
-    m_turningLimiter = new SlewRateLimiter(DriveConstants.kTeleopMaxAngularAccelRadiansPerSecondSquared);
+    m_turningLimiter = new SlewRateLimiter(DriveConstants.kTeleopMaxAngularAccelBotRotsPerSecondSquared);
 
     addRequirements(swerve);
   }

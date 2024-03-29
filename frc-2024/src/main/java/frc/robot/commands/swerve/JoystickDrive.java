@@ -29,7 +29,7 @@ public class JoystickDrive extends Command {
 
     m_xLimiter = new SlewRateLimiter(DriveConstants.kTeleopMaxAccelMetersPerSecondSquared);
     m_yLimiter = new SlewRateLimiter(DriveConstants.kTeleopMaxAccelMetersPerSecondSquared);
-    m_turningLimiter = new SlewRateLimiter(DriveConstants.kTeleopMaxAngularAccelRadiansPerSecondSquared);
+    m_turningLimiter = new SlewRateLimiter(DriveConstants.kTeleopMaxAngularAccelBotRotsPerSecondSquared);
 
     addRequirements(swerve);
   }
