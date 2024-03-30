@@ -7,6 +7,7 @@ package frc.robot.utils;
 import edu.wpi.first.math.interpolation.InterpolatingDoubleTreeMap;
 import edu.wpi.first.math.interpolation.Interpolator;
 import edu.wpi.first.math.interpolation.InverseInterpolator;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /** Add your docs here. */
 public class DistanceToEncoderInterpolator {
@@ -32,10 +33,12 @@ public class DistanceToEncoderInterpolator {
         m_map.put(131.9, -0.194);
         m_map.put(134.3, -0.195);
         m_map.put(140.1, -0.194);
-        m_map.put(146.4, -0.191);
+        m_map.put(146.4, -0.196);
+        m_map.put(149.5,-0.200);
     }
     
     public double getWristPosition(double distance){
+        SmartDashboard.putNumber("Vision/Encoder setpoint", m_map.get(distance));
         return m_map.get(distance);
     }
 }

@@ -56,7 +56,6 @@ public class VisionSnapToAngle extends Command {
 
     // Construct chassis speed objects.
     ChassisSpeeds chassisSpeeds = ChassisSpeeds.fromFieldRelativeSpeeds(0, 0, m_turningSpeed, m_swerve.getAngle());
-
     // Calculate module states.
     SwerveModuleState[] moduleStates = DriveConstants.kDriveKinematics.toSwerveModuleStates(chassisSpeeds);
 

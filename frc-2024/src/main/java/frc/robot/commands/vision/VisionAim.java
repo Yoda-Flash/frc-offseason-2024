@@ -23,7 +23,7 @@ public class VisionAim extends ParallelCommandGroup {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
-    //  new VisionDistanceToAngle(swerve),
+     new VisionDistanceToAngle(swerve),
      new TrapezoidalWristProvider(wrist, () -> wrist.getAutoAimSetpoint()),
      new TrapezoidalPivot(pivot, PositionConstants.kSubwooferPivot)
     );

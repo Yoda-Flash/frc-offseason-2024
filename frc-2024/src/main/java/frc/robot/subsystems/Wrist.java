@@ -86,6 +86,7 @@ public class Wrist extends SubsystemBase {
   public void periodic() {
     // This method will be called once per scheduler run
     SmartDashboard.putNumber("Mech/Wrist/Encoder", getEncoderPosition());
+    SmartDashboard.putNumber("Vision/Encoder", getEncoderPosition());
     SmartDashboard.putBoolean("Mech/Wrist/Forward switch", ifForwardTriggered());
     SmartDashboard.putBoolean("Mech/Wrist/Backward switch", ifBackwardTriggered());
     SmartDashboard.putNumber("Mech/Wrist/Motor1Current", m_falcon.getSupplyCurrent().refresh().getValueAsDouble()); 

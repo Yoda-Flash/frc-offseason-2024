@@ -15,12 +15,12 @@ import frc.robot.subsystems.SwerveDrive;
 public class VisionDistanceToAngle extends Command {
 
   private static final class Config{
-    public static final double kP = 2.0;
-    public static final double kI = 0.1;
+    public static final double kP = 2;
+    public static final double kI = 0;
     public static final double kD = 0;    
     public static final double kMinI = -0.25;
     public static final double kMaxI = 0.25;
-    public static final double kDeadband = 0.05;
+    public static final double kDeadband = 0.01;
   }
 
   private SwerveDrive m_swerve;
@@ -35,7 +35,7 @@ public class VisionDistanceToAngle extends Command {
   public VisionDistanceToAngle(SwerveDrive swerve) {
     m_swerve = swerve;
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(m_swerve);
+    // addRequirements(m_swerve);
   }
 
   // Called when the command is initially scheduled.
@@ -45,7 +45,6 @@ public class VisionDistanceToAngle extends Command {
     System.out.println("Running vision snap");
     m_initAngle = SmartDashboard.getNumber("Vision/Angle", 0);
     System.out.println("first angle: " + m_initAngle);
-
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -56,12 +55,13 @@ public class VisionDistanceToAngle extends Command {
     m_turningSpeed = m_pid.calculate(m_currentAngle, 0);
 
     System.out.println(m_turningSpeed + "turning speed");
-    SmartDashboard.putNumber("Turning speed", m_turningSpeed);
+    SmartDashboard.putNumber("Vision/Turning speed", m_turningSpeed);
     // Construct chassis speed objects.
     ChassisSpeeds chassisSpeeds = ChassisSpeeds.fromFieldRelativeSpeeds(0, 0, m_turningSpeed, m_swerve.getAngle());
+    // ChassisSpeeds chassisSpeeds = ChassisSpeeds.fromFieldRelativeSpeeds(0, 0, 0, m_swerve.getAngle());
     // Calculate module states.
     SwerveModuleState[] moduleStates = DriveConstants.kDriveKinematics.toSwerveModuleStates(chassisSpeeds);
-
+    System.out.println("Chassis speeds:" + chassisSpeeds);
     // Set module states.
     m_swerve.setModuleStates(moduleStates);
   }
