@@ -164,7 +164,7 @@ public class RobotContainer {
 
   //led stuff!!!
   private LED m_led = new LED();
-  private OperateLED m_operateLED = new OperateLED(m_led);
+  private OperateLED m_operateLED = new OperateLED(m_led, m_intake);
   // Replace with CommandPS4Controller or CommandJoystick if needed
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */

@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.IntakeConstants;
+import frc.robot.subsystems.LED.LED_State;
 
 public class Intake extends SubsystemBase {
   
@@ -30,6 +31,14 @@ public class Intake extends SubsystemBase {
 
   public void setSpeed(double speed){
     m_intakeMotor.set(speed);
+  }
+  public void setRobotState() {
+    if(getSwitchTriggered()) {
+      LED.setState(LED_State.PIECE_STORED);
+    }
+    else {
+      LED.setState(LED_State.NORMAL);
+    }
   }
 // 
   // public Boolean ifSensorTriggered(){

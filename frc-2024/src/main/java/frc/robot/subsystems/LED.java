@@ -27,11 +27,13 @@ public class LED extends SubsystemBase {
   }
   public static LED_State m_state;
 
-  private int [][] m_colorList = {{0,0,0},{255,64,0},{0,0,255},{255,0,0},{173,8,191}};
+  private int [][] m_colorList = {{0,0,0},{255,64,0},{0,0,255},{255,0,0},{173,8,191},{0,255,0}};
   private int m_rainbowFirstPixelHue;
   private int m_fadingValue;
   private int m_fadingCount;
   private int m_streakPosition;
+  private int m_blinkValue;
+  private int m_blinkCount;
 
   /** Creates a new LED. */
   public LED() {
@@ -41,6 +43,8 @@ public class LED extends SubsystemBase {
     m_fadingValue = 0;
     m_fadingCount = 0;
     m_streakPosition = 0;
+    m_blinkValue = 0;
+    m_blinkCount = 5;
     setState(LED_State.RAINBOW);
   }
 
@@ -94,6 +98,25 @@ public class LED extends SubsystemBase {
     m_rainbowFirstPixelHue += 3;
     // Check bounds
     m_rainbowFirstPixelHue %= 180;
+    m_led.setData(m_buffer);
+  }
+
+  public void blinking(int color) {
+    if(m_blinkCount == 10) {
+      if (m_blinkValue == 0) {
+        setColor(color);
+        m_blinkValue = 1;
+        m_blinkCount %= 10;
+      }
+      else if (m_blinkValue == 1){
+        setColor(0);
+        m_blinkValue = 0;
+        m_blinkCount %= 10;
+      }
+    }
+    else {
+      m_blinkCount ++;
+    }
     m_led.setData(m_buffer);
   }
 
