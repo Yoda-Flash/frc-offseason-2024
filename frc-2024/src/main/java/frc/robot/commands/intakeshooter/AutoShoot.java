@@ -35,7 +35,7 @@ public class AutoShoot extends Command {
   @Override
   public void execute() {
     m_shooter.setSpeed(1.0);
-    if (m_timer.hasElapsed(0.5)){
+    if (m_timer.hasElapsed(0.7)){
       m_intake.setSpeed(1);
     }
   }

@@ -3,25 +3,25 @@
   "waypoints": [
     {
       "anchor": {
-        "x": 7.99,
-        "y": 0.772412409022348
+        "x": 8.27,
+        "y": 0.33
       },
       "prevControl": null,
       "nextControl": {
-        "x": 7.655299374235112,
-        "y": 2.0267502758799
+        "x": 3.640081781891958,
+        "y": 0.6084598161788914
       },
       "isLocked": false,
       "linkedName": null
     },
     {
       "anchor": {
-        "x": 4.97,
-        "y": 4.5804142517375945
+        "x": 3.5921316287077016,
+        "y": 2.6288111835482924
       },
       "prevControl": {
-        "x": 6.525781051562102,
-        "y": 4.216593160459048
+        "x": 4.557458991461198,
+        "y": 1.8584056921200252
       },
       "nextControl": null,
       "isLocked": false,
@@ -31,7 +31,7 @@
   "rotationTargets": [
     {
       "waypointRelativePos": 1,
-      "rotationDegrees": -17.430000000000007,
+      "rotationDegrees": -50.19442890773479,
       "rotateFast": false
     }
   ],
@@ -49,6 +49,12 @@
               "data": {
                 "name": "RightUnderStage"
               }
+            },
+            {
+              "type": "named",
+              "data": {
+                "name": "AutoIntake"
+              }
             }
           ]
         }
@@ -63,7 +69,7 @@
   },
   "goalEndState": {
     "velocity": 0,
-    "rotation": -17.52556837372276,
+    "rotation": -50.630682757635164,
     "rotateFast": false
   },
   "reversed": false,

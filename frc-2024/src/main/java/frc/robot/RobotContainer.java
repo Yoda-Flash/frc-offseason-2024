@@ -15,7 +15,7 @@ import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.Constants.DriveConstants;
-import frc.robot.commands.auto.RightUnderStage;
+import frc.robot.commands.auto.RightStage;
 import frc.robot.commands.elevator.ArcadeElevator;
 import frc.robot.commands.elevator.ElevatorRecalibrate;
 import frc.robot.commands.elevator.PIDDown;
@@ -124,7 +124,7 @@ public class RobotContainer {
   private AutoIntake m_autoIntake = new AutoIntake(m_intake);
   private ClimbDown m_climbDown = new ClimbDown(m_pivot, m_wrist, m_elevator);
 
-  private RightUnderStage m_rightUnderStage = new RightUnderStage(m_pivot, m_wrist, m_elevator);
+  private RightStage m_rightUnderStage = new RightStage(m_pivot, m_wrist, m_elevator);
 
   private final SwerveDrive m_swerve = new SwerveDrive(m_stowed, m_autoShoot, m_autoIntake, m_groundIntake, m_outtake, m_subwoofer, m_rightUnderStage);
 
