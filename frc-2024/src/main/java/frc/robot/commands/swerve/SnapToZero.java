@@ -12,7 +12,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Constants.DriveConstants;
 import frc.robot.subsystems.SwerveDrive;
 
-public class SnapToAngle extends Command {
+public class SnapToZero extends Command {
 
   private static final class Config{
     public static final double kP = 0.01;
@@ -28,8 +28,8 @@ public class SnapToAngle extends Command {
   private double m_initAngle;
   private double m_currentAngle;
 
-  /** Creates a new SnapToAngle. */
-  public SnapToAngle(SwerveDrive swerve) {
+  /** Creates a new SnapToZero. */
+  public SnapToZero(SwerveDrive swerve) {
     m_swerve = swerve;
     // Use addRequirements() here to declare subsystem dependencies.
     // addRequirements(m_swerve);
@@ -45,7 +45,7 @@ public class SnapToAngle extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_targetAngle = SmartDashboard.getNumber("Goal angle degrees", 90);
+    m_targetAngle = SmartDashboard.getNumber("Goal angle degrees", 0);
     SmartDashboard.putNumber("Goal angle degrees", m_targetAngle);
     m_currentAngle = m_swerve.getAngle().getDegrees();
 
@@ -53,14 +53,14 @@ public class SnapToAngle extends Command {
 
     SmartDashboard.putNumber("Turning speed", m_turningSpeed);
 
-    // Construct chassis speed objects.
-    ChassisSpeeds chassisSpeeds = ChassisSpeeds.fromFieldRelativeSpeeds(0, 0, m_turningSpeed, m_swerve.getAngle());
+    // // Construct chassis speed objects.
+    // ChassisSpeeds chassisSpeeds = ChassisSpeeds.fromFieldRelativeSpeeds(0, 0, m_turningSpeed, m_swerve.getAngle());
 
-    // Calculate module states.
-    SwerveModuleState[] moduleStates = DriveConstants.kDriveKinematics.toSwerveModuleStates(chassisSpeeds);
+    // // Calculate module states.
+    // SwerveModuleState[] moduleStates = DriveConstants.kDriveKinematics.toSwerveModuleStates(chassisSpeeds);
 
-    // Set module states.
-    m_swerve.setModuleStates(moduleStates);
+    // // Set module states.
+    // m_swerve.setModuleStates(moduleStates);
 
   }
 

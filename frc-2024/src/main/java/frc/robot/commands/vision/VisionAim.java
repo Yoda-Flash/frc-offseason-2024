@@ -19,11 +19,11 @@ import frc.robot.subsystems.Wrist;
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
 public class VisionAim extends ParallelCommandGroup {
   /** Creates a new VisionAim. */
-  public VisionAim(SwerveDrive swerve, Wrist wrist, Pivot pivot) {
+  public VisionAim(Wrist wrist, Pivot pivot) {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
-     new VisionDistanceToAngle(swerve),
+    //  new VisionDistanceToAngle(swerve),
      new TrapezoidalWristProvider(wrist, () -> wrist.getAutoAimSetpoint()),
      new TrapezoidalPivot(pivot, PositionConstants.kSubwooferPivot)
     );

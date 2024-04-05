@@ -41,9 +41,12 @@ import frc.robot.commands.pivot.PIDFront;
 import frc.robot.commands.pivot.PivotRecalibrate;
 import frc.robot.commands.swerve.AutoStraighten;
 import frc.robot.commands.swerve.JoystickDrive;
+import frc.robot.commands.swerve.SnapToAmp;
 import frc.robot.commands.swerve.SnapToAngle;
+import frc.robot.commands.swerve.SnapToZero;
 import frc.robot.commands.swerve.VisionSnapToAngle;
 import frc.robot.commands.vision.VisionAim;
+import frc.robot.commands.vision.VisionTurn;
 import frc.robot.commands.wrist.ArcadeWrist;
 import frc.robot.commands.wrist.PIDDrop;
 import frc.robot.commands.wrist.PIDRaise;
@@ -75,6 +78,10 @@ public class RobotContainer {
     public static final int kVisionAimButtonID = 6;
     public static final int kClimbUpButtonID = 7;
     public static final int kClimbDownButtonID = 8;
+    public static final int kVisionTurnButtonID = 1;
+    public static final int kSnapToAmpButtonID = 2;
+    public static final int kSnapToZeroButtonID = 3;
+    public static final int kResetHeadingButtonID = 4;
   }
   
 
@@ -131,8 +138,12 @@ public class RobotContainer {
   private SnapToAngle m_snap = new SnapToAngle(m_swerve);
   private AutoStraighten m_straighten = new AutoStraighten(m_swerve);
   private VisionSnapToAngle m_visionSnap = new VisionSnapToAngle(m_swerve);
+
+  private SnapToZero m_snapToZero = new SnapToZero(m_swerve);
+  private SnapToAmp m_snapToAmp = new SnapToAmp(m_swerve);
   
-  private VisionAim m_visionAim = new VisionAim(m_swerve, m_wrist, m_pivot);
+  private VisionAim m_visionAim = new VisionAim(m_wrist, m_pivot);
+  private VisionTurn m_visionTurn = new VisionTurn(m_swerve);
 
   private JoystickButton m_stowButton = new JoystickButton(m_joystick2, Config.kStowButtonID);
   private JoystickButton m_ampButton = new JoystickButton(m_joystick2, Config.kAmpButtonID);
@@ -144,13 +155,16 @@ public class RobotContainer {
   private JoystickButton m_climbDownButton = new JoystickButton(m_joystick2, Config.kClimbDownButtonID);
   private JoystickButton m_visionAimButton = new JoystickButton(m_joystick2, Config.kVisionAimButtonID);
 
-  private JoystickButton m_resetHeadingButton = new JoystickButton(m_driverJoystick, 1);
+  private JoystickButton m_resetHeadingButton = new JoystickButton(m_driverJoystick, Config.kResetHeadingButtonID);
+  private JoystickButton m_visionTurnButton = new JoystickButton(m_driverJoystick, Config.kVisionTurnButtonID);
+  private JoystickButton m_snapToZeroButton = new JoystickButton(m_driverJoystick, Config.kSnapToZeroButtonID);
+  private JoystickButton m_snapToAmpButton = new JoystickButton(m_driverJoystick, Config.kSnapToAmpButtonID);
 
   private final JoystickDrive m_drive = new JoystickDrive(m_swerve, 
     () -> -m_driverJoystick.getRawAxis(DriveConstants.kJoystickXAxis),
     () -> -m_driverJoystick.getRawAxis(DriveConstants.kJoystickYxis),
     () -> {
-      if (m_visionAimButton.getAsBoolean()){
+      if (m_visionTurnButton.getAsBoolean() || m_snapToAmpButton.getAsBoolean() || m_snapToZeroButton.getAsBoolean()){
         return SmartDashboard.getNumber("Turning speed", 0);
       } else {
         return -m_driverJoystick.getRawAxis(DriveConstants.kJoystickRotAxis);
@@ -213,6 +227,10 @@ public class RobotContainer {
     // m_elevatorDownButton.whileTrue(m_backwardIntake);
     // m_intakeButton.whileTrue(m_stowed);
     // m_shooterButton.whileTrue(m_ampScore); 
+    m_visionTurnButton.whileTrue(m_visionTurn);
+    m_snapToAmpButton.whileTrue(m_snapToAmp);
+    m_snapToZeroButton.whileTrue(m_snapToZero);
+    m_resetHeadingButton.whileTrue(new InstantCommand(() -> m_swerve.resetHeading()));
   }
 
   /**

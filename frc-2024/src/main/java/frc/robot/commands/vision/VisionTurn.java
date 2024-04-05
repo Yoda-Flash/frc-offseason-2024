@@ -12,12 +12,12 @@ import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Constants.DriveConstants;
 import frc.robot.subsystems.SwerveDrive;
 
-public class VisionDistanceToAngle extends Command {
+public class VisionTurn extends Command {
 
   private static final class Config{
-    public static final double kP = 2;
+    public static final double kP = 2.5;
     public static final double kI = 0;
-    public static final double kD = 0;    
+    public static final double kD = 0.5;    
     public static final double kMinI = -0.25;
     public static final double kMaxI = 0.25;
     public static final double kDeadband = 0.01;
@@ -32,7 +32,7 @@ public class VisionDistanceToAngle extends Command {
   private double m_distance;
   private boolean m_detected;
   /** Creates a new VisionDistanceToAngle. */
-  public VisionDistanceToAngle(SwerveDrive swerve) {
+  public VisionTurn(SwerveDrive swerve) {
     m_swerve = swerve;
     // Use addRequirements() here to declare subsystem dependencies.
     // addRequirements(m_swerve);
@@ -57,13 +57,13 @@ public class VisionDistanceToAngle extends Command {
     System.out.println(m_turningSpeed + "turning speed");
     SmartDashboard.putNumber("Vision/Turning speed", m_turningSpeed);
     // Construct chassis speed objects.
-    ChassisSpeeds chassisSpeeds = ChassisSpeeds.fromFieldRelativeSpeeds(0, 0, m_turningSpeed, m_swerve.getAngle());
-    // ChassisSpeeds chassisSpeeds = ChassisSpeeds.fromFieldRelativeSpeeds(0, 0, 0, m_swerve.getAngle());
-    // Calculate module states.
-    SwerveModuleState[] moduleStates = DriveConstants.kDriveKinematics.toSwerveModuleStates(chassisSpeeds);
-    System.out.println("Chassis speeds:" + chassisSpeeds);
-    // Set module states.
-    m_swerve.setModuleStates(moduleStates);
+    // ChassisSpeeds chassisSpeeds = ChassisSpeeds.fromFieldRelativeSpeeds(0, 0, m_turningSpeed, m_swerve.getAngle());
+    // // ChassisSpeeds chassisSpeeds = ChassisSpeeds.fromFieldRelativeSpeeds(0, 0, 0, m_swerve.getAngle());
+    // // Calculate module states.
+    // SwerveModuleState[] moduleStates = DriveConstants.kDriveKinematics.toSwerveModuleStates(chassisSpeeds);
+    // System.out.println("Chassis speeds:" + chassisSpeeds);
+    // // Set module states.
+    // m_swerve.setModuleStates(moduleStates);
   }
 
   // Called once the command ends or is interrupted.
