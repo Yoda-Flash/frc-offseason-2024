@@ -230,7 +230,7 @@ public class RobotContainer {
     m_visionTurnButton.whileTrue(m_visionTurn);
     m_snapToAmpButton.whileTrue(m_snapToAmp);
     m_snapToZeroButton.whileTrue(m_snapToZero);
-    m_resetHeadingButton.whileTrue(new InstantCommand(() -> m_swerve.resetHeading()));
+    // m_resetHeadingButton.whileTrue(new InstantCommand(() -> m_swerve.resetHeading()));
   }
 
   /**

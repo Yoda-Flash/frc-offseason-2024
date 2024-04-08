@@ -45,22 +45,22 @@ public class SnapToAmp extends Command {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_targetAngle = SmartDashboard.getNumber("Goal angle degrees", 90);
-    SmartDashboard.putNumber("Goal angle degrees", m_targetAngle);
+    // m_targetAngle = SmartDashboard.getNumber("Goal angle degrees", 90);
+    // SmartDashboard.putNumber("Goal angle degrees", m_targetAngle);
     m_currentAngle = m_swerve.getAngle().getDegrees();
 
-    m_turningSpeed = m_pid.calculate(m_currentAngle, m_initAngle + m_targetAngle);
+    m_turningSpeed = m_pid.calculate(m_currentAngle, 90);
 
     SmartDashboard.putNumber("Turning speed", m_turningSpeed);
 
-    // // Construct chassis speed objects.
-    // ChassisSpeeds chassisSpeeds = ChassisSpeeds.fromFieldRelativeSpeeds(0, 0, m_turningSpeed, m_swerve.getAngle());
+    // Construct chassis speed objects.
+    ChassisSpeeds chassisSpeeds = ChassisSpeeds.fromFieldRelativeSpeeds(0, 0, m_turningSpeed, m_swerve.getAngle());
 
-    // // Calculate module states.
-    // SwerveModuleState[] moduleStates = DriveConstants.kDriveKinematics.toSwerveModuleStates(chassisSpeeds);
+    // Calculate module states.
+    SwerveModuleState[] moduleStates = DriveConstants.kDriveKinematics.toSwerveModuleStates(chassisSpeeds);
 
-    // // Set module states.
-    // m_swerve.setModuleStates(moduleStates);
+    // Set module states.
+    m_swerve.setModuleStates(moduleStates);
 
   }
 

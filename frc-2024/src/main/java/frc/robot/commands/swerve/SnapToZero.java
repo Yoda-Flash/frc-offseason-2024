@@ -53,14 +53,14 @@ public class SnapToZero extends Command {
 
     SmartDashboard.putNumber("Turning speed", m_turningSpeed);
 
-    // // Construct chassis speed objects.
-    // ChassisSpeeds chassisSpeeds = ChassisSpeeds.fromFieldRelativeSpeeds(0, 0, m_turningSpeed, m_swerve.getAngle());
+    // Construct chassis speed objects.
+    ChassisSpeeds chassisSpeeds = ChassisSpeeds.fromFieldRelativeSpeeds(0, 0, m_turningSpeed, m_swerve.getAngle());
 
-    // // Calculate module states.
-    // SwerveModuleState[] moduleStates = DriveConstants.kDriveKinematics.toSwerveModuleStates(chassisSpeeds);
+    // Calculate module states.
+    SwerveModuleState[] moduleStates = DriveConstants.kDriveKinematics.toSwerveModuleStates(chassisSpeeds);
 
-    // // Set module states.
-    // m_swerve.setModuleStates(moduleStates);
+    // Set module states.
+    m_swerve.setModuleStates(moduleStates);
 
   }
 

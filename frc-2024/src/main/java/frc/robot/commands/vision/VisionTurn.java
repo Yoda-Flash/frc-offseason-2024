@@ -5,6 +5,7 @@
 package frc.robot.commands.vision;
 
 import edu.wpi.first.math.controller.PIDController;
+import edu.wpi.first.math.filter.SlewRateLimiter;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.math.kinematics.SwerveModuleState;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -15,12 +16,12 @@ import frc.robot.subsystems.SwerveDrive;
 public class VisionTurn extends Command {
 
   private static final class Config{
-    public static final double kP = 2.5;
+    public static final double kP = 1;
     public static final double kI = 0;
-    public static final double kD = 0.5;    
+    public static final double kD = 0;    
     public static final double kMinI = -0.25;
     public static final double kMaxI = 0.25;
-    public static final double kDeadband = 0.01;
+    public static final double kDeadband = 0.005;
   }
 
   private SwerveDrive m_swerve;
@@ -31,11 +32,15 @@ public class VisionTurn extends Command {
   private double m_turningSpeed;
   private double m_distance;
   private boolean m_detected;
+
+  private SlewRateLimiter m_turningLimiter = new SlewRateLimiter(DriveConstants.kTeleopMaxAngularAccelBotRotsPerSecondSquared);
+
+
   /** Creates a new VisionDistanceToAngle. */
   public VisionTurn(SwerveDrive swerve) {
     m_swerve = swerve;
     // Use addRequirements() here to declare subsystem dependencies.
-    // addRequirements(m_swerve);
+    addRequirements(m_swerve);
   }
 
   // Called when the command is initially scheduled.
@@ -54,16 +59,18 @@ public class VisionTurn extends Command {
     // m_turningSpeed = m_pid.calculate(m_currentAngle, m_currentAngle + m_targetAngle);
     m_turningSpeed = m_pid.calculate(m_currentAngle, 0);
 
+    // m_turningSpeed = m_turningLimiter.calculate(m_turningSpeed);
+
     System.out.println(m_turningSpeed + "turning speed");
     SmartDashboard.putNumber("Vision/Turning speed", m_turningSpeed);
     // Construct chassis speed objects.
-    // ChassisSpeeds chassisSpeeds = ChassisSpeeds.fromFieldRelativeSpeeds(0, 0, m_turningSpeed, m_swerve.getAngle());
-    // // ChassisSpeeds chassisSpeeds = ChassisSpeeds.fromFieldRelativeSpeeds(0, 0, 0, m_swerve.getAngle());
-    // // Calculate module states.
-    // SwerveModuleState[] moduleStates = DriveConstants.kDriveKinematics.toSwerveModuleStates(chassisSpeeds);
-    // System.out.println("Chassis speeds:" + chassisSpeeds);
-    // // Set module states.
-    // m_swerve.setModuleStates(moduleStates);
+    ChassisSpeeds chassisSpeeds = ChassisSpeeds.fromFieldRelativeSpeeds(0, 0, m_turningSpeed, m_swerve.getAngle());
+    // ChassisSpeeds chassisSpeeds = ChassisSpeeds.fromFieldRelativeSpeeds(0, 0, 0, m_swerve.getAngle());
+    // Calculate module states.
+    SwerveModuleState[] moduleStates = DriveConstants.kDriveKinematics.toSwerveModuleStates(chassisSpeeds);
+    System.out.println("Chassis speeds:" + chassisSpeeds);
+    // Set module states.
+    m_swerve.setModuleStates(moduleStates);
   }
 
   // Called once the command ends or is interrupted.
