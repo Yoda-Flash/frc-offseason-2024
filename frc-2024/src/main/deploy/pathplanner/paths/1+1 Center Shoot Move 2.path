@@ -54,6 +54,12 @@
               "data": {
                 "name": "Subwoofer"
               }
+            },
+            {
+              "type": "named",
+              "data": {
+                "name": "AutoIntake"
+              }
             }
           ]
         }
