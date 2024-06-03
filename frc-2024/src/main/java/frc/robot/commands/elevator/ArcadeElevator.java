@@ -11,7 +11,7 @@ import frc.robot.subsystems.Elevator;
 
 public class ArcadeElevator extends Command {
  private static final class Config{
-    public static final int kAxis = 1;
+    public static final int kAxis = 5;
     public static final double kMultiplier = 0.5;
   }
 
@@ -38,7 +38,7 @@ public class ArcadeElevator extends Command {
   @Override
   public void execute() {
     m_joystickInput = m_joystick.getRawAxis(Config.kAxis)*Config.kMultiplier;
-    SmartDashboard.putNumber("Elevator input", m_joystickInput);
+    SmartDashboard.putNumber("Mech/Elevator/input", m_joystickInput);
     SmartDashboard.putNumber("Elevator left output", m_elevator.getLeftSpeed());
     SmartDashboard.putNumber("Elevator right output", m_elevator.getRightSpeed());
     m_elevator.setSpeed(m_joystickInput);

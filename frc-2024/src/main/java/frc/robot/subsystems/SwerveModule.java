@@ -6,6 +6,11 @@ package frc.robot.subsystems;
 
 import com.revrobotics.CANSparkBase.IdleMode;
 import com.revrobotics.CANSparkLowLevel.MotorType;
+import com.ctre.phoenix6.StatusSignal;
+import com.ctre.phoenix6.configs.TalonFXConfiguration;
+import com.ctre.phoenix6.hardware.TalonFX;
+import com.ctre.phoenix6.signals.InvertedValue;
+import com.ctre.phoenix6.signals.NeutralModeValue;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.RelativeEncoder;
 
@@ -22,10 +27,9 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants.DriveConstants;
 
 public class SwerveModule extends SubsystemBase {
-  private final CANSparkMax m_driveMotor;
+  private final TalonFX m_driveMotor;
   private final CANSparkMax m_turnMotor;
 
-  private final RelativeEncoder m_driveEncoder;
   private final DutyCycleEncoder m_absoluteEncoder;
 
   private final double m_absoluteEncoderOffset;
@@ -34,21 +38,22 @@ public class SwerveModule extends SubsystemBase {
 
   private final int m_moduleId;
 
+  private StatusSignal<Double> m_drivePos;
+  private StatusSignal<Double> m_driveVel;
+
   private Translation2d m_translation = new Translation2d();
 
   /** Creates a new SwerveModule. */
   public SwerveModule(int driveId, int turnId, int absoluteEncoderPort, double absoluteEncoderOffset,
       boolean driveReversed, boolean turningReversed, int moduleId) {
     // Initialize motors and encoders.
-    m_driveMotor = new CANSparkMax(driveId, MotorType.kBrushless);
+    m_driveMotor = new TalonFX(driveId);
     m_turnMotor = new CANSparkMax(turnId, MotorType.kBrushless);
 
-    m_driveEncoder = m_driveMotor.getEncoder();
     m_absoluteEncoder = new DutyCycleEncoder(new DigitalInput(absoluteEncoderPort));
 
     // Set conversion coefficients.
-    m_driveEncoder.setVelocityConversionFactor(DriveConstants.kDriveEncoderVelocityToMetersPerSec);
-    m_driveEncoder.setPositionConversionFactor(DriveConstants.kDriveEncoderPositionToMeters);
+    
     m_absoluteEncoder.setDistancePerRotation(DriveConstants.kTurnEncoderPositionToRadians);
 
     // Initialize Everything else.
@@ -60,19 +65,30 @@ public class SwerveModule extends SubsystemBase {
         DriveConstants.kDDriving);
     m_moduleId = moduleId;
 
+    // Configure Turn Motor
     m_turnMotor.setIdleMode(IdleMode.kBrake);
-    m_driveMotor.setIdleMode(IdleMode.kBrake);
-    m_driveMotor.setInverted(driveReversed);
     m_turnMotor.setInverted(turningReversed);
 
+    TalonFXConfiguration driveConfig = new TalonFXConfiguration();
+
+    driveConfig.MotorOutput.Inverted = driveReversed ? InvertedValue.Clockwise_Positive : InvertedValue.CounterClockwise_Positive;
+    driveConfig.MotorOutput.NeutralMode = NeutralModeValue.Brake;
+    driveConfig.Feedback.SensorToMechanismRatio = DriveConstants.kDriveSensorToMechanismRatio;
+
+    m_driveMotor.getConfigurator().apply(driveConfig);
+
     resetEncoders();
+
+    m_drivePos = m_driveMotor.getPosition();
+    m_driveVel = m_driveMotor.getVelocity();
 
     SmartDashboard.putData("Swerve/Distance/reset_" + m_moduleId,  new InstantCommand(() -> resetEncoders()));
 
   }
 
+  // in meters.
   public double getDrivePosition() {
-    return m_driveEncoder.getPosition();
+    return m_drivePos.refresh().getValueAsDouble();
   }
 
   public double getTurningPosition() {
@@ -83,12 +99,13 @@ public class SwerveModule extends SubsystemBase {
     return new Rotation2d(getTurningPosition());
   }
 
+  // in meters per second.
   public double getDriveVelocity() {
-    return m_driveEncoder.getVelocity();
+    return m_driveVel.refresh().getValueAsDouble();
   }
 
   public void resetEncoders() {
-    m_driveEncoder.setPosition(0.0);
+    m_driveMotor.setPosition(0.0);
   }
 
   public SwerveModuleState getState() {
@@ -112,6 +129,7 @@ public class SwerveModule extends SubsystemBase {
 
     double ff = state.speedMetersPerSecond / DriveConstants.kMaxTranslationalMetersPerSecond;
     double pid = m_drivingPIDController.calculate(getDriveVelocity(), state.speedMetersPerSecond);
+
     m_driveMotor.set(ff + pid);
     m_turnMotor.set(m_turningPIDController.calculate(getRotation().getRadians(), state.angle.getRadians()));
 
@@ -128,7 +146,7 @@ public class SwerveModule extends SubsystemBase {
   }
 
   public double getDriveCurrent() {
-    return m_driveMotor.getOutputCurrent();
+    return m_driveMotor.getStatorCurrent().getValueAsDouble();
   }
 
   public double getTurnCurrent() {
