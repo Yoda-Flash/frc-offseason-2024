@@ -7,8 +7,11 @@ package frc.robot.subsystems;
 import java.util.List;
 import java.util.Optional;
 
+import org.photonvision.EstimatedRobotPose;
 import org.photonvision.PhotonCamera;
+import org.photonvision.PhotonPoseEstimator;
 import org.photonvision.PhotonUtils;
+import org.photonvision.PhotonPoseEstimator.PoseStrategy;
 import org.photonvision.targeting.PhotonPipelineResult;
 import org.photonvision.targeting.PhotonTrackedTarget;
 import org.photonvision.targeting.TargetCorner;
@@ -45,6 +48,7 @@ public class Vision extends SubsystemBase {
 
   private AprilTagFieldLayout m_aprilTagFieldLayout = AprilTagFields.k2024Crescendo.loadAprilTagLayoutField();
   private Pose3d m_robotPose;
+  private PhotonPoseEstimator m_poseEstimator;
   /** Creates a new Vision. */
   public Vision() {
   }
@@ -81,6 +85,11 @@ public class Vision extends SubsystemBase {
     return m_poseAmbiguity;
   }
 
+  private Optional<EstimatedRobotPose> getEstimatedGlobalPose(Pose3d prevEstimatedRobotPose){
+    m_poseEstimator.setReferencePose(prevEstimatedRobotPose);
+    return m_poseEstimator.update();
+  }
+
 
   @Override
   public void periodic() {
@@ -101,5 +110,6 @@ public class Vision extends SubsystemBase {
     m_poseAmbiguity = m_bestTarget.getPoseAmbiguity();
 
     m_robotPose = PhotonUtils.estimateFieldToRobotAprilTag(m_camToTarget, m_aprilTagFieldLayout.getTagPose(m_ID).get(), m_robotToCam);
+    m_poseEstimator = new PhotonPoseEstimator(m_aprilTagFieldLayout, PoseStrategy.MULTI_TAG_PNP_ON_COPROCESSOR,m_cam, m_robotToCam);
   }
 }
