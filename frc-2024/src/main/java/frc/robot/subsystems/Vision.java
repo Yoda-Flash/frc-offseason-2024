@@ -53,43 +53,41 @@ public class Vision extends SubsystemBase {
   public Vision() {
   }
 
-  private double getYaw(){
+  public double getYaw(){
     return m_yaw;
   }
 
-  private double getPitch(){
+  public double getPitch(){
     return m_pitch;
   }
 
-  private double getArea(){
+  public double getArea(){
     return m_area;
   }
 
-  private double getSkew(){
+  public double getSkew(){
     return m_skew;
   }
 
-  private Transform3d getCameraToTarget(){
+  public Transform3d getCameraToTarget(){
     return m_camToTarget;
   }
 
-  private List<TargetCorner> getCorners(){
+  public List<TargetCorner> getCorners(){
     return m_corners;
   }
 
-  private int getID(){
+  public int getID(){
     return m_ID;
   }
 
-  private double getPoseAmbiguity(){
+  public double getPoseAmbiguity(){
     return m_poseAmbiguity;
   }
 
-  private Optional<EstimatedRobotPose> getEstimatedGlobalPose(Pose3d prevEstimatedRobotPose){
-    m_poseEstimator.setReferencePose(prevEstimatedRobotPose);
+  public Optional<EstimatedRobotPose> getEstimatedGlobalPose(){
     return m_poseEstimator.update();
   }
-
 
   @Override
   public void periodic() {

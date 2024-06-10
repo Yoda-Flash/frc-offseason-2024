@@ -13,6 +13,7 @@ import com.pathplanner.lib.util.PIDConstants;
 import com.pathplanner.lib.util.ReplanningConfig;
 
 import edu.wpi.first.math.controller.PIDController;
+import edu.wpi.first.math.estimator.SwerveDrivePoseEstimator;
 import edu.wpi.first.math.geometry.Pose2d;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
@@ -89,6 +90,9 @@ public class SwerveDrive extends SubsystemBase {
     m_backLeft.getPosition(),
     m_backRight.getPosition()
   });
+
+  private final SwerveDrivePoseEstimator m_poseEstimator = new SwerveDrivePoseEstimator(m_kinematics, getAngle(), new SwerveModulePosition[]{m_frontLeft.getPosition(), m_frontRight.getPosition(), m_backLeft.getPosition(), m_backRight.getPosition()}, getPoseMeters());
+  private final Vision m_vision = new Vision();
 
   private double m_xStartPose;
   private double m_yStartPose;
@@ -276,7 +280,13 @@ public class SwerveDrive extends SubsystemBase {
     SmartDashboard.putNumber("Swerve/Odo/X", m_xStartPose);
     SmartDashboard.putNumber("Swerve/Odo/Y", m_yStartPose);
 
-    
+    m_poseEstimator.update(getAngle(),
+      new SwerveModulePosition[] {
+        m_frontLeft.getPosition(), m_frontRight.getPosition(),
+        m_backLeft.getPosition(), m_backRight.getPosition()
+      });
+
+    m_poseEstimator.addVisionMeasurement(m_vision.getEstimatedGlobalPose().get().estimatedPose.toPose2d(), m_totalCurrent);
     // // System.out.println("Chassis speeds:" + this.getChassisSpeeds());
     // // System.out.println("X error: " + (3 - m_odo.getPoseMeters().getX()));
   }
